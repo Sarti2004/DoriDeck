@@ -8,7 +8,7 @@ This plugin is intended to make common Dorico workflows faster by allowing users
 
 * Any grid size.
 * Unlimited folders and profiles.
-* It’s FREE! (Yes, I’m on a budget:).
+* It’s FREE!.
 
 ## Features
 
@@ -47,7 +47,7 @@ Not available yet.
 4. Click `Install from file`.
 5. Select the downloaded extension package.
 
-You can also download the notation icon pack from [here](linktorepo).
+You can also download the notation icon pack from [here](https://github.com/Sarti2004/MusicNotationIcons/releases/download/v0.0.2/Music.Notation.macroDeckIconPack).
 
 ## Usage
 
