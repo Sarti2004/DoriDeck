@@ -27,9 +27,6 @@ That said, your workflow may be different. If you are missing a feature, have an
 * **Advanced command configuration**
   Interface for assigning arguments to commands.
 
-* **Context-aware buttons**
-  Enable or disable buttons depending on the current Dorico editing mode.
-
 ## Compatibility
 
 > This plugin has been tested with Dorico Pro 5.1.70 on Windows 11 with Macro Deck 2.15.0-b9.
