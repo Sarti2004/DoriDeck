@@ -4,6 +4,12 @@ An unofficial **Macro Deck 2** extension that provides an interface for running 
 
 This plugin is intended to make common Dorico workflows faster by allowing users to trigger recorded macros, execute Dorico API commands, and connect Macro Deck buttons to Dorico-related actions.
 
+## Project Note
+
+I am not a power Dorico user. I use Dorico casually from time to time, mainly for small projects, especially choir-related work. This extension was created to make my own workflow faster and more comfortable, and it currently works very well for my needs.
+
+That said, your workflow may be different. If you are missing a feature, have an improvement idea, or would like to suggest better icons or UI changes, feel free to contact me or open an issue. Contributions and suggestions are welcome.
+
 ## Why Macro Deck?
 
 * Any grid size.
@@ -76,11 +82,6 @@ Dorico is a trademark or registered trademark of Steinberg Media Technologies Gm
 
 Use this plugin at your own risk. The authors and contributors are not responsible for any loss of data, interruption of workflow, software malfunction, or other damages resulting from the use of this plugin. Users are encouraged to back up their Dorico projects before using automation tools or running custom commands.
 
-## Disclaimer 2
-
-I am not a power Dorico user. I use Dorico casually from time to time, mainly for small projects, especially choir-related work. This extension was created to make my own workflow faster and more comfortable, and it currently works very well for my needs.
-
-That said, your workflow may be different. If you are missing a feature, have an improvement idea, or would like to suggest better icons or UI changes, feel free to contact me or open an issue. Contributions and suggestions are welcome.
 
 ## Third-Party Licenses
 
