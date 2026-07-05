@@ -29,7 +29,7 @@ That said, your workflow may be different. If you are missing a feature, have an
 
 ## Compatibility
 
-> This plugin has been tested with Dorico Pro 5.1.70 on Windows 11 with Macro Deck 2.15.0-b9.
+> This plugin has been tested with Dorico Pro 5.1.81 on Windows 11 with Macro Deck 2.15.0-b9.
 
 ## Installation
 
@@ -45,7 +45,7 @@ Not available yet.
 
 ### Manual Installation
 
-1. Download the extension package.
+1. Download the extension package. [Download](Dist/Sarti2004.DoriDeck.macroDeckPlugin)
 2. Open Macro Deck on your PC.
 3. Go to `Extensions`.
 4. Click `Install from file`.
