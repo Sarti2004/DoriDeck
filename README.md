@@ -29,7 +29,7 @@ That said, your workflow may be different. If you are missing a feature, have an
 
 ## Compatibility
 
-> This plugin has been tested with Dorico Pro 5.1.70 on Windows 11 with Macro Deck 2.15.0-b9.
+> This plugin has been tested with Dorico Pro 5.1.81 on Windows 11 with Macro Deck 2.15.0-b9.
 
 ## Installation
 
