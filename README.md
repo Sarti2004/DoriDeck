@@ -4,6 +4,8 @@ An unofficial **Macro Deck 2** extension that provides an interface for running 
 
 This plugin is intended to make common Dorico workflows faster by allowing users to trigger recorded macros, execute Dorico API commands, and connect Macro Deck buttons to Dorico-related actions.
 
+[![YouTube](http://i.ytimg.com/vi/PUcVK2MQWWE/hqdefault.jpg)](https://www.youtube.com/watch?v=PUcVK2MQWWE)
+
 ## Project Note
 
 I am not a power Dorico user. I use Dorico casually from time to time, mainly for small projects, especially choir-related work. This extension was created to make my own workflow faster and more comfortable, and it currently works very well for my needs.
@@ -51,7 +53,7 @@ Not available yet.
 4. Click `Install from file`.
 5. Select the downloaded extension package.
 
-You can also download the notation icon pack from [here](https://github.com/Sarti2004/MusicNotationIcons/releases/download/v0.0.2/Music.Notation.macroDeckIconPack).
+You can also download the notation icon pack from [here](https://github.com/Sarti2004/MusicNotationIcons/releases/download/V0.0.3/Sarti2004.MusicNotation.macroDeckIconPack).
 
 ## Usage
 
