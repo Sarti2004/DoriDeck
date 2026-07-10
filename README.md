@@ -4,7 +4,7 @@ An unofficial **Macro Deck 2** extension that provides an interface for running 
 
 This plugin is intended to make common Dorico workflows faster by allowing users to trigger recorded macros, execute Dorico API commands, and connect Macro Deck buttons to Dorico-related actions.
 
-[![YouTube](http://i.ytimg.com/vi/PUcVK2MQWWE/hqdefault.jpg)](https://www.youtube.com/watch?v=PUcVK2MQWWE)
+[![YouTube](http://i.ytimg.com/vi/PUcVK2MQWWE/maxresdefault.jpg)](https://www.youtube.com/watch?v=PUcVK2MQWWE)
 
 ## Project Note
 
@@ -30,6 +30,7 @@ That said, your workflow may be different. If you are missing a feature, have an
   Interface for assigning arguments to commands.
 
 ## Compatibility
+Macro Deck 2.15.* required (2.15.0-b9)
 
 > This plugin has been tested with Dorico Pro 5.1.81 on Windows 11 with Macro Deck 2.15.0-b9.
 
