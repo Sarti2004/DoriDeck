@@ -42,13 +42,13 @@ Not available yet.
 
 1. Open Macro Deck on your PC.
 2. Go to `Extensions`.
-3. Open the `Online` Extension Store tab.
+3. ~~Open the `Online` Extension Store tab.~~
 4. Search for `DoriDeck`.
 5. Click `Install`.
 
 ### Manual Installation
 
-1. Download the extension package. [Download](https://github.com/Sarti2004/DoriDeck/releases/download/V0.0.3-beta/Sarti2004.DoriDeck.macroDeckPlugin)
+1. Download the extension package. [Download](https://github.com/Sarti2004/DoriDeck/releases/download/V0.0.4-beta/Sarti2004.DoriDeck.macroDeckPlugin)
 2. Open Macro Deck on your PC.
 3. Go to `Extensions`.
 4. Click `Install from file`.
@@ -66,6 +66,7 @@ After installing the plugin, open Macro Deck and add one of the available Dorico
 | --------------- | -------------------------------------------------------------------------------------------- | ------------- |
 | **Run Script**  | Executes a recorded Dorico macro.                                                            | Script name   |
 | **Run Command** | Executes a Dorico command through the API. Examples of available commands can be found [here](commands.md). | Command text  |
+| **Command Sequence** | Executes a set of Dorico commands through the API. Examples of available commands can be found [here](commands.md). | Command text  |
 | **Connect**     | Creates a connection between Macro Deck and Dorico.                                          | None          |
 
 ## Limitations
