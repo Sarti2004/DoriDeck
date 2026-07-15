@@ -4,7 +4,7 @@ An unofficial **Macro Deck 2** extension that provides an interface for running 
 
 This plugin is intended to make common Dorico workflows faster by allowing users to trigger recorded macros, execute Dorico API commands, and connect Macro Deck buttons to Dorico-related actions.
 
-[![YouTube](http://i.ytimg.com/vi/PUcVK2MQWWE/maxresdefault.jpg)](https://www.youtube.com/watch?v=PUcVK2MQWWE)
+[![YouTube](http://i.ytimg.com/vi/Csyye0_7a9o/maxresdefault.jpg)](https://www.youtube.com/watch?v=Csyye0_7a9o)
 
 ## Project Note
 
