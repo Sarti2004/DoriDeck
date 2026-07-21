@@ -21,8 +21,7 @@ That said, your workflow may be different. If you are missing a feature, have an
 
 ## Features
 
-* Run recorded Dorico macros from Macro Deck.
-* Execute Dorico commands via the Dorico.Net library.
+Please see [wiki](https://github.com/Sarti2004/DoriDeck/wiki)
 
 ## Planned Features
 
