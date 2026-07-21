@@ -30,9 +30,9 @@ That said, your workflow may be different. If you are missing a feature, have an
   Interface for assigning arguments to commands.
 
 ## Compatibility
-Macro Deck 2.15.* required (2.15.0-b9)
+Macro Deck 2.15.* required
 
-> This plugin has been tested with Dorico Pro 5.1.81 on Windows 11 with Macro Deck 2.15.0-b9.
+> This plugin has been tested with Dorico Pro 5.1.81 on Windows 11 with Macro Deck 2.15.0.
 
 ## Installation
 
@@ -67,6 +67,7 @@ After installing the plugin, open Macro Deck and add one of the available Dorico
 | **Run Script**  | Executes a recorded Dorico macro.                                                            | Script name   |
 | **Run Command** | Executes a Dorico command through the API. Examples of available commands can be found [here](commands.md). | Command text  |
 | **Command Sequence** | Executes a set of Dorico commands through the API. Examples of available commands can be found [here](commands.md). | Command text  |
+| **Replace**     | Replaces Dynamic in a score (E.g.: p->f).                                          | None          |
 | **Connect**     | Creates a connection between Macro Deck and Dorico.                                          | None          |
 
 ## Limitations
