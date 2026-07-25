@@ -47,7 +47,7 @@ Not available yet.
 
 ### Manual Installation
 
-1. Download the extension package. [Download](https://github.com/Sarti2004/DoriDeck/releases/download/V0.0.6-beta/Sarti2004.DoriDeck.macroDeckPlugin)
+1. Download the extension package. [Download](https://github.com/Sarti2004/DoriDeck/releases/download/V0.0.7-beta/Sarti2004.DoriDeck.macroDeckPlugin)
 2. Open Macro Deck on your PC.
 3. Go to `Extensions`.
 4. Click `Install from file`.
@@ -66,7 +66,8 @@ After installing the plugin, open Macro Deck and add one of the available Dorico
 | **Run Script**  | Executes a recorded Dorico macro.                                                            | Script name   |
 | **Run Command** | Executes a Dorico command through the API. Examples of available commands can be found [here](commands.md). | Command text  |
 | **Command Sequence** | Executes a set of Dorico commands through the API. Examples of available commands can be found [here](commands.md). | Command text  |
-| **Replace**     | Replaces Dynamic in a score (E.g.: p->f).                                          | None          |
+| **Find/Replace**     | Replaces Dynamic/Playing Technique in a score (E.g.: p->f, portato->marcato).                                          | Find/Replace          |
+| **Insert Lyrics**    | Syllabify and Paste Lyrics to Dorico.                                          |           |
 | **Connect**     | Creates a connection between Macro Deck and Dorico.                                          | None          |
 
 ## Limitations
@@ -89,6 +90,7 @@ Use this plugin at your own risk. The authors and contributors are not responsib
 This plugin uses awesome 3rd party libraries:
 
 * [Dorico.Net](https://github.com/scott-janssens/Dorico.Net) — MIT License
+* [Moby-Project](https://github.com/elitejake/Moby-Project)
 
 ## Contributing
 
