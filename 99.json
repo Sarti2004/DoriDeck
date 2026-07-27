@@ -1,0 +1,2259 @@
+{
+  "BufferSize": 1048576,
+  "ProfileId": "99",
+  "DisplayName": "Dorico",
+  "Folders": [
+    {
+      "BUFFER_SIZE": 1048576,
+      "IsRootFolder": true,
+      "FolderId": "1782364178564dor",
+      "DisplayName": "Dorico",
+      "Childs": [
+        "1782537710861Dynamics",
+        "1782537710861playingTechniques",
+        "1782537710861filters",
+        "1782537710861systemText",
+        "1782537710861voices"
+      ],
+      "ActionButtons": [
+        {
+          "Guid": "e1cf64cf-bc0d-480c-8b95-93cc309a4f16",
+          "State": false,
+          "IconOff": "Apps.765674bd-e6c7-42bc-870b-f007a3ddf872",
+          "IconOn": "Music Notation.e1b98c67-d49e-4d0b-bf93-e679289c49cf",
+          "BackColorOff": "216, 167, 170",
+          "BackColorOn": "65, 65, 65",
+          "LabelOff": {
+            "LabelText": "Run\r\nDorico",
+            "LabelPosition": 1,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "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"
+          },
+          "LabelOn": {
+            "LabelText": "Switch \r\nto\r\nDorico",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "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"
+          },
+          "Position_X": 0,
+          "Position_Y": 0,
+          "StateBindingVariable": "",
+          "Actions": [
+            {
+              "$type": "SuchByte.WindowsUtils.Actions.StartApplicationAction, Windows Utils",
+              "Name": "Start application",
+              "Description": "Start a application with and without start arguments",
+              "CanConfigure": true,
+              "Configuration": "{\"path\":\"C:\\\\Program Files\\\\Steinberg\\\\Dorico5\\\\Dorico5.exe\",\"arguments\":\"\",\"RunAsAdmin\":false,\"SyncButtonState\":true,\"StartMethod\":2}",
+              "ConfigurationSummary": "C:\\Program Files\\Steinberg\\Dorico5\\Dorico5.exe"
+            },
+            {
+              "$type": "SuchByte.MacroDeck.ActionButton.ConditionAction, Macro Deck 2",
+              "Name": "Condition",
+              "Actions": [
+                {
+                  "$type": "SuchByte.MacroDeck.ActionButton.Plugin.DelayAction, Macro Deck 2",
+                  "Name": "Delay",
+                  "Description": "",
+                  "Configuration": "10000",
+                  "CanConfigure": false
+                }
+              ],
+              "ActionsElse": [],
+              "ConditionValue1Source": "focused_application",
+              "ConditionType": 0,
+              "ConditionMethod": 3,
+              "ConditionValue2": "Dorico5",
+              "Description": "",
+              "Configuration": "{\r\n  \"actions\": \"[{\\\"$type\\\":\\\"SuchByte.MacroDeck.ActionButton.Plugin.DelayAction, Macro Deck 2\\\",\\\"Name\\\":\\\"Delay\\\",\\\"Description\\\":\\\"\\\",\\\"Configuration\\\":\\\"10000\\\",\\\"CanConfigure\\\":false}]\",\r\n  \"actionsElse\": \"[{\\\"$type\\\":\\\"SuchByte.MacroDeck.ActionButton.Plugin.DelayAction, Macro Deck 2\\\",\\\"Name\\\":\\\"Delay\\\",\\\"Description\\\":\\\"\\\",\\\"Configuration\\\":\\\"10000\\\",\\\"CanConfigure\\\":false}]\",\r\n  \"source\": \"\\\"focused_application\\\"\",\r\n  \"conditionType\": \"0\",\r\n  \"contitionMethod\": \"3\",\r\n  \"conditionValue2\": \"\\\"Dorico5\\\"\"\r\n}",
+              "CanConfigure": false
+            },
+            {
+              "$type": "DoriDeck.Actions.ConnectDorico, DoriDeck",
+              "Name": "Dorico: Connect",
+              "Description": "Connects to Dorico.",
+              "CanConfigure": false
+            }
+          ],
+          "ActionsRelease": [],
+          "ActionsLongPress": [],
+          "ActionsLongPressRelease": [],
+          "EventListeners": [],
+          "ModifierKeyCodes": 0,
+          "KeyCode": 0
+        },
+        {
+          "Guid": "019f0f9c-4c80-73ab-0000-000000a01b00",
+          "State": false,
+          "IconOff": "",
+          "IconOn": "",
+          "BackColorOff": "65, 65, 65",
+          "BackColorOn": "65, 65, 65",
+          "LabelOff": {
+            "LabelText": "Dynamics",
+            "LabelPosition": 1,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "LabelOn": {
+            "LabelText": "",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "Position_X": 1,
+          "Position_Y": 0,
+          "StateBindingVariable": "",
+          "Actions": [
+            {
+              "$type": "SuchByte.MacroDeck.Folders.Plugin.FolderSwitcher, Macro Deck 2",
+              "Name": "Change folder",
+              "CanConfigure": true,
+              "Description": "Change the current folder on the current device to the configured folder",
+              "Configuration": "1782537710861Dynamics",
+              "ConfigurationSummary": "Dynamics"
+            }
+          ],
+          "ActionsRelease": [],
+          "ActionsLongPress": [],
+          "ActionsLongPressRelease": [],
+          "EventListeners": [],
+          "ModifierKeyCodes": 0,
+          "KeyCode": 0
+        },
+        {
+          "Guid": "019f0f9c-4c80-73ab-0000-000000a02b00",
+          "State": false,
+          "IconOff": "",
+          "IconOn": "",
+          "BackColorOff": "65, 65, 65",
+          "BackColorOn": "65, 65, 65",
+          "LabelOff": {
+            "LabelText": "Playing Techniques",
+            "LabelPosition": 1,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "LabelOn": {
+            "LabelText": "",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "Position_X": 2,
+          "Position_Y": 0,
+          "StateBindingVariable": "",
+          "Actions": [
+            {
+              "$type": "SuchByte.MacroDeck.Folders.Plugin.FolderSwitcher, Macro Deck 2",
+              "Name": "Change folder",
+              "CanConfigure": true,
+              "Description": "Change the current folder on the current device to the configured folder",
+              "Configuration": "1782537710861playingTechniques",
+              "ConfigurationSummary": "Playing Techniques"
+            }
+          ],
+          "ActionsRelease": [],
+          "ActionsLongPress": [],
+          "ActionsLongPressRelease": [],
+          "EventListeners": [],
+          "ModifierKeyCodes": 0,
+          "KeyCode": 0
+        },
+        {
+          "Guid": "019f0f9c-4c80-73ab-0000-000000a03b00",
+          "State": false,
+          "IconOff": "",
+          "IconOn": "",
+          "BackColorOff": "65, 65, 65",
+          "BackColorOn": "65, 65, 65",
+          "LabelOff": {
+            "LabelText": "Filters",
+            "LabelPosition": 1,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "LabelOn": {
+            "LabelText": "",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "Position_X": 3,
+          "Position_Y": 0,
+          "StateBindingVariable": "",
+          "Actions": [
+            {
+              "$type": "SuchByte.MacroDeck.Folders.Plugin.FolderSwitcher, Macro Deck 2",
+              "Name": "Change folder",
+              "CanConfigure": true,
+              "Description": "Change the current folder on the current device to the configured folder",
+              "Configuration": "1782537710861filters",
+              "ConfigurationSummary": "Filters"
+            }
+          ],
+          "ActionsRelease": [],
+          "ActionsLongPress": [],
+          "ActionsLongPressRelease": [],
+          "EventListeners": [],
+          "ModifierKeyCodes": 0,
+          "KeyCode": 0
+        },
+        {
+          "Guid": "019f0f9c-4c80-73ab-0000-000000a04b00",
+          "State": false,
+          "IconOff": "",
+          "IconOn": "",
+          "BackColorOff": "65, 65, 65",
+          "BackColorOn": "65, 65, 65",
+          "LabelOff": {
+            "LabelText": "System Text",
+            "LabelPosition": 1,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "LabelOn": {
+            "LabelText": "",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "Position_X": 4,
+          "Position_Y": 0,
+          "StateBindingVariable": "",
+          "Actions": [
+            {
+              "$type": "SuchByte.MacroDeck.Folders.Plugin.FolderSwitcher, Macro Deck 2",
+              "Name": "Change folder",
+              "CanConfigure": true,
+              "Description": "Change the current folder on the current device to the configured folder",
+              "Configuration": "1782537710861systemText",
+              "ConfigurationSummary": "System Text"
+            }
+          ],
+          "ActionsRelease": [],
+          "ActionsLongPress": [],
+          "ActionsLongPressRelease": [],
+          "EventListeners": [],
+          "ModifierKeyCodes": 0,
+          "KeyCode": 0
+        },
+        {
+          "Guid": "019f0f9c-4c80-73ab-0000-000000a05b00",
+          "State": false,
+          "IconOff": "",
+          "IconOn": "",
+          "BackColorOff": "65, 65, 65",
+          "BackColorOn": "65, 65, 65",
+          "LabelOff": {
+            "LabelText": "System Text",
+            "LabelPosition": 1,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "LabelOn": {
+            "LabelText": "",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "Position_X": 5,
+          "Position_Y": 0,
+          "StateBindingVariable": "",
+          "Actions": [
+            {
+              "$type": "SuchByte.MacroDeck.Folders.Plugin.FolderSwitcher, Macro Deck 2",
+              "Name": "Change folder",
+              "CanConfigure": true,
+              "Description": "Change the current folder on the current device to the configured folder",
+              "Configuration": "1782537710861voices",
+              "ConfigurationSummary": "Voices"
+            }
+          ],
+          "ActionsRelease": [],
+          "ActionsLongPress": [],
+          "ActionsLongPressRelease": [],
+          "EventListeners": [],
+          "ModifierKeyCodes": 0,
+          "KeyCode": 0
+        },
+        {
+          "Guid": "516fef4a-60ab-40ac-9e2c-2c48bbd6913e",
+          "State": false,
+          "IconOff": "",
+          "IconOn": "",
+          "BackColorOff": "65, 65, 65",
+          "BackColorOn": "65, 65, 65",
+          "LabelOff": {
+            "LabelText": "System Break",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "LabelOn": {
+            "LabelText": "",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "Position_X": 0,
+          "Position_Y": 2,
+          "StateBindingVariable": "",
+          "Actions": [
+            {
+              "$type": "DoriDeck.Actions.RunCommandAction, DoriDeck",
+              "Name": "Run Command",
+              "Description": "Runs a Dorico command.",
+              "CanConfigure": true,
+              "Configuration": "{\"CommandName\":\"Edit.CreateSystemBreak\",\"ApplyToAllFlows\":false}"
+            }
+          ],
+          "ActionsRelease": [],
+          "ActionsLongPress": [],
+          "ActionsLongPressRelease": [],
+          "EventListeners": [],
+          "ModifierKeyCodes": 0,
+          "KeyCode": 0
+        },
+        {
+          "Guid": "3fc6709f-1ae1-49d2-a2d7-afa093c9ed3e",
+          "State": false,
+          "IconOff": "",
+          "IconOn": "",
+          "BackColorOff": "65, 65, 65",
+          "BackColorOn": "65, 65, 65",
+          "LabelOff": {
+            "LabelText": "Move Bars Next",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "LabelOn": {
+            "LabelText": "",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "Position_X": 1,
+          "Position_Y": 2,
+          "StateBindingVariable": "",
+          "Actions": [
+            {
+              "$type": "DoriDeck.Actions.RunCommandAction, DoriDeck",
+              "Name": "Run Command",
+              "Description": "Runs a Dorico command.",
+              "CanConfigure": true,
+              "Configuration": "{\"CommandName\":\"Page.MoveBarsToNextSystem\",\"ApplyToAllFlows\":false}"
+            }
+          ],
+          "ActionsRelease": [],
+          "ActionsLongPress": [],
+          "ActionsLongPressRelease": [],
+          "EventListeners": [],
+          "ModifierKeyCodes": 0,
+          "KeyCode": 0
+        },
+        {
+          "Guid": "6d809d2d-df4a-449d-ae02-0ea4aac2b079",
+          "State": false,
+          "IconOff": "",
+          "IconOn": "",
+          "BackColorOff": "65, 65, 65",
+          "BackColorOn": "65, 65, 65",
+          "LabelOff": {
+            "LabelText": "Move Bars Previous",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "LabelOn": {
+            "LabelText": "",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "Position_X": 2,
+          "Position_Y": 2,
+          "StateBindingVariable": "",
+          "Actions": [
+            {
+              "$type": "DoriDeck.Actions.RunCommandAction, DoriDeck",
+              "Name": "Run Command",
+              "Description": "Runs a Dorico command.",
+              "CanConfigure": true,
+              "Configuration": "{\"CommandName\":\"Page.MoveBarsToPreviousSystem\",\"ApplyToAllFlows\":false}"
+            }
+          ],
+          "ActionsRelease": [],
+          "ActionsLongPress": [],
+          "ActionsLongPressRelease": [],
+          "EventListeners": [],
+          "ModifierKeyCodes": 0,
+          "KeyCode": 0
+        },
+        {
+          "Guid": "fdce9c43-fc5a-469c-8854-e1be8bf0d7f4",
+          "State": false,
+          "IconOff": "",
+          "IconOn": "",
+          "BackColorOff": "65, 65, 65",
+          "BackColorOn": "65, 65, 65",
+          "LabelOff": {
+            "LabelText": "Force Stemlet Beam",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "LabelOn": {
+            "LabelText": "",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "Position_X": 0,
+          "Position_Y": 3,
+          "StateBindingVariable": "",
+          "Actions": [
+            {
+              "$type": "DoriDeck.Actions.RunCommandAction, DoriDeck",
+              "Name": "Run Command",
+              "Description": "Runs a Dorico command.",
+              "CanConfigure": true,
+              "Configuration": "{\"CommandName\":\"Edit.ForceStemletBeam\",\"ApplyToAllFlows\":false}"
+            }
+          ],
+          "ActionsRelease": [],
+          "ActionsLongPress": [],
+          "ActionsLongPressRelease": [],
+          "EventListeners": [],
+          "ModifierKeyCodes": 0,
+          "KeyCode": 0
+        },
+        {
+          "Guid": "8a0dd714-4174-4823-922d-8c08e8cabf66",
+          "State": false,
+          "IconOff": "",
+          "IconOn": "",
+          "BackColorOff": "65, 65, 65",
+          "BackColorOn": "65, 65, 65",
+          "LabelOff": {
+            "LabelText": "Split Beam",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "LabelOn": {
+            "LabelText": "",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "Position_X": 1,
+          "Position_Y": 3,
+          "StateBindingVariable": "",
+          "Actions": [
+            {
+              "$type": "DoriDeck.Actions.RunCommandAction, DoriDeck",
+              "Name": "Run Command",
+              "Description": "Runs a Dorico command.",
+              "CanConfigure": true,
+              "Configuration": "{\"CommandName\":\"Edit.SplitBeam\",\"ApplyToAllFlows\":false}"
+            }
+          ],
+          "ActionsRelease": [],
+          "ActionsLongPress": [],
+          "ActionsLongPressRelease": [],
+          "EventListeners": [],
+          "ModifierKeyCodes": 0,
+          "KeyCode": 0
+        },
+        {
+          "Guid": "f088fb8c-e525-45b5-96e1-a50959ee4b9a",
+          "State": false,
+          "IconOff": "",
+          "IconOn": "",
+          "BackColorOff": "65, 65, 65",
+          "BackColorOn": "65, 65, 65",
+          "LabelOff": {
+            "LabelText": "Break Beam",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "LabelOn": {
+            "LabelText": "",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "Position_X": 2,
+          "Position_Y": 3,
+          "StateBindingVariable": "",
+          "Actions": [
+            {
+              "$type": "DoriDeck.Actions.RunCommandAction, DoriDeck",
+              "Name": "Run Command",
+              "Description": "Runs a Dorico command.",
+              "CanConfigure": true,
+              "Configuration": "{\"CommandName\":\"Edit.BreakBeam\",\"ApplyToAllFlows\":false}"
+            }
+          ],
+          "ActionsRelease": [],
+          "ActionsLongPress": [],
+          "ActionsLongPressRelease": [],
+          "EventListeners": [],
+          "ModifierKeyCodes": 0,
+          "KeyCode": 0
+        },
+        {
+          "Guid": "a92b991a-ba9a-4dd9-b146-144c7be8e5ac",
+          "State": false,
+          "IconOff": "",
+          "IconOn": "",
+          "BackColorOff": "65, 65, 65",
+          "BackColorOn": "65, 65, 65",
+          "LabelOff": {
+            "LabelText": "Beam Together",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "LabelOn": {
+            "LabelText": "",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "Position_X": 3,
+          "Position_Y": 3,
+          "StateBindingVariable": "",
+          "Actions": [
+            {
+              "$type": "DoriDeck.Actions.RunCommandAction, DoriDeck",
+              "Name": "Run Command",
+              "Description": "Runs a Dorico command.",
+              "CanConfigure": true,
+              "Configuration": "{\"CommandName\":\"Edit.BeamTogether\",\"ApplyToAllFlows\":false}"
+            }
+          ],
+          "ActionsRelease": [],
+          "ActionsLongPress": [],
+          "ActionsLongPressRelease": [],
+          "EventListeners": [],
+          "ModifierKeyCodes": 0,
+          "KeyCode": 0
+        },
+        {
+          "Guid": "bb98f84d-2f21-4e7f-9b02-5e0b6b1a464e",
+          "State": false,
+          "IconOff": "",
+          "IconOn": "",
+          "BackColorOff": "65, 65, 65",
+          "BackColorOn": "65, 65, 65",
+          "LabelOff": {
+            "LabelText": "Force Stem Up",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "LabelOn": {
+            "LabelText": "",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "Position_X": 4,
+          "Position_Y": 3,
+          "StateBindingVariable": "",
+          "Actions": [
+            {
+              "$type": "DoriDeck.Actions.RunCommandAction, DoriDeck",
+              "Name": "Run Command",
+              "Description": "Runs a Dorico command.",
+              "CanConfigure": true,
+              "Configuration": "{\"CommandName\":\"Edit.StemForceDirection?ForcedVoiceDirection=Up\",\"ApplyToAllFlows\":false}"
+            }
+          ],
+          "ActionsRelease": [],
+          "ActionsLongPress": [],
+          "ActionsLongPressRelease": [],
+          "EventListeners": [],
+          "ModifierKeyCodes": 0,
+          "KeyCode": 0
+        },
+        {
+          "Guid": "cc9fc50a-ae96-4977-9a1e-69a5bc45e11b",
+          "State": false,
+          "IconOff": "",
+          "IconOn": "",
+          "BackColorOff": "65, 65, 65",
+          "BackColorOn": "65, 65, 65",
+          "LabelOff": {
+            "LabelText": "Force Stem Down",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "LabelOn": {
+            "LabelText": "",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "Position_X": 5,
+          "Position_Y": 3,
+          "StateBindingVariable": "",
+          "Actions": [
+            {
+              "$type": "DoriDeck.Actions.RunCommandAction, DoriDeck",
+              "Name": "Run Command",
+              "Description": "Runs a Dorico command.",
+              "CanConfigure": true,
+              "Configuration": "{\"CommandName\":\"Edit.StemForceDirection?ForcedVoiceDirection=Down\",\"ApplyToAllFlows\":false}"
+            }
+          ],
+          "ActionsRelease": [],
+          "ActionsLongPress": [],
+          "ActionsLongPressRelease": [],
+          "EventListeners": [],
+          "ModifierKeyCodes": 0,
+          "KeyCode": 0
+        }
+      ],
+      "ApplicationsFocusDevices": [],
+      "ApplicationToTrigger": ""
+    },
+    {
+      "BUFFER_SIZE": 1048576,
+      "IsRootFolder": false,
+      "FolderId": "1782537710861Dynamics",
+      "DisplayName": "Dynamics",
+      "Childs": [],
+      "ActionButtons": [
+        {
+          "Guid": "ba28d7ce-0456-49f5-ac78-81729205a5a1",
+          "State": false,
+          "IconOff": "",
+          "IconOn": "",
+          "BackColorOff": "65, 65, 65",
+          "BackColorOn": "65, 65, 65",
+          "LabelOff": {
+            "LabelText": "pp",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "LabelOn": {
+            "LabelText": "",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "Position_X": 0,
+          "Position_Y": 0,
+          "StateBindingVariable": "",
+          "Actions": [
+            {
+              "$type": "DoriDeck.Actions.RunCommandAction, DoriDeck",
+              "Name": "Run Command",
+              "Description": "Runs a Dorico command.",
+              "CanConfigure": true,
+              "Configuration": "{\"CommandName\":\"NoteInput.CreateDynamic?Definition=pp\",\"ApplyToAllFlows\":false}"
+            }
+          ],
+          "ActionsRelease": [],
+          "ActionsLongPress": [],
+          "ActionsLongPressRelease": [],
+          "EventListeners": [],
+          "ModifierKeyCodes": 0,
+          "KeyCode": 0
+        },
+        {
+          "Guid": "05fb744f-8d62-4d4c-8066-60c2f190b1d5",
+          "State": false,
+          "IconOff": "",
+          "IconOn": "",
+          "BackColorOff": "65, 65, 65",
+          "BackColorOn": "65, 65, 65",
+          "LabelOff": {
+            "LabelText": "p",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "LabelOn": {
+            "LabelText": "",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "Position_X": 1,
+          "Position_Y": 0,
+          "StateBindingVariable": "",
+          "Actions": [
+            {
+              "$type": "DoriDeck.Actions.RunCommandAction, DoriDeck",
+              "Name": "Run Command",
+              "Description": "Runs a Dorico command.",
+              "CanConfigure": true,
+              "Configuration": "{\"CommandName\":\"NoteInput.CreateDynamic?Definition=p\",\"ApplyToAllFlows\":false}"
+            }
+          ],
+          "ActionsRelease": [],
+          "ActionsLongPress": [],
+          "ActionsLongPressRelease": [],
+          "EventListeners": [],
+          "ModifierKeyCodes": 0,
+          "KeyCode": 0
+        },
+        {
+          "Guid": "ab1596a6-231e-4954-82e4-05f406257c8a",
+          "State": false,
+          "IconOff": "",
+          "IconOn": "",
+          "BackColorOff": "65, 65, 65",
+          "BackColorOn": "65, 65, 65",
+          "LabelOff": {
+            "LabelText": "mp",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "LabelOn": {
+            "LabelText": "",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "Position_X": 2,
+          "Position_Y": 0,
+          "StateBindingVariable": "",
+          "Actions": [
+            {
+              "$type": "DoriDeck.Actions.RunCommandAction, DoriDeck",
+              "Name": "Run Command",
+              "Description": "Runs a Dorico command.",
+              "CanConfigure": true,
+              "Configuration": "{\"CommandName\":\"NoteInput.CreateDynamic?Definition=mp\",\"ApplyToAllFlows\":false}"
+            }
+          ],
+          "ActionsRelease": [],
+          "ActionsLongPress": [],
+          "ActionsLongPressRelease": [],
+          "EventListeners": [],
+          "ModifierKeyCodes": 0,
+          "KeyCode": 0
+        },
+        {
+          "Guid": "588ebc47-3678-45b6-b5ce-1ef7603e4fa7",
+          "State": false,
+          "IconOff": "",
+          "IconOn": "",
+          "BackColorOff": "65, 65, 65",
+          "BackColorOn": "65, 65, 65",
+          "LabelOff": {
+            "LabelText": "mf",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "LabelOn": {
+            "LabelText": "",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "Position_X": 3,
+          "Position_Y": 0,
+          "StateBindingVariable": "",
+          "Actions": [
+            {
+              "$type": "DoriDeck.Actions.RunCommandAction, DoriDeck",
+              "Name": "Run Command",
+              "Description": "Runs a Dorico command.",
+              "CanConfigure": true,
+              "Configuration": "{\"CommandName\":\"NoteInput.CreateDynamic?Definition=mf\",\"ApplyToAllFlows\":false}"
+            }
+          ],
+          "ActionsRelease": [],
+          "ActionsLongPress": [],
+          "ActionsLongPressRelease": [],
+          "EventListeners": [],
+          "ModifierKeyCodes": 0,
+          "KeyCode": 0
+        },
+        {
+          "Guid": "30f40262-498c-49ed-af7d-681088ce37be",
+          "State": false,
+          "IconOff": "",
+          "IconOn": "",
+          "BackColorOff": "65, 65, 65",
+          "BackColorOn": "65, 65, 65",
+          "LabelOff": {
+            "LabelText": "f",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "LabelOn": {
+            "LabelText": "",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "Position_X": 4,
+          "Position_Y": 0,
+          "StateBindingVariable": "",
+          "Actions": [
+            {
+              "$type": "DoriDeck.Actions.RunCommandAction, DoriDeck",
+              "Name": "Run Command",
+              "Description": "Runs a Dorico command.",
+              "CanConfigure": true,
+              "Configuration": "{\"CommandName\":\"NoteInput.CreateDynamic?Definition=f\",\"ApplyToAllFlows\":false}"
+            }
+          ],
+          "ActionsRelease": [],
+          "ActionsLongPress": [],
+          "ActionsLongPressRelease": [],
+          "EventListeners": [],
+          "ModifierKeyCodes": 0,
+          "KeyCode": 0
+        },
+        {
+          "Guid": "36f3b40b-542c-40b2-aee9-71da4f4ecd1b",
+          "State": false,
+          "IconOff": "",
+          "IconOn": "",
+          "BackColorOff": "65, 65, 65",
+          "BackColorOn": "65, 65, 65",
+          "LabelOff": {
+            "LabelText": "ff",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "LabelOn": {
+            "LabelText": "",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "Position_X": 5,
+          "Position_Y": 0,
+          "StateBindingVariable": "",
+          "Actions": [
+            {
+              "$type": "DoriDeck.Actions.RunCommandAction, DoriDeck",
+              "Name": "Run Command",
+              "Description": "Runs a Dorico command.",
+              "CanConfigure": true,
+              "Configuration": "{\"CommandName\":\"NoteInput.CreateDynamic?Definition=ff\",\"ApplyToAllFlows\":false}"
+            }
+          ],
+          "ActionsRelease": [],
+          "ActionsLongPress": [],
+          "ActionsLongPressRelease": [],
+          "EventListeners": [],
+          "ModifierKeyCodes": 0,
+          "KeyCode": 0
+        },
+        {
+          "Guid": "c66d85f3-a5a7-4aa9-a4ce-79c89c415e49",
+          "State": false,
+          "IconOff": "",
+          "IconOn": "",
+          "BackColorOff": "65, 65, 65",
+          "BackColorOn": "65, 65, 65",
+          "LabelOff": {
+            "LabelText": "Increase",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "LabelOn": {
+            "LabelText": "",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "Position_X": 0,
+          "Position_Y": 1,
+          "StateBindingVariable": "",
+          "Actions": [
+            {
+              "$type": "DoriDeck.Actions.RunCommandAction, DoriDeck",
+              "Name": "Run Command",
+              "Description": "Runs a Dorico command.",
+              "CanConfigure": true,
+              "Configuration": "{\"CommandName\":\"EventEdit.DynamicIntensityIncrease\",\"ApplyToAllFlows\":false}"
+            }
+          ],
+          "ActionsRelease": [],
+          "ActionsLongPress": [],
+          "ActionsLongPressRelease": [],
+          "EventListeners": [],
+          "ModifierKeyCodes": 0,
+          "KeyCode": 0
+        },
+        {
+          "Guid": "32b53324-bb03-4639-bcb1-79248b300cfa",
+          "State": false,
+          "IconOff": "",
+          "IconOn": "",
+          "BackColorOff": "65, 65, 65",
+          "BackColorOn": "65, 65, 65",
+          "LabelOff": {
+            "LabelText": "Decrease",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "LabelOn": {
+            "LabelText": "",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "Position_X": 1,
+          "Position_Y": 1,
+          "StateBindingVariable": "",
+          "Actions": [
+            {
+              "$type": "DoriDeck.Actions.RunCommandAction, DoriDeck",
+              "Name": "Run Command",
+              "Description": "Runs a Dorico command.",
+              "CanConfigure": true,
+              "Configuration": "{\"CommandName\":\"EventEdit.DynamicIntensityDecrease\",\"ApplyToAllFlows\":false}"
+            }
+          ],
+          "ActionsRelease": [],
+          "ActionsLongPress": [],
+          "ActionsLongPressRelease": [],
+          "EventListeners": [],
+          "ModifierKeyCodes": 0,
+          "KeyCode": 0
+        },
+        {
+          "Guid": "7bde66af-3365-4fe2-ad11-ae57f04f398a",
+          "State": false,
+          "IconOff": "",
+          "IconOn": "",
+          "BackColorOff": "65, 65, 65",
+          "BackColorOn": "65, 65, 65",
+          "LabelOff": {
+            "LabelText": "Align",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "LabelOn": {
+            "LabelText": "",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "Position_X": 0,
+          "Position_Y": 2,
+          "StateBindingVariable": "",
+          "Actions": [
+            {
+              "$type": "DoriDeck.Actions.RunCommandAction, DoriDeck",
+              "Name": "Run Command",
+              "Description": "Runs a Dorico command.",
+              "CanConfigure": true,
+              "Configuration": "{\"CommandName\":\"Edit.AlignDynamics\",\"ApplyToAllFlows\":false}"
+            }
+          ],
+          "ActionsRelease": [],
+          "ActionsLongPress": [],
+          "ActionsLongPressRelease": [],
+          "EventListeners": [],
+          "ModifierKeyCodes": 0,
+          "KeyCode": 0
+        },
+        {
+          "Guid": "036bd152-d55c-474c-a7a1-a9b79fbf997c",
+          "State": false,
+          "IconOff": "",
+          "IconOn": "",
+          "BackColorOff": "65, 65, 65",
+          "BackColorOn": "65, 65, 65",
+          "LabelOff": {
+            "LabelText": "Group",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "LabelOn": {
+            "LabelText": "",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "Position_X": 1,
+          "Position_Y": 2,
+          "StateBindingVariable": "",
+          "Actions": [
+            {
+              "$type": "DoriDeck.Actions.RunCommandAction, DoriDeck",
+              "Name": "Run Command",
+              "Description": "Runs a Dorico command.",
+              "CanConfigure": true,
+              "Configuration": "{\"CommandName\":\"Edit.GroupDynamicsTogether\",\"ApplyToAllFlows\":false}"
+            }
+          ],
+          "ActionsRelease": [],
+          "ActionsLongPress": [],
+          "ActionsLongPressRelease": [],
+          "EventListeners": [],
+          "ModifierKeyCodes": 0,
+          "KeyCode": 0
+        },
+        {
+          "Guid": "9c0a9741-28ac-4e28-bd8d-5bea28611e30",
+          "State": false,
+          "IconOff": "",
+          "IconOn": "",
+          "BackColorOff": "65, 65, 65",
+          "BackColorOn": "65, 65, 65",
+          "LabelOff": {
+            "LabelText": "Ungroup",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "LabelOn": {
+            "LabelText": "",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "Position_X": 2,
+          "Position_Y": 2,
+          "StateBindingVariable": "",
+          "Actions": [
+            {
+              "$type": "DoriDeck.Actions.RunCommandAction, DoriDeck",
+              "Name": "Run Command",
+              "Description": "Runs a Dorico command.",
+              "CanConfigure": true,
+              "Configuration": "{\"CommandName\":\"Edit.UngroupDynamics\",\"ApplyToAllFlows\":false}"
+            }
+          ],
+          "ActionsRelease": [],
+          "ActionsLongPress": [],
+          "ActionsLongPressRelease": [],
+          "EventListeners": [],
+          "ModifierKeyCodes": 0,
+          "KeyCode": 0
+        },
+        {
+          "Guid": "a03e2f32-b327-417b-8a59-2ae353ba8d7e",
+          "State": false,
+          "IconOff": "",
+          "IconOn": "",
+          "BackColorOff": "65, 65, 65",
+          "BackColorOn": "65, 65, 65",
+          "LabelOff": {
+            "LabelText": "Remove From Group",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "LabelOn": {
+            "LabelText": "",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "Position_X": 3,
+          "Position_Y": 2,
+          "StateBindingVariable": "",
+          "Actions": [
+            {
+              "$type": "DoriDeck.Actions.RunCommandAction, DoriDeck",
+              "Name": "Run Command",
+              "Description": "Runs a Dorico command.",
+              "CanConfigure": true,
+              "Configuration": "{\"CommandName\":\"Edit.RemoveFromDynamicGroup\",\"ApplyToAllFlows\":false}"
+            }
+          ],
+          "ActionsRelease": [],
+          "ActionsLongPress": [],
+          "ActionsLongPressRelease": [],
+          "EventListeners": [],
+          "ModifierKeyCodes": 0,
+          "KeyCode": 0
+        }
+      ],
+      "ApplicationsFocusDevices": [
+        "c6uwo8k"
+      ],
+      "ApplicationToTrigger": "Dorico5"
+    },
+    {
+      "BUFFER_SIZE": 1048576,
+      "IsRootFolder": false,
+      "FolderId": "1782537710861playingTechniques",
+      "DisplayName": "Playing Techniques",
+      "Childs": [],
+      "ActionButtons": [
+        {
+          "Guid": "019f1666-618e-72b6-8a8f-67393e8d1b56",
+          "State": false,
+          "IconOff": "MusicNotation.3940b21a-777f-4101-8193-b3226611c71d",
+          "IconOn": "",
+          "BackColorOff": "65, 65, 65",
+          "BackColorOn": "65, 65, 65",
+          "LabelOff": {
+            "LabelText": "Back",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "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"
+          },
+          "LabelOn": {
+            "LabelText": "",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "Position_X": 4,
+          "Position_Y": 3,
+          "StateBindingVariable": "",
+          "Actions": [
+            {
+              "$type": "SuchByte.MacroDeck.Folders.Plugin.GoToParentFolder, Macro Deck 2",
+              "Name": "Go to parent folder",
+              "Description": "Change the current folder on the current device to the folders parent folder",
+              "CanConfigure": false
+            }
+          ],
+          "ActionsRelease": [],
+          "ActionsLongPress": [],
+          "ActionsLongPressRelease": [],
+          "EventListeners": [],
+          "ModifierKeyCodes": 0,
+          "KeyCode": 0
+        }
+      ],
+      "ApplicationsFocusDevices": [],
+      "ApplicationToTrigger": ""
+    },
+    {
+      "BUFFER_SIZE": 1048576,
+      "IsRootFolder": false,
+      "FolderId": "1782537710861filters",
+      "DisplayName": "Filters",
+      "Childs": [],
+      "ActionButtons": [
+        {
+          "Guid": "0019f0f9c-4c80-73ab-0005-000000a00b00",
+          "State": false,
+          "IconOff": "",
+          "IconOn": "",
+          "BackColorOff": "65, 65, 65",
+          "BackColorOn": "65, 65, 65",
+          "LabelOff": {
+            "LabelText": "Notes From Top",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "LabelOn": {
+            "LabelText": "",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "Position_X": 0,
+          "Position_Y": 0,
+          "StateBindingVariable": "",
+          "Actions": [
+            {
+              "$type": "DoriDeck.Actions.RunCommandAction, DoriDeck",
+              "Name": "Run Command",
+              "Description": "Runs a Dorico command.",
+              "CanConfigure": true,
+              "Configuration": "{\"CommandName\":\"Filter.NotesInChordsFromTop1\",\"ApplyToAllFlows\":false}"
+            }
+          ],
+          "ActionsRelease": [],
+          "ActionsLongPress": [],
+          "ActionsLongPressRelease": [],
+          "EventListeners": [],
+          "ModifierKeyCodes": 0,
+          "KeyCode": 0
+        },
+        {
+          "Guid": "519e750b-323e-44f9-bf0c-05edf28d7c1a",
+          "State": false,
+          "IconOff": "",
+          "IconOn": "",
+          "BackColorOff": "65, 65, 65",
+          "BackColorOn": "65, 65, 65",
+          "LabelOff": {
+            "LabelText": "Notes From Bottom",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "LabelOn": {
+            "LabelText": "",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "Position_X": 1,
+          "Position_Y": 0,
+          "StateBindingVariable": "",
+          "Actions": [
+            {
+              "$type": "DoriDeck.Actions.RunCommandAction, DoriDeck",
+              "Name": "Run Command",
+              "Description": "Runs a Dorico command.",
+              "CanConfigure": true,
+              "Configuration": "{\"CommandName\":\"Filter.NotesInChordsFromBottom1\",\"ApplyToAllFlows\":false}"
+            }
+          ],
+          "ActionsRelease": [],
+          "ActionsLongPress": [],
+          "ActionsLongPressRelease": [],
+          "EventListeners": [],
+          "ModifierKeyCodes": 0,
+          "KeyCode": 0
+        },
+        {
+          "Guid": "faa175d7-e056-4d10-a9c2-75c9bd4ba348",
+          "State": false,
+          "IconOff": "",
+          "IconOn": "",
+          "BackColorOff": "65, 65, 65",
+          "BackColorOn": "65, 65, 65",
+          "LabelOff": {
+            "LabelText": "All Down-Stem Voices",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "LabelOn": {
+            "LabelText": "",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "Position_X": 2,
+          "Position_Y": 0,
+          "StateBindingVariable": "",
+          "Actions": [
+            {
+              "$type": "DoriDeck.Actions.RunCommandAction, DoriDeck",
+              "Name": "Run Command",
+              "Description": "Runs a Dorico command.",
+              "CanConfigure": true,
+              "Configuration": "{\"CommandName\":\"Filter.VoiceAllDownStem\",\"ApplyToAllFlows\":false}"
+            }
+          ],
+          "ActionsRelease": [],
+          "ActionsLongPress": [],
+          "ActionsLongPressRelease": [],
+          "EventListeners": [],
+          "ModifierKeyCodes": 0,
+          "KeyCode": 0
+        },
+        {
+          "Guid": "355fc807-c52d-43e9-bf45-e1afdf1366dd",
+          "State": false,
+          "IconOff": "",
+          "IconOn": "",
+          "BackColorOff": "65, 65, 65",
+          "BackColorOn": "65, 65, 65",
+          "LabelOff": {
+            "LabelText": "All Up-Stem Voices",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "LabelOn": {
+            "LabelText": "",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "Position_X": 3,
+          "Position_Y": 0,
+          "StateBindingVariable": "",
+          "Actions": [
+            {
+              "$type": "DoriDeck.Actions.RunCommandAction, DoriDeck",
+              "Name": "Run Command",
+              "Description": "Runs a Dorico command.",
+              "CanConfigure": true,
+              "Configuration": "{\"CommandName\":\"Filter.VoiceAllUpStem\",\"ApplyToAllFlows\":false}"
+            }
+          ],
+          "ActionsRelease": [],
+          "ActionsLongPress": [],
+          "ActionsLongPressRelease": [],
+          "EventListeners": [],
+          "ModifierKeyCodes": 0,
+          "KeyCode": 0
+        },
+        {
+          "Guid": "eb467aca-7911-4f0b-9446-42c8fac77bde",
+          "State": false,
+          "IconOff": "",
+          "IconOn": "",
+          "BackColorOff": "65, 65, 65",
+          "BackColorOn": "65, 65, 65",
+          "LabelOff": {
+            "LabelText": "Down-Stem Voice 1",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "LabelOn": {
+            "LabelText": "",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "Position_X": 4,
+          "Position_Y": 0,
+          "StateBindingVariable": "",
+          "Actions": [
+            {
+              "$type": "DoriDeck.Actions.RunCommandAction, DoriDeck",
+              "Name": "Run Command",
+              "Description": "Runs a Dorico command.",
+              "CanConfigure": true,
+              "Configuration": "{\"CommandName\":\"Filter.VoiceDownstem1\",\"ApplyToAllFlows\":false}"
+            }
+          ],
+          "ActionsRelease": [],
+          "ActionsLongPress": [],
+          "ActionsLongPressRelease": [],
+          "EventListeners": [],
+          "ModifierKeyCodes": 0,
+          "KeyCode": 0
+        },
+        {
+          "Guid": "fe88e6eb-7a81-4a7f-af95-f5a250848cd8",
+          "State": false,
+          "IconOff": "",
+          "IconOn": "",
+          "BackColorOff": "65, 65, 65",
+          "BackColorOn": "65, 65, 65",
+          "LabelOff": {
+            "LabelText": "Up-Stem Voice 1",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "LabelOn": {
+            "LabelText": "",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "Position_X": 5,
+          "Position_Y": 0,
+          "StateBindingVariable": "",
+          "Actions": [
+            {
+              "$type": "DoriDeck.Actions.RunCommandAction, DoriDeck",
+              "Name": "Run Command",
+              "Description": "Runs a Dorico command.",
+              "CanConfigure": true,
+              "Configuration": "{\"CommandName\":\"Filter.VoiceUpstem1\",\"ApplyToAllFlows\":false}"
+            }
+          ],
+          "ActionsRelease": [],
+          "ActionsLongPress": [],
+          "ActionsLongPressRelease": [],
+          "EventListeners": [],
+          "ModifierKeyCodes": 0,
+          "KeyCode": 0
+        },
+        {
+          "Guid": "5071e537-7e2b-45a7-895f-5856f97d2839",
+          "State": false,
+          "IconOff": "",
+          "IconOn": "",
+          "BackColorOff": "65, 65, 65",
+          "BackColorOn": "65, 65, 65",
+          "LabelOff": {
+            "LabelText": "Notes and Chords",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "LabelOn": {
+            "LabelText": "",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "Position_X": 0,
+          "Position_Y": 1,
+          "StateBindingVariable": "",
+          "Actions": [
+            {
+              "$type": "DoriDeck.Actions.RunCommandAction, DoriDeck",
+              "Name": "Run Command",
+              "Description": "Runs a Dorico command.",
+              "CanConfigure": true,
+              "Configuration": "{\"CommandName\":\"Filter.NotesAndChords\",\"ApplyToAllFlows\":false}"
+            }
+          ],
+          "ActionsRelease": [],
+          "ActionsLongPress": [],
+          "ActionsLongPressRelease": [],
+          "EventListeners": [],
+          "ModifierKeyCodes": 0,
+          "KeyCode": 0
+        },
+        {
+          "Guid": "ed1be7a9-695a-4592-864b-8b374185d03b",
+          "State": false,
+          "IconOff": "",
+          "IconOn": "",
+          "BackColorOff": "65, 65, 65",
+          "BackColorOn": "65, 65, 65",
+          "LabelOff": {
+            "LabelText": "Rests",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "LabelOn": {
+            "LabelText": "",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "Position_X": 2,
+          "Position_Y": 1,
+          "StateBindingVariable": "",
+          "Actions": [
+            {
+              "$type": "DoriDeck.Actions.RunCommandAction, DoriDeck",
+              "Name": "Run Command",
+              "Description": "Runs a Dorico command.",
+              "CanConfigure": true,
+              "Configuration": "{\"CommandName\":\"Filter.Rests\",\"ApplyToAllFlows\":false}"
+            }
+          ],
+          "ActionsRelease": [],
+          "ActionsLongPress": [],
+          "ActionsLongPressRelease": [],
+          "EventListeners": [],
+          "ModifierKeyCodes": 0,
+          "KeyCode": 0
+        },
+        {
+          "Guid": "a074b1d9-446c-449d-ae96-c26629f00da8",
+          "State": false,
+          "IconOff": "",
+          "IconOn": "",
+          "BackColorOff": "65, 65, 65",
+          "BackColorOn": "65, 65, 65",
+          "LabelOff": {
+            "LabelText": "Tempo",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "LabelOn": {
+            "LabelText": "",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "Position_X": 3,
+          "Position_Y": 1,
+          "StateBindingVariable": "",
+          "Actions": [
+            {
+              "$type": "DoriDeck.Actions.RunCommandAction, DoriDeck",
+              "Name": "Run Command",
+              "Description": "Runs a Dorico command.",
+              "CanConfigure": true,
+              "Configuration": "{\"CommandName\":\"Filter.Tempo\",\"ApplyToAllFlows\":false}"
+            }
+          ],
+          "ActionsRelease": [],
+          "ActionsLongPress": [],
+          "ActionsLongPressRelease": [],
+          "EventListeners": [],
+          "ModifierKeyCodes": 0,
+          "KeyCode": 0
+        },
+        {
+          "Guid": "d456f58d-83d6-4992-a5bd-9f154754c3ae",
+          "State": false,
+          "IconOff": "",
+          "IconOn": "",
+          "BackColorOff": "65, 65, 65",
+          "BackColorOn": "65, 65, 65",
+          "LabelOff": {
+            "LabelText": "Dynamics",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "LabelOn": {
+            "LabelText": "",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "Position_X": 0,
+          "Position_Y": 2,
+          "StateBindingVariable": "",
+          "Actions": [
+            {
+              "$type": "DoriDeck.Actions.RunCommandAction, DoriDeck",
+              "Name": "Run Command",
+              "Description": "Runs a Dorico command.",
+              "CanConfigure": true,
+              "Configuration": "{\"CommandName\":\"Filter.Dynamics\",\"ApplyToAllFlows\":false}"
+            }
+          ],
+          "ActionsRelease": [],
+          "ActionsLongPress": [],
+          "ActionsLongPressRelease": [],
+          "EventListeners": [],
+          "ModifierKeyCodes": 0,
+          "KeyCode": 0
+        },
+        {
+          "Guid": "739cd932-5411-4d62-8f6c-532d7e3e103e",
+          "State": false,
+          "IconOff": "",
+          "IconOn": "",
+          "BackColorOff": "65, 65, 65",
+          "BackColorOn": "65, 65, 65",
+          "LabelOff": {
+            "LabelText": "Lyrics",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "LabelOn": {
+            "LabelText": "",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "Position_X": 1,
+          "Position_Y": 2,
+          "StateBindingVariable": "",
+          "Actions": [
+            {
+              "$type": "DoriDeck.Actions.RunCommandAction, DoriDeck",
+              "Name": "Run Command",
+              "Description": "Runs a Dorico command.",
+              "CanConfigure": true,
+              "Configuration": "{\"CommandName\":\"Filter.Lyrics\",\"ApplyToAllFlows\":false}"
+            }
+          ],
+          "ActionsRelease": [],
+          "ActionsLongPress": [],
+          "ActionsLongPressRelease": [],
+          "EventListeners": [],
+          "ModifierKeyCodes": 0,
+          "KeyCode": 0
+        },
+        {
+          "Guid": "2c96cb2d-ca0a-41b9-b91f-457930390f94",
+          "State": false,
+          "IconOff": "",
+          "IconOn": "",
+          "BackColorOff": "65, 65, 65",
+          "BackColorOn": "65, 65, 65",
+          "LabelOff": {
+            "LabelText": "Ornaments and Trills",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "LabelOn": {
+            "LabelText": "",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "Position_X": 2,
+          "Position_Y": 2,
+          "StateBindingVariable": "",
+          "Actions": [
+            {
+              "$type": "DoriDeck.Actions.RunCommandAction, DoriDeck",
+              "Name": "Run Command",
+              "Description": "Runs a Dorico command.",
+              "CanConfigure": true,
+              "Configuration": "{\"CommandName\":\"Filter.OrnamentsAndTrills\",\"ApplyToAllFlows\":false}"
+            }
+          ],
+          "ActionsRelease": [],
+          "ActionsLongPress": [],
+          "ActionsLongPressRelease": [],
+          "EventListeners": [],
+          "ModifierKeyCodes": 0,
+          "KeyCode": 0
+        },
+        {
+          "Guid": "3f10fc96-8772-49c8-9440-5bcbcb403c33",
+          "State": false,
+          "IconOff": "",
+          "IconOn": "",
+          "BackColorOff": "65, 65, 65",
+          "BackColorOn": "65, 65, 65",
+          "LabelOff": {
+            "LabelText": "Playing Techniques",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "LabelOn": {
+            "LabelText": "",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "Position_X": 3,
+          "Position_Y": 2,
+          "StateBindingVariable": "",
+          "Actions": [
+            {
+              "$type": "DoriDeck.Actions.RunCommandAction, DoriDeck",
+              "Name": "Run Command",
+              "Description": "Runs a Dorico command.",
+              "CanConfigure": true,
+              "Configuration": "{\"CommandName\":\"Filter.PlayingTechniques\",\"ApplyToAllFlows\":false}"
+            }
+          ],
+          "ActionsRelease": [],
+          "ActionsLongPress": [],
+          "ActionsLongPressRelease": [],
+          "EventListeners": [],
+          "ModifierKeyCodes": 0,
+          "KeyCode": 0
+        },
+        {
+          "Guid": "53fe24dc-fec6-49ba-8e2a-f78da417509f",
+          "State": false,
+          "IconOff": "",
+          "IconOn": "",
+          "BackColorOff": "65, 65, 65",
+          "BackColorOn": "65, 65, 65",
+          "LabelOff": {
+            "LabelText": "Rehearsal Marks",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "LabelOn": {
+            "LabelText": "",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "Position_X": 4,
+          "Position_Y": 2,
+          "StateBindingVariable": "",
+          "Actions": [
+            {
+              "$type": "DoriDeck.Actions.RunCommandAction, DoriDeck",
+              "Name": "Run Command",
+              "Description": "Runs a Dorico command.",
+              "CanConfigure": true,
+              "Configuration": "{\"CommandName\":\"Filter.RehearsalMarks\",\"ApplyToAllFlows\":false}"
+            }
+          ],
+          "ActionsRelease": [],
+          "ActionsLongPress": [],
+          "ActionsLongPressRelease": [],
+          "EventListeners": [],
+          "ModifierKeyCodes": 0,
+          "KeyCode": 0
+        },
+        {
+          "Guid": "019f1666-618e-72b6-8a8f-67393e8d1b56",
+          "State": false,
+          "IconOff": "MusicNotation.3940b21a-777f-4101-8193-b3226611c71d",
+          "IconOn": "",
+          "BackColorOff": "65, 65, 65",
+          "BackColorOn": "65, 65, 65",
+          "LabelOff": {
+            "LabelText": "Back",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "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"
+          },
+          "LabelOn": {
+            "LabelText": "",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "Position_X": 5,
+          "Position_Y": 3,
+          "StateBindingVariable": "",
+          "Actions": [
+            {
+              "$type": "SuchByte.MacroDeck.Folders.Plugin.GoToParentFolder, Macro Deck 2",
+              "Name": "Go to parent folder",
+              "Description": "Change the current folder on the current device to the folders parent folder",
+              "CanConfigure": false
+            }
+          ],
+          "ActionsRelease": [],
+          "ActionsLongPress": [],
+          "ActionsLongPressRelease": [],
+          "EventListeners": [],
+          "ModifierKeyCodes": 0,
+          "KeyCode": 0
+        }
+      ],
+      "ApplicationsFocusDevices": [],
+      "ApplicationToTrigger": ""
+    },
+    {
+      "BUFFER_SIZE": 1048576,
+      "IsRootFolder": false,
+      "FolderId": "1782537710861systemText",
+      "DisplayName": "System Text",
+      "Childs": [],
+      "ActionButtons": [
+        {
+          "Guid": "019f1666-618e-72b6-8a8f-67393e8d1b56",
+          "State": false,
+          "IconOff": "MusicNotation.3940b21a-777f-4101-8193-b3226611c71d",
+          "IconOn": "",
+          "BackColorOff": "65, 65, 65",
+          "BackColorOn": "65, 65, 65",
+          "LabelOff": {
+            "LabelText": "Back",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "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"
+          },
+          "LabelOn": {
+            "LabelText": "",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "Position_X": 4,
+          "Position_Y": 3,
+          "StateBindingVariable": "",
+          "Actions": [
+            {
+              "$type": "SuchByte.MacroDeck.Folders.Plugin.GoToParentFolder, Macro Deck 2",
+              "Name": "Go to parent folder",
+              "Description": "Change the current folder on the current device to the folders parent folder",
+              "CanConfigure": false
+            }
+          ],
+          "ActionsRelease": [],
+          "ActionsLongPress": [],
+          "ActionsLongPressRelease": [],
+          "EventListeners": [],
+          "ModifierKeyCodes": 0,
+          "KeyCode": 0
+        }
+      ],
+      "ApplicationsFocusDevices": [],
+      "ApplicationToTrigger": ""
+    },
+    {
+      "BUFFER_SIZE": 1048576,
+      "IsRootFolder": false,
+      "FolderId": "1782537710861voices",
+      "DisplayName": "Voices",
+      "Childs": [],
+      "ActionButtons": [
+        {
+          "Guid": "76fc4338-d13d-47ed-9ecc-67fa933f39dd",
+          "State": false,
+          "IconOff": "",
+          "IconOn": "",
+          "BackColorOff": "65, 65, 65",
+          "BackColorOn": "65, 65, 65",
+          "LabelOff": {
+            "LabelText": "Downstem 1",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "LabelOn": {
+            "LabelText": "",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "Position_X": 0,
+          "Position_Y": 0,
+          "StateBindingVariable": "",
+          "Actions": [
+            {
+              "$type": "DoriDeck.Actions.RunCommandAction, DoriDeck",
+              "Name": "Run Command",
+              "Description": "Runs a Dorico command.",
+              "CanConfigure": true,
+              "Configuration": "{\"CommandName\":\"Edit.ChangeVoiceToDownstem1\",\"ApplyToAllFlows\":false}"
+            }
+          ],
+          "ActionsRelease": [],
+          "ActionsLongPress": [],
+          "ActionsLongPressRelease": [],
+          "EventListeners": [],
+          "ModifierKeyCodes": 0,
+          "KeyCode": 0
+        },
+        {
+          "Guid": "232cc0e0-0156-4229-aea5-fcbbd5bf1154",
+          "State": false,
+          "IconOff": "",
+          "IconOn": "",
+          "BackColorOff": "65, 65, 65",
+          "BackColorOn": "65, 65, 65",
+          "LabelOff": {
+            "LabelText": "Upstem 1",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "LabelOn": {
+            "LabelText": "",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "Position_X": 1,
+          "Position_Y": 0,
+          "StateBindingVariable": "",
+          "Actions": [
+            {
+              "$type": "DoriDeck.Actions.RunCommandAction, DoriDeck",
+              "Name": "Run Command",
+              "Description": "Runs a Dorico command.",
+              "CanConfigure": true,
+              "Configuration": "{\"CommandName\":\"Edit.ChangeVoiceToUpstem1\",\"ApplyToAllFlows\":false}"
+            }
+          ],
+          "ActionsRelease": [],
+          "ActionsLongPress": [],
+          "ActionsLongPressRelease": [],
+          "EventListeners": [],
+          "ModifierKeyCodes": 0,
+          "KeyCode": 0
+        },
+        {
+          "Guid": "8673e401-91ad-405f-9df5-dfc549fcbd67",
+          "State": false,
+          "IconOff": "",
+          "IconOn": "",
+          "BackColorOff": "65, 65, 65",
+          "BackColorOn": "65, 65, 65",
+          "LabelOff": {
+            "LabelText": "Change Direction",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "LabelOn": {
+            "LabelText": "",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "Position_X": 2,
+          "Position_Y": 0,
+          "StateBindingVariable": "",
+          "Actions": [
+            {
+              "$type": "DoriDeck.Actions.RunCommandAction, DoriDeck",
+              "Name": "Run Command",
+              "Description": "Runs a Dorico command.",
+              "CanConfigure": true,
+              "Configuration": "{\"CommandName\":\"Edit.ChangeVoiceDirection\",\"ApplyToAllFlows\":false}"
+            }
+          ],
+          "ActionsRelease": [],
+          "ActionsLongPress": [],
+          "ActionsLongPressRelease": [],
+          "EventListeners": [],
+          "ModifierKeyCodes": 0,
+          "KeyCode": 0
+        },
+        {
+          "Guid": "05281a62-7523-4557-9e2a-94f20d20b03b",
+          "State": false,
+          "IconOff": "",
+          "IconOn": "",
+          "BackColorOff": "65, 65, 65",
+          "BackColorOn": "65, 65, 65",
+          "LabelOff": {
+            "LabelText": "Swap Voices",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "LabelOn": {
+            "LabelText": "",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "Position_X": 3,
+          "Position_Y": 0,
+          "StateBindingVariable": "",
+          "Actions": [
+            {
+              "$type": "DoriDeck.Actions.RunCommandAction, DoriDeck",
+              "Name": "Run Command",
+              "Description": "Runs a Dorico command.",
+              "CanConfigure": true,
+              "Configuration": "{\"CommandName\":\"Edit.SwapVoices\",\"ApplyToAllFlows\":false}"
+            }
+          ],
+          "ActionsRelease": [],
+          "ActionsLongPress": [],
+          "ActionsLongPressRelease": [],
+          "EventListeners": [],
+          "ModifierKeyCodes": 0,
+          "KeyCode": 0
+        },
+        {
+          "Guid": "64e11766-90b8-406d-9993-456eb4d1982b",
+          "State": false,
+          "IconOff": "",
+          "IconOn": "",
+          "BackColorOff": "65, 65, 65",
+          "BackColorOn": "65, 65, 65",
+          "LabelOff": {
+            "LabelText": "Force Stem Up",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "LabelOn": {
+            "LabelText": "",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "Position_X": 4,
+          "Position_Y": 0,
+          "StateBindingVariable": "",
+          "Actions": [
+            {
+              "$type": "DoriDeck.Actions.RunCommandAction, DoriDeck",
+              "Name": "Run Command",
+              "Description": "Runs a Dorico command.",
+              "CanConfigure": true,
+              "Configuration": "{\"CommandName\":\"Edit.StemForceDirection?ForcedVoiceDirection=Up\",\"ApplyToAllFlows\":false}"
+            }
+          ],
+          "ActionsRelease": [],
+          "ActionsLongPress": [],
+          "ActionsLongPressRelease": [],
+          "EventListeners": [],
+          "ModifierKeyCodes": 0,
+          "KeyCode": 0
+        },
+        {
+          "Guid": "650c9c9c-78b3-44e4-85a1-c1c41076783c",
+          "State": false,
+          "IconOff": "",
+          "IconOn": "",
+          "BackColorOff": "65, 65, 65",
+          "BackColorOn": "65, 65, 65",
+          "LabelOff": {
+            "LabelText": "Force Stem Down",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "LabelOn": {
+            "LabelText": "",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "Position_X": 5,
+          "Position_Y": 0,
+          "StateBindingVariable": "",
+          "Actions": [
+            {
+              "$type": "DoriDeck.Actions.RunCommandAction, DoriDeck",
+              "Name": "Run Command",
+              "Description": "Runs a Dorico command.",
+              "CanConfigure": true,
+              "Configuration": "{\"CommandName\":\"Edit.StemForceDirection?ForcedVoiceDirection=Down\",\"ApplyToAllFlows\":false}"
+            }
+          ],
+          "ActionsRelease": [],
+          "ActionsLongPress": [],
+          "ActionsLongPressRelease": [],
+          "EventListeners": [],
+          "ModifierKeyCodes": 0,
+          "KeyCode": 0
+        },
+        {
+          "Guid": "019f1666-618e-72b6-8a8f-67393e8d1b56",
+          "State": false,
+          "IconOff": "MusicNotation.3940b21a-777f-4101-8193-b3226611c71d",
+          "IconOn": "",
+          "BackColorOff": "65, 65, 65",
+          "BackColorOn": "65, 65, 65",
+          "LabelOff": {
+            "LabelText": "Back",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "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"
+          },
+          "LabelOn": {
+            "LabelText": "",
+            "LabelPosition": 2,
+            "LabelColor": "White",
+            "Size": 6.0,
+            "FontFamily": "Impact",
+            "LabelBase64": "iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBp0bcAARhp2kMAAAAASUVORK5CYII="
+          },
+          "Position_X": 4,
+          "Position_Y": 3,
+          "StateBindingVariable": "",
+          "Actions": [
+            {
+              "$type": "SuchByte.MacroDeck.Folders.Plugin.GoToParentFolder, Macro Deck 2",
+              "Name": "Go to parent folder",
+              "Description": "Change the current folder on the current device to the folders parent folder",
+              "CanConfigure": false
+            }
+          ],
+          "ActionsRelease": [],
+          "ActionsLongPress": [],
+          "ActionsLongPressRelease": [],
+          "EventListeners": [],
+          "ModifierKeyCodes": 0,
+          "KeyCode": 0
+        }
+      ],
+      "ApplicationsFocusDevices": [],
+      "ApplicationToTrigger": ""
+    }
+  ],
+  "Rows": 4,
+  "Columns": 6,
+  "ButtonSpacing": 15,
+  "ButtonRadius": 40,
+  "ButtonBackground": true,
+  "ProfileTarget": 0,
+  "ButtonsCustomizable": true
+}
