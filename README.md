@@ -23,11 +23,6 @@ That said, your workflow may be different. If you are missing a feature, have an
 
 Please see [wiki](https://github.com/Sarti2004/DoriDeck/wiki)
 
-## Planned Features
-
-* **Advanced command configuration**
-  Interface for assigning arguments to commands.
-
 ## Compatibility
 Macro Deck 2.15.* required
 
@@ -47,7 +42,7 @@ Not available yet.
 
 ### Manual Installation
 
-1. Download the extension package. [Download](https://github.com/Sarti2004/DoriDeck/releases/download/V0.0.7-beta/Sarti2004.DoriDeck.macroDeckPlugin)
+1. Download the extension package. [Download](https://github.com/Sarti2004/DoriDeck/releases/download/V0.1.0-beta/Sarti2004.DoriDeck.macroDeckPlugin)
 2. Open Macro Deck on your PC.
 3. Go to `Extensions`.
 4. Click `Install from file`.
@@ -64,8 +59,8 @@ After installing the plugin, open Macro Deck and add one of the available Dorico
 | Action          | Description                                                                                  | Configuration |
 | --------------- | -------------------------------------------------------------------------------------------- | ------------- |
 | **Run Script**  | Executes a recorded Dorico macro.                                                            | Script name   |
-| **Run Command** | Executes a Dorico command through the API. Examples of available commands can be found [here](commands.md). | Command text  |
-| **Command Sequence** | Executes a set of Dorico commands through the API. Examples of available commands can be found [here](commands.md). | Command text  |
+| **Run Command** | Executes a Dorico command through the API. Examples of available commands can be found [here](https://github.com/Sarti2004/DoriDeck/wiki/DoriDeck-Command-Examples). | Command text  |
+| **Command Sequence** | Executes a set of Dorico commands through the API. Examples of available commands can be found [here](https://github.com/Sarti2004/DoriDeck/wiki/DoriDeck-Command-Examples). | Command text  |
 | **Find/Replace**     | Replaces Dynamic/Playing Technique in a score (E.g.: p->f, portato->marcato).                                          | Find/Replace          |
 | **Insert Lyrics**    | Syllabify and Paste Lyrics to Dorico.                                          |           |
 | **Connect**     | Creates a connection between Macro Deck and Dorico.                                          | None          |
