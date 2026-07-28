@@ -50,6 +50,8 @@ Not available yet.
 
 You can also download the notation icon pack from [here](https://github.com/Sarti2004/MusicNotationIcons/releases/download/V0.0.3/Sarti2004.MusicNotation.macroDeckIconPack).
 
+Starter [profile](https://raw.githubusercontent.com/Sarti2004/DoriDeck/main/99.json) to simplify your setup (add it to %AppData%/Macro Deck/profiles/ folder).
+
 ## Usage
 
 After installing the plugin, open Macro Deck and add one of the available Dorico actions to a button.
