@@ -23,11 +23,7 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.0" PrivateAssets="all" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(Configuration)' == 'Debug'">
-    <PackageReference Include="Dorico.Net" Version="0.3.2-beta8.10" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(Configuration)' != 'Debug'">
+  <ItemGroup>
     <PackageReference Include="Dorico.Net" Version="0.3.1-beta" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.0" PrivateAssets="all" />
   </ItemGroup>
@@ -44,31 +40,5 @@
     </None>
   </ItemGroup>
 
-  <Target Name="GenerateManifest" BeforeTargets="BeforeBuild">
-    <PropertyGroup>
-      <ManifestContent>
-{
-  "type": "Plugin",
-  "name": "$(AssemblyName)",
-  "author": "$(Authors)",
-  "repository": "$(RepositoryUrl)",
-  "packageId": "$(PackageId)",
-  "version": "$(Version)",
-  "target-plugin-api-version": $(PluginApiVersion),
-  "target-macro-deck-version": "$(MacroDeckVersion)",
-  "dll": "$(AssemblyName).dll"
-}
-      </ManifestContent>
-
-      <ManifestPath>$(MSBuildProjectDirectory)\ExtensionManifest.json</ManifestPath>
-    </PropertyGroup>
-
-    <WriteLinesToFile
-      File="$(ManifestPath)"
-      Lines="$(ManifestContent)"
-      Overwrite="true"
-      Encoding="UTF-8" />
-
-    <Message Text="Generated ExtensionManifest.json with version $(Version)" Importance="high" />
-  </Target>
+  
 </Project>
