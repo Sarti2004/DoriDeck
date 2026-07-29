@@ -1,0 +1,74 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0-windows10.0.22000</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <AssemblyName>DoriDeck</AssemblyName>
+    <RootNamespace>DoriDeck</RootNamespace>
+    <PackageId>Sarti2004.DoriDeck</PackageId>
+    <Authors>Sarti2004</Authors>
+    <Version>0.1.0</Version>
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
+    <RepositoryUrl>https://github.com/Sarti2004/DoriDeck</RepositoryUrl>
+    <PluginApiVersion>41</PluginApiVersion>
+    <MacroDeckVersion>2.15.0</MacroDeckVersion>
+    <Description>Control and enhance your Dorico workflow with Macro Deck</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="H.InputSimulator" Version="1.4.0" />
+    <PackageReference Include="SuchByte.MacroDeck" Version="2.15.0-b9" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.0" PrivateAssets="all" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(Configuration)' == 'Debug'">
+    <PackageReference Include="Dorico.Net" Version="0.3.2-beta8.10" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(Configuration)' != 'Debug'">
+    <PackageReference Include="Dorico.Net" Version="0.3.1-beta" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.0" PrivateAssets="all" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="ExtensionIcon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ExtensionManifest.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="mhyph.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <Target Name="GenerateManifest" BeforeTargets="BeforeBuild">
+    <PropertyGroup>
+      <ManifestContent>
+{
+  "type": "Plugin",
+  "name": "$(AssemblyName)",
+  "author": "$(Authors)",
+  "repository": "$(RepositoryUrl)",
+  "packageId": "$(PackageId)",
+  "version": "$(Version)",
+  "target-plugin-api-version": $(PluginApiVersion),
+  "target-macro-deck-version": "$(MacroDeckVersion)",
+  "dll": "$(AssemblyName).dll"
+}
+      </ManifestContent>
+
+      <ManifestPath>$(MSBuildProjectDirectory)\ExtensionManifest.json</ManifestPath>
+    </PropertyGroup>
+
+    <WriteLinesToFile
+      File="$(ManifestPath)"
+      Lines="$(ManifestContent)"
+      Overwrite="true"
+      Encoding="UTF-8" />
+
+    <Message Text="Generated ExtensionManifest.json with version $(Version)" Importance="high" />
+  </Target>
+</Project>
