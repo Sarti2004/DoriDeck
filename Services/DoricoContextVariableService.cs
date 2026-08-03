@@ -71,8 +71,8 @@ public sealed class DoricoContextVariableService
     public void UpdateConnectionVariable(bool isConnected)
     {
         VariableManager.SetValue(Main.ConnectionVariableName, isConnected, VariableType.Bool, _plugin, Array.Empty<string>());
+        VariableManager.SetValue(Main.TupletModeVariableName, false, VariableType.Bool, _plugin, Array.Empty<string>());
     }
-
     private static string FriendlyDoricoMode(string rawMode)
         => rawMode.Trim().TrimStart('k').Replace("Mode", string.Empty);
 

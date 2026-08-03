@@ -65,6 +65,9 @@ After installing the plugin, open Macro Deck and add one of the available Dorico
 | **Command Sequence** | Executes a set of Dorico commands through the API. Examples of available commands can be found [here](https://github.com/Sarti2004/DoriDeck/wiki/DoriDeck-Command-Examples). | Command text  |
 | **Find/Replace**     | Replaces Dynamic/Playing Technique in a score (E.g.: p->f, portato->marcato).                                          | Find/Replace          |
 | **Insert Lyrics**    | Syllabify and Paste Lyrics to Dorico.                                          |           |
+| **Pickup Measure**    | Simplify creating a pickup measure                                          |           |
+| **Rehersal Mark**    | Custom rehearsal mark (Section header)                                          |           |
+| **Respell Note**    | Enharmonically Respell note                                         |           |
 | **Connect**     | Creates a connection between Macro Deck and Dorico.                                          | None          |
 
 ## Limitations

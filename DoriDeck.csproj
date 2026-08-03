@@ -9,7 +9,7 @@
     <RootNamespace>DoriDeck</RootNamespace>
     <PackageId>Sarti2004.DoriDeck</PackageId>
     <Authors>Sarti2004</Authors>
-    <Version>0.1.0</Version>
+    <Version>0.1.1</Version>
     <EnableWindowsTargeting>true</EnableWindowsTargeting>
     <RepositoryUrl>https://github.com/Sarti2004/DoriDeck</RepositoryUrl>
     <PluginApiVersion>41</PluginApiVersion>
@@ -19,9 +19,10 @@
 
   <ItemGroup>
     <PackageReference Include="H.InputSimulator" Version="1.4.0" />
-    <PackageReference Include="SuchByte.MacroDeck" Version="2.15.0-b9" PrivateAssets="all" />
+    <PackageReference Include="SuchByte.MacroDeck" Version="2.15.0" PrivateAssets="all" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.0" PrivateAssets="all" />
   </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="Dorico.Net" Version="0.3.1-beta" />
@@ -40,5 +41,4 @@
     </None>
   </ItemGroup>
 
-  
 </Project>

@@ -49,6 +49,7 @@ public class Main : MacroDeckPlugin
     public const string NoteInputModeVariableName = "dorico_noteInputMode";
     public const string WindowModeVariableName = "dorico_windowMode";
     public const string AccidentalVariableName = "dorico_accidental";
+    public const string TupletModeVariableName = "dorico_tuplet_mode";
 
     private string _doricoVersion = "6";
     public int _flows_count = 0;
@@ -73,6 +74,12 @@ public class Main : MacroDeckPlugin
     {
         get => PluginConfiguration.GetValue(this, "AutoLoadScripts") is string v && bool.TryParse(v, out var b) && b;
         set => PluginConfiguration.SetValue(this, "AutoLoadScripts", value.ToString());
+    }
+
+    public bool ExtraActionsEnabled
+    {
+        get => PluginConfiguration.GetValue(this, "ExtraActionsEnabled") is string v && bool.TryParse(v, out var b) && b;
+        set => PluginConfiguration.SetValue(this, "ExtraActionsEnabled", value.ToString());
     }
 
     public const int DefaultFlowSwitchDelay = 150;
@@ -135,6 +142,14 @@ public class Main : MacroDeckPlugin
                 new InsertLyricsAction(),
                 new DynamicReplacementAction()
             ];
+
+            if (ExtraActionsEnabled)
+            {
+                Actions.Add(new RespellNote());
+                Actions.Add(new PickupMeasure());
+                Actions.Add(new SectionHeader());
+                Actions.Add(new TupletAction());
+            }
 
             if (AutoLoadScripts)
                 LoadDynamicScriptActions();

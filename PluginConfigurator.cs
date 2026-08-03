@@ -7,6 +7,7 @@ public class PluginConfigurator : DialogForm
 {
     private readonly TextBox _scriptPathTextBox;
     private readonly CheckBox _autoLoadScriptsCheckBox;
+    private readonly CheckBox _extraActionsCheckBox;
 
     private readonly Label _advancedToggleLabel;
     private readonly Panel _advancedPanel;
@@ -50,10 +51,19 @@ public class PluginConfigurator : DialogForm
             Checked = Main.Instance.AutoLoadScripts
         };
 
+        _extraActionsCheckBox = new CheckBox
+        {
+            Text = "Enable extra actions",
+            Top = 90,
+            Left = 20,
+            AutoSize = true,
+            Checked = Main.Instance.ExtraActionsEnabled
+        };
+
         _advancedToggleLabel = new Label
         {
             Text = "► Advanced",
-            Top = 90,
+            Top = 125,
             Left = 20,
             AutoSize = true,
             Cursor = Cursors.Hand,
@@ -123,6 +133,7 @@ public class PluginConfigurator : DialogForm
         {
             Main.Instance.ScriptPath = _scriptPathTextBox.Text.Trim();
             Main.Instance.AutoLoadScripts = _autoLoadScriptsCheckBox.Checked;
+            Main.Instance.ExtraActionsEnabled = _extraActionsCheckBox.Checked;
             Main.Instance.FlowSwitchDelay = (int)_flowSwitchDelayNumericUpDown.Value;
             Main.Instance.TaskWaitDelay = (int)_taskWaitDelayNumericUpDown.Value;
 
@@ -148,6 +159,7 @@ public class PluginConfigurator : DialogForm
         Controls.Add(label);
         Controls.Add(_scriptPathTextBox);
         Controls.Add(_autoLoadScriptsCheckBox);
+        Controls.Add(_extraActionsCheckBox);
         Controls.Add(_advancedToggleLabel);
         Controls.Add(_advancedPanel);
         Controls.Add(_saveButton);
