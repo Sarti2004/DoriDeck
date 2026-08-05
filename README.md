@@ -42,7 +42,7 @@ Not available yet.
 
 ### Manual Installation
 
-1. Download the extension package. [Download](https://github.com/Sarti2004/DoriDeck/releases/download/V0.1.1/Sarti2004.DoriDeck.macroDeckPlugin)
+1. Download the extension package. [Download](https://github.com/Sarti2004/DoriDeck/releases/download/V0.1.2/Sarti2004.DoriDeck.macroDeckPlugin)
 2. Open Macro Deck on your PC.
 3. Go to `Extensions`.
 4. Click `Install from file`.

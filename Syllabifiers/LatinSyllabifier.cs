@@ -1,156 +1,483 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
 using System.Text;
 
 namespace DoriDeck.Syllabifiers;
 
-public class LatinSyllabifier : ILyricSyllabifier
+public sealed class LatinSyllabifier : ILyricSyllabifier
 {
-    // Все гласные латинского языка
-    private const string Vowels = "aeiouyAEIOUY";
+    private enum TokenType
+    {
+        Consonant,
+        VowelNucleus,
+        VowelExtension,
+        ConsonantalGlide,
+        Separator
+    }
 
-    // Латинские дифтонги, которые образуют ОДИН слог (их нельзя разрывать дефисом)
-    private static readonly string[] LatinDiphthongs = { "ae", "oe", "au", "eu" };
+    private static readonly HashSet<string> Diphthongs =
+        new(StringComparer.Ordinal)
+        {
+            "ae",
+            "oe",
+            "au",
+            "eu"
+        };
 
-    // Неделимые сочетания согласных (Muta cum Liquida). 
-    // Если после p, b, t, d, c, g, f идет l или r — они всегда уходят на следующий слог вместе!
-    // Например: "pa-tris", "la-cri-mo-sa", "re-demp-tor"
-    private static readonly string[] MutaCumLiquida = {
-        "pl", "pr", "bl", "br", "tl", "tr", "dl", "dr", "cl", "cr", "gl", "gr", "fl", "fr"
-    };
+    private static readonly HashSet<string> MutaCumLiquida =
+        new(StringComparer.Ordinal)
+        {
+            "pl", "pr",
+            "bl", "br",
+            "tl", "tr",
+            "dl", "dr",
+            "cl", "cr",
+            "gl", "gr",
+            "fl", "fr"
+        };
 
-    // Другие устойчивые буквосочетания, которые ведут себя как одна согласная
-    private static readonly string[] LatinDigraphs = { "ch", "ph", "th", "qu" };
+    private static readonly HashSet<string> ConsonantDigraphs =
+        new(StringComparer.Ordinal)
+        {
+            "ch",
+            "ph",
+            "th"
+        };
+
+    private static readonly HashSet<string> EuHiatusWords =
+        new(StringComparer.Ordinal)
+        {
+            "deus",
+            "meus",
+            "reus"
+        };
 
     public string Syllabify(string word)
     {
-        if (word.Length <= 1) return word;
+        ArgumentNullException.ThrowIfNull(word);
 
-        string lowerWord = word.ToLower();
-        int length = word.Length;
-
-        // Шаг 1. Размечаем гласные звуки, учитывая дифтонги
-        bool[] isVowelSound = new bool[length];
-        int totalVowels = 0;
-
-        for (int i = 0; i < length; i++)
+        if (string.IsNullOrWhiteSpace(word) || word.Length <= 1)
         {
-            if (Vowels.Contains(lowerWord[i]))
-            {
-                // Проверяем, не является ли эта гласная частью дифтонга (ae, oe, au, eu)
-                if (i > 0 && isVowelSound[i - 1] && LatinDiphthongs.Contains(lowerWord.Substring(i - 1, 2)))
-                {
-                    // Предыдущая гласная уже посчитана, эту как отдельный слог не считаем
-                    isVowelSound[i] = false;
-                }
-                else
-                {
-                    isVowelSound[i] = true;
-                    totalVowels++;
-                }
-            }
+            return word;
         }
 
-        // Если 0 или 1 слог (например: "te", "me", "et", "pax") — дефисы не нужны
-        if (totalVowels <= 1) return word;
+        AnalysisText analysis = CreateAnalysisText(word);
 
-        // Шаг 2. Расставляем дефисы
-        StringBuilder sb = new StringBuilder();
-        int vowelsFound = 0;
-
-        for (int i = 0; i < length; i++)
+        if (analysis.Letters.Count <= 1)
         {
-            sb.Append(word[i]);
-
-            if (isVowelSound[i])
-            {
-                vowelsFound++;
-            }
-
-            // Проверяем условия для вставки дефиса '-'
-            if (vowelsFound > 0 && vowelsFound < totalVowels && i < length - 1)
-            {
-                if (ShouldPutHyphenAfter(word, lowerWord, i, isVowelSound))
-                {
-                    sb.Append("-");
-                }
-            }
+            return word;
         }
 
-        return sb.ToString();
+        TokenType[] tokenTypes = ParseTokenTypes(analysis);
+        List<int> nuclei = FindNuclei(tokenTypes);
+
+        if (nuclei.Count <= 1)
+        {
+            return word;
+        }
+
+        HashSet<int> splitAfterOriginalIndices = FindSplitPositions(
+            analysis,
+            tokenTypes,
+            nuclei);
+
+        return InsertHyphens(word, splitAfterOriginalIndices);
     }
 
-    private bool ShouldPutHyphenAfter(string word, string lowerWord, int index, bool[] isVowelSound)
+    private static TokenType[] ParseTokenTypes(AnalysisText analysis)
     {
-        int length = word.Length;
+        int length = analysis.Letters.Count;
+        var tokenTypes = new TokenType[length];
 
-        // 1. Стык двух самостоятельных гласных (дифтонги мы исключили на Шаге 1)
-        // Например: "tu-a", "de-us", "me-us", "di-e-i"
-        if (isVowelSound[index] && isVowelSound[index + 1])
+        for (int i = 0; i < length; i++)
         {
-            return true;
+            char current = analysis.Letters[i].Normalized;
+
+            if (!IsVowel(current))
+            {
+                tokenTypes[i] = IsLetter(current)
+                    ? TokenType.Consonant
+                    : TokenType.Separator;
+
+                continue;
+            }
+
+            if (IsConsonantalUAfterQ(analysis, i))
+            {
+                tokenTypes[i] = TokenType.ConsonantalGlide;
+                continue;
+            }
+
+            if (CanExtendPreviousNucleus(analysis, tokenTypes, i))
+            {
+                tokenTypes[i] = TokenType.VowelExtension;
+                continue;
+            }
+
+            tokenTypes[i] = TokenType.VowelNucleus;
         }
 
-        // 2. Текущий символ — гласный (или часть дифтонга), а следующий — согласный
-        if (isVowelSound[index] && !isVowelSound[index + 1])
-        {
-            // Смотрим, сколько согласных идет дальше до следующей гласной
-            int nextVowelIndex = -1;
-            for (int j = index + 1; j < length; j++)
-            {
-                if (isVowelSound[j]) { nextVowelIndex = j; break; }
-            }
-
-            if (nextVowelIndex != -1)
-            {
-                int consonantsCount = nextVowelIndex - (index + 1);
-
-                // Если согласная всего одна (например: "a-me-nus", "do-mi-nus"), дефис ставится СРАЗУ
-                if (consonantsCount == 1) return true;
-
-                // Если согласных две или больше (стык), проверяем неделимые группы
-                if (consonantsCount >= 2)
-                {
-                    string pair = lowerWord.Substring(index + 1, 2);
-
-                    // Если стык начинается с неделимой группы (ch, ph, th, qu, pl, br...),
-                    // то ВСЯ эта группа уходит на следующий слог. Дефис ставится СРАЗУ.
-                    if (LatinDigraphs.Contains(pair) || MutaCumLiquida.Contains(pair))
-                    {
-                        return true;
-                    }
-                }
-            }
-        }
-
-        // 3. Разрыв обычного стыка согласных (например: "san-ctus", "sem-per", "prop-ter")
-        if (!isVowelSound[index] && !isVowelSound[index + 1])
-        {
-            // Проверяем, не стоим ли мы внутри неделимого диграфа (ch, th...)
-            if (index > 0)
-            {
-                string prevPair = lowerWord.Substring(index - 1, 2);
-                if (LatinDigraphs.Contains(prevPair)) return false; 
-            }
-
-            // Смотрим вперед: если впереди идет группа Muta cum Liquida (например, "tr" в "pa-tris"),
-            // то дефис перед ней уже поставился. Но если это обычный стык типа "nt" или "mp",
-            // дефис ставится ровно между ними, при условии, что дальше есть гласные.
-            if (index + 2 < length)
-            {
-                string nextPair = lowerWord.Substring(index + 1, 2);
-                // Если впереди неделимая группа согласных, мы её не рубим (например, "re-demp-tor" -> "mp" разрываем, "tor" уходит)
-                if (MutaCumLiquida.Contains(nextPair) || LatinDigraphs.Contains(nextPair))
-                {
-                    return false; 
-                }
-            }
-
-            // Убеждаемся, что в конце слова еще остались гласные, чтобы не поставить дефис перед финальной согласной
-            if (word.Skip(index + 1).Any(c => Vowels.Contains(char.ToLower(c))))
-            {
-                return true;
-            }
-        }
-
-        return false;
+        return tokenTypes;
     }
+
+    private static bool IsConsonantalUAfterQ(
+        AnalysisText analysis,
+        int index)
+    {
+        if (analysis.Letters[index].Normalized != 'u')
+        {
+            return false;
+        }
+
+        if (index == 0 || index >= analysis.Letters.Count - 1)
+        {
+            return false;
+        }
+
+        char previous = analysis.Letters[index - 1].Normalized;
+        char next = analysis.Letters[index + 1].Normalized;
+
+        return previous == 'q' && IsVowel(next);
+    }
+
+    private static bool CanExtendPreviousNucleus(
+        AnalysisText analysis,
+        TokenType[] tokenTypes,
+        int index)
+    {
+        if (index == 0)
+        {
+            return false;
+        }
+
+        if (tokenTypes[index - 1] != TokenType.VowelNucleus)
+        {
+            return false;
+        }
+
+        char first = analysis.Letters[index - 1].Normalized;
+        char second = analysis.Letters[index].Normalized;
+
+        string pair = string.Concat(first, second);
+
+        if (!Diphthongs.Contains(pair))
+        {
+            return false;
+        }
+
+        if (pair == "eu" && EuHiatusWords.Contains(analysis.NormalizedWord))
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    private static List<int> FindNuclei(TokenType[] tokenTypes)
+    {
+        var nuclei = new List<int>();
+
+        for (int i = 0; i < tokenTypes.Length; i++)
+        {
+            if (tokenTypes[i] == TokenType.VowelNucleus)
+            {
+                nuclei.Add(i);
+            }
+        }
+
+        return nuclei;
+    }
+
+    private static HashSet<int> FindSplitPositions(
+        AnalysisText analysis,
+        TokenType[] tokenTypes,
+        IReadOnlyList<int> nuclei)
+    {
+        var splitPositions = new HashSet<int>();
+
+        for (int i = 0; i < nuclei.Count - 1; i++)
+        {
+            int currentNucleus = nuclei[i];
+            int nextNucleus = nuclei[i + 1];
+
+            int splitAfterAnalysisIndex = FindBoundary(
+                analysis,
+                tokenTypes,
+                currentNucleus,
+                nextNucleus);
+
+            if (splitAfterAnalysisIndex < 0)
+            {
+                continue;
+            }
+
+            int originalIndex =
+                analysis.Letters[splitAfterAnalysisIndex].OriginalIndex;
+
+            splitPositions.Add(originalIndex);
+        }
+
+        return splitPositions;
+    }
+
+    private static int FindBoundary(
+        AnalysisText analysis,
+        TokenType[] tokenTypes,
+        int currentNucleus,
+        int nextNucleus)
+    {
+        int currentNucleusEnd = currentNucleus;
+
+        while (currentNucleusEnd + 1 < nextNucleus &&
+               tokenTypes[currentNucleusEnd + 1] ==
+               TokenType.VowelExtension)
+        {
+            currentNucleusEnd++;
+        }
+
+        var intervening = new List<int>();
+
+        for (int i = currentNucleusEnd + 1; i < nextNucleus; i++)
+        {
+            if (tokenTypes[i] is TokenType.Consonant
+                or TokenType.ConsonantalGlide)
+            {
+                intervening.Add(i);
+            }
+        }
+
+        if (intervening.Count == 0)
+        {
+            return currentNucleusEnd;
+        }
+
+        /*
+         * A single consonant joins the following syllable:
+         */
+        if (intervening.Count == 1)
+        {
+            return intervening[0] - 1;
+        }
+
+        /*
+         * Preserve qu as a complete onset:
+         */
+        if (StartsWithQu(analysis, tokenTypes, intervening))
+        {
+            return intervening[0] - 1;
+        }
+
+        /*
+         * Preserve consonant digraphs:
+         */
+        if (StartsWithProtectedPair(
+                analysis,
+                intervening,
+                ConsonantDigraphs))
+        {
+            return intervening[0] - 1;
+        }
+
+        /*
+         * Preserve muta-cum-liquida combinations:
+         */
+        if (StartsWithProtectedPair(
+                analysis,
+                intervening,
+                MutaCumLiquida))
+        {
+            return intervening[0] - 1;
+        }
+
+        if (intervening.Count >= 3)
+        {
+            int penultimate = intervening[^2];
+            int last = intervening[^1];
+
+            if (AreAdjacent(penultimate, last))
+            {
+                string finalPair = GetPair(
+                    analysis,
+                    penultimate,
+                    last);
+
+                if (ConsonantDigraphs.Contains(finalPair) ||
+                    MutaCumLiquida.Contains(finalPair))
+                {
+                    return penultimate - 1;
+                }
+            }
+        }
+
+        return intervening[0];
+    }
+
+    private static bool StartsWithQu(
+        AnalysisText analysis,
+        TokenType[] tokenTypes,
+        IReadOnlyList<int> intervening)
+    {
+        if (intervening.Count < 2)
+        {
+            return false;
+        }
+
+        int first = intervening[0];
+        int second = intervening[1];
+
+        if (!AreAdjacent(first, second))
+        {
+            return false;
+        }
+
+        return analysis.Letters[first].Normalized == 'q' &&
+               analysis.Letters[second].Normalized == 'u' &&
+               tokenTypes[second] == TokenType.ConsonantalGlide;
+    }
+
+    private static bool StartsWithProtectedPair(
+        AnalysisText analysis,
+        IReadOnlyList<int> intervening,
+        HashSet<string> protectedPairs)
+    {
+        if (intervening.Count < 2)
+        {
+            return false;
+        }
+
+        int first = intervening[0];
+        int second = intervening[1];
+
+        if (!AreAdjacent(first, second))
+        {
+            return false;
+        }
+
+        string pair = GetPair(analysis, first, second);
+        return protectedPairs.Contains(pair);
+    }
+
+    private static bool AreAdjacent(int first, int second)
+    {
+        return second == first + 1;
+    }
+
+    private static string GetPair(
+        AnalysisText analysis,
+        int first,
+        int second)
+    {
+        return string.Concat(
+            analysis.Letters[first].Normalized,
+            analysis.Letters[second].Normalized);
+    }
+
+    private static string InsertHyphens(
+        string original,
+        IReadOnlySet<int> splitAfterIndices)
+    {
+        var result = new StringBuilder(
+            original.Length + splitAfterIndices.Count);
+
+        for (int i = 0; i < original.Length; i++)
+        {
+            result.Append(original[i]);
+
+            if (splitAfterIndices.Contains(i) &&
+                i < original.Length - 1 &&
+                original[i + 1] != '-')
+            {
+                result.Append('-');
+            }
+        }
+
+        return result.ToString();
+    }
+
+    private static AnalysisText CreateAnalysisText(string word)
+    {
+        var letters = new List<AnalysisLetter>();
+        var normalizedWord = new StringBuilder();
+
+        for (int originalIndex = 0;
+             originalIndex < word.Length;
+             originalIndex++)
+        {
+            string decomposed =
+                word[originalIndex]
+                    .ToString()
+                    .Normalize(NormalizationForm.FormD);
+
+            char? normalizedBase = null;
+
+            foreach (char c in decomposed)
+            {
+                UnicodeCategory category =
+                    CharUnicodeInfo.GetUnicodeCategory(c);
+
+                if (category is UnicodeCategory.NonSpacingMark
+                    or UnicodeCategory.SpacingCombiningMark
+                    or UnicodeCategory.EnclosingMark)
+                {
+                    continue;
+                }
+
+                normalizedBase = NormalizeLetter(c);
+                break;
+            }
+
+            if (normalizedBase is null)
+            {
+                continue;
+            }
+
+            char normalized = normalizedBase.Value;
+
+            letters.Add(
+                new AnalysisLetter(
+                    normalized,
+                    originalIndex));
+
+            if (IsLetter(normalized))
+            {
+                normalizedWord.Append(normalized);
+            }
+        }
+
+        return new AnalysisText(
+            letters,
+            normalizedWord.ToString());
+    }
+
+    private static char NormalizeLetter(char value)
+    {
+        char lower = char.ToLowerInvariant(value);
+
+        return lower switch
+        {
+            'æ' => 'a',
+            'œ' => 'o',
+            _ => lower
+        };
+    }
+
+    private static bool IsVowel(char value)
+    {
+        return value is 'a' or 'e' or 'i' or 'o' or 'u' or 'y';
+    }
+
+    private static bool IsLetter(char value)
+    {
+        return char.IsLetter(value);
+    }
+
+    private sealed record AnalysisLetter(
+        char Normalized,
+        int OriginalIndex);
+
+    private sealed record AnalysisText(
+        List<AnalysisLetter> Letters,
+        string NormalizedWord);
 }

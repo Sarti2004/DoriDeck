@@ -33,6 +33,14 @@ public class LyricProcessor
             {
                 _currentEngine = new EnglishSyllabifier();
             }
+            else if (language == "FI")
+            {
+                _currentEngine = new FinnishSyllabifier();
+            }
+            else if (language == "DE")
+            {
+                _currentEngine = new GermanSyllabifier();
+            }
             else
             {
                 _currentEngine = new LatinSyllabifier();

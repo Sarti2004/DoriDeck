@@ -376,6 +376,18 @@ public class InsertLyricsConfigurator : ActionConfigControl
             {
                 Value = "Latin",
                 Text = "Latin"
+            },
+            new dropDownOption
+            {
+
+                Value = "FI",
+                Text = "Finnish"
+            },
+            new dropDownOption
+            {
+                Value = "DE",
+                Text = "German"
+
             }
         });
 
