@@ -4,7 +4,7 @@
   "author": "Sarti2004",
   "repository": "https://github.com/Sarti2004/DoriDeck",
   "packageId": "Sarti2004.DoriDeck",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "target-plugin-api-version": 41,
   "target-macro-deck-version": "2.15.0",
   "dll": "DoriDeck.dll"
