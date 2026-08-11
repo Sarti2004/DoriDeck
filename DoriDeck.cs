@@ -62,6 +62,15 @@ public class Main : MacroDeckPlugin
         Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
             "Steinberg", $"Dorico {_doricoVersion}", "Script Plug-ins") + Path.DirectorySeparatorChar;
 
+    /// <summary>
+    /// Path to Dorico's own application log, e.g.
+    /// "%AppData%\Steinberg\Dorico 5\application.log". Reflects the
+    /// currently detected Dorico major version.
+    /// </summary>
+    public string DoricoApplicationLogPath =>
+        Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+            "Steinberg", $"Dorico {_doricoVersion}", "application.log");
+
     public string ScriptPath
     {
         get => PluginConfiguration.GetValue(this, "ScriptPath") is string val && !string.IsNullOrEmpty(val)

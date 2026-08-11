@@ -487,11 +487,22 @@ public class InsertLyricsConfigurator : ActionConfigControl
             }
         }
 
+        var usageLabel = new Label
+        {
+            Text = "Wrap word(s) in parentheses to exclude them from syllabification.\nUse `(Verse 1-5)` or `(Chorus)` to auto-assign a lyric line.",
+            Top = _verseComboBox.Bottom + 15,
+            Left = 10,
+            Width = 490,
+            Height = 40,
+            AutoSize = false
+        };
+
         Controls.Add(modeGroupBox);
         Controls.Add(languageLabel);
         Controls.Add(_languageComboBox);
         Controls.Add(verseLabel);
         Controls.Add(_verseComboBox);
+        Controls.Add(usageLabel);
     }
 
     public override bool OnActionSave()

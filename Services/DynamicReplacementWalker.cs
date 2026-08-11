@@ -5,6 +5,7 @@ using DoricoNet.Responses;
 using Lea;
 using SuchByte.MacroDeck.Logging;
 using WindowsInput;
+using DoricoNet.Commands;
 
 namespace DoriDeck.Services;
 
@@ -31,11 +32,13 @@ public sealed class DynamicReplacementWalker : IDisposable
     private readonly IApplicationFocusService _applicationFocus = new ApplicationFocusService();
 
     private CancellationTokenSource? _currentRunCancellation;
+    private CommandLogWatcher? _logWatcher;
     private int _runScoreId;
     private bool _isDynamicSelected;
     private bool _isPlayingTechniqueEventSelected;
     private bool _isTextEventSelected;
     private bool _disposed;
+    private string? _delayedCommandToSend;
 
     public DynamicReplacementWalker(
         Main plugin,
@@ -75,7 +78,6 @@ public sealed class DynamicReplacementWalker : IDisposable
     {
         ThrowIfDisposed();
         ValidateDynamicText(sourceDynamic, nameof(sourceDynamic));
-        ValidateDynamicText(replacementDynamic, nameof(replacementDynamic));
 
         if (!await _runGate.WaitAsync(0, cancellationToken))
         {
@@ -93,6 +95,8 @@ public sealed class DynamicReplacementWalker : IDisposable
 
         var token = linkedCancellation.Token;
         ClipboardSnapshot? clipboardSnapshot = null;
+
+        _logWatcher = CommandLogWatcher.Open(_plugin.DoricoApplicationLogPath);
 
         var visited = 0;
         var changed = 0;
@@ -158,6 +162,8 @@ public sealed class DynamicReplacementWalker : IDisposable
                 EnsureSameScoreIsActive(remote);
                 EnsureDoricoIsForeground();
 
+                _logWatcher!.SkipToEnd();
+
                 // Re-check before opening a popover. This is the main guard
                 // against Right Arrow selecting a note at the end.
                 if (!await IsDynamicSelectedAsync(remote, token))
@@ -166,6 +172,7 @@ public sealed class DynamicReplacementWalker : IDisposable
                         DynamicReplacementStopReason.NextSelectionWasNotDynamic;
                     break;
                 }
+
 
                 string entry;
                 try
@@ -213,9 +220,16 @@ public sealed class DynamicReplacementWalker : IDisposable
                         sourceDynamic,
                         StringComparison.OrdinalIgnoreCase))
                 {
-                    await ReplaceOpenPopoverTextAsync(
-                        replacementDynamic,
-                        token);
+                    if (string.IsNullOrEmpty(replacementDynamic))
+                    {
+                        await DeleteTextAsync(sourceDynamic, remote, token);
+                    }
+                    else
+                    {
+                        await ReplaceOpenPopoverTextAsync(
+                            replacementDynamic,
+                            token);
+                    }
 
                     changed++;
                 }
@@ -232,6 +246,16 @@ public sealed class DynamicReplacementWalker : IDisposable
 
                 var selectionVersionBeforeNavigation =
                     _selectionTracker.CurrentVersion;
+
+
+                if (!string.IsNullOrEmpty(_delayedCommandToSend))
+                {
+                    await SendCommandAndAwaitConfirmationAsync(
+                        remote, _delayedCommandToSend ?? "<none>", TimeSpan.FromMilliseconds(150), token);
+                    _delayedCommandToSend = null;
+                    _keyboard.Press(VirtualKeyCode.LEFT);
+                }
+
 
                 _keyboard.Press(VirtualKeyCode.RIGHT);
 
@@ -323,6 +347,10 @@ public sealed class DynamicReplacementWalker : IDisposable
 
             TrySendKey(VirtualKeyCode.ESCAPE);
             _keyboard.ReleaseModifiersSafely();
+
+            _logWatcher?.Dispose();
+            _logWatcher = null;
+
             _runGate.Release();
         }
     }
@@ -392,6 +420,7 @@ public sealed class DynamicReplacementWalker : IDisposable
 
         _keyboard.PressChord(VirtualKeyCode.CONTROL, VirtualKeyCode.VK_A);
         await Task.Delay(10, cancellationToken);
+        
         _keyboard.EnterText(replacementDynamic);
         await Task.Delay(40, cancellationToken);
 
@@ -410,6 +439,83 @@ public sealed class DynamicReplacementWalker : IDisposable
         await Task.Delay(_options.PopoverCloseDelay, cancellationToken);
     }
 
+    private async Task DeleteTextAsync(
+        string sourceDynamic,
+        IDoricoRemote remote,
+        CancellationToken cancellationToken)
+    {
+
+        _keyboard.Press(VirtualKeyCode.ESCAPE);
+        await Task.Delay(100, cancellationToken);
+
+        string currentMode;
+        string filterMode;
+        if (_isPlayingTechniqueEventSelected)
+        {
+            currentMode = "EventEdit.EditExistingPlayingTechnique";
+            filterMode = "Filter.PlayingTechniques";
+        }
+        else if (_isTextEventSelected)
+        {
+            currentMode = "EventEdit.EditExistingText";
+            filterMode = "Filter.Text";
+        }
+        else
+        {
+            currentMode = "EventEdit.EditExistingDynamic";
+            filterMode = "Filter.Dynamics";
+        }
+
+        var editExistingDynamicCommand = await _logWatcher!.WaitForExecutingCommandAsync(
+            currentMode,
+            TimeSpan.FromMilliseconds(300),
+            cancellationToken);
+
+        if (!(editExistingDynamicCommand ?? string.Empty).Contains("Text=" + sourceDynamic, StringComparison.OrdinalIgnoreCase))
+        {
+            editExistingDynamicCommand = string.Empty;
+        }
+
+        if (string.IsNullOrEmpty(editExistingDynamicCommand))
+        {
+            await SendCommandAndAwaitConfirmationAsync(
+                remote, "Edit.Delete", TimeSpan.FromMilliseconds(300), cancellationToken);
+
+            await SendCommandAndAwaitConfirmationAsync(
+                remote, "Edit.SelectAtEndOfFlow", TimeSpan.FromMilliseconds(600), cancellationToken);
+
+            await SendCommandAndAwaitConfirmationAsync(
+                remote, filterMode, TimeSpan.FromMilliseconds(600), cancellationToken);
+
+            await SendCommandAndAwaitConfirmationAsync(
+                remote, "EventEdit.NavigateLeft", TimeSpan.FromMilliseconds(150), cancellationToken);
+        }
+        else
+        {
+            editExistingDynamicCommand = editExistingDynamicCommand.Replace(currentMode, "EventEdit.Delete", StringComparison.Ordinal);
+            _delayedCommandToSend = editExistingDynamicCommand;
+
+            await SendCommandAndAwaitConfirmationAsync(
+                remote, "EventEdit.NavigateRight", TimeSpan.FromMilliseconds(100), cancellationToken);
+
+            
+        }   
+    }
+
+    private async Task SendCommandAndAwaitConfirmationAsync(
+        IDoricoRemote remote,
+        string commandName,
+        TimeSpan fallbackDelay,
+        CancellationToken cancellationToken)
+    {
+        await remote.SendRequestAsync(new Command(commandName));
+
+        await _logWatcher!.SendCommandAsync(
+            commandName,
+            fallbackDelay,
+            cancellationToken);
+    }
+
     private async Task<bool> IsDynamicSelectedAsync(
         IDoricoRemote remote,
         CancellationToken cancellationToken)
@@ -417,7 +523,6 @@ public sealed class DynamicReplacementWalker : IDisposable
         var properties = await remote
             .GetPropertiesAsync(cancellationToken)
             .WaitAsync(_options.DoricoRequestTimeout, cancellationToken);
-
 
         var eventTypes = properties?.EventTypes?
             .Where(eventType => !string.IsNullOrWhiteSpace(eventType))

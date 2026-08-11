@@ -24,7 +24,7 @@ public class LyricProcessor
         if (string.IsNullOrWhiteSpace(fullText)) return fullText;
 
         string firstWord = GetFirstWord(fullText);
-        string _detectedLanguage = Regex.IsMatch(firstWord, @"^[a-zA-Z]") ? "EN" : "RU";
+        string _detectedLanguage = Regex.IsMatch(firstWord, @"^[а-яА-ЯёЁ]") ? "RU" : "EN";
         MacroDeckLogger.Information("DoriDeck", "Insert Lyrics detected language: {0}, configured language: {1}", _detectedLanguage, language);
 
         if (_detectedLanguage != "RU")

@@ -2,11 +2,15 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 
+using DoriDeck.Services;
+
 namespace DoriDeck.Syllabifiers;
 
 public class RussianSyllabifier : ILyricSyllabifier
 {
     private const string Vowels = "аеёиоуыэюяАЕЁИОУЫЭЮЯ";
+
+    private readonly UserDictionary _userDictionary = new(fileName: "_Words_RU.txt");
 
     public string Syllabify(string text)
     {
@@ -21,9 +25,14 @@ public class RussianSyllabifier : ILyricSyllabifier
             match => SyllabifyWord(match.Value));
     }
 
-    private static string SyllabifyWord(string word)
+    private  string SyllabifyWord(string word)
     {
         var vowelPositions = new List<int>();
+
+        if (_userDictionary.TryGetValue(word, out string? syllabified))
+        {
+            return UserDictionary.MatchCase(word, syllabified);
+        }
 
         for (int i = 0; i < word.Length; i++)
         {

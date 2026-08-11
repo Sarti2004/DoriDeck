@@ -25,11 +25,11 @@ public class DynamicReplacementAction : DoriDeckPluginAction
         var find = GetConfigValue<DynamicReplacementActionConfig>(c => c.Find);
         var replace = GetConfigValue<DynamicReplacementActionConfig>(c => c.Replace);
 
-        if (string.IsNullOrWhiteSpace(find) || string.IsNullOrWhiteSpace(replace))
+        if (string.IsNullOrWhiteSpace(find))
         {
             MacroDeckLogger.Warning(
                 Main.Instance,
-                "DynamicReplacementAction: Find and Replace must both be configured.",
+                "DynamicReplacementAction: 'Find' field must be configured.",
                 Array.Empty<object>());
             return;
         }
@@ -115,7 +115,7 @@ public class DynamicReplacementActionConfigurator : ActionConfigControl
 
         _replaceTextBox = new TextBox
         {
-            PlaceholderText = "e.g. mf",
+            PlaceholderText = "e.g. mf, leave blank to delete",
             Top = _findTextBox.Bottom + 12,
             Left = textBoxLeft,
             Width = 200
@@ -153,10 +153,10 @@ public class DynamicReplacementActionConfigurator : ActionConfigControl
         var find = _findTextBox.Text.Trim();
         var replace = _replaceTextBox.Text.Trim();
 
-        if (string.IsNullOrWhiteSpace(find) || string.IsNullOrWhiteSpace(replace))
+        if (string.IsNullOrWhiteSpace(find))
         {
             System.Windows.Forms.MessageBox.Show(
-                "Both 'Find' and 'Replace with' fields must be filled in.",
+                "'Find' field must be filled in.",
                 "Replace Dynamic",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Warning);

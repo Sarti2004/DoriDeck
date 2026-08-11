@@ -4,6 +4,8 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 
+using DoriDeck.Services;
+
 namespace DoriDeck.Syllabifiers;
 
 public sealed class LatinSyllabifier : ILyricSyllabifier
@@ -54,6 +56,8 @@ public sealed class LatinSyllabifier : ILyricSyllabifier
             "reus"
         };
 
+    private readonly UserDictionary _userDictionary = new(fileName: "_Words_LA.txt");
+
     public string Syllabify(string word)
     {
         ArgumentNullException.ThrowIfNull(word);
@@ -61,6 +65,11 @@ public sealed class LatinSyllabifier : ILyricSyllabifier
         if (string.IsNullOrWhiteSpace(word) || word.Length <= 1)
         {
             return word;
+        }
+
+        if (_userDictionary.TryGetValue(word, out string? syllabified))
+        {
+            return UserDictionary.MatchCase(word, syllabified);
         }
 
         AnalysisText analysis = CreateAnalysisText(word);
