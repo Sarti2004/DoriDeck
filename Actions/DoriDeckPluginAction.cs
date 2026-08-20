@@ -1,10 +1,10 @@
 using SuchByte.MacroDeck.Logging;
 using SuchByte.MacroDeck.Plugins;
 using SuchByte.MacroDeck.Variables;
-using DoricoNet;
-using DoricoNet.Enums;
-using DoricoNet.Commands;
-using DoricoNet.Responses;
+using ScoreInterface;
+using ScoreInterface.Enums;
+using ScoreInterface.Commands;
+using ScoreInterface.Responses;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 
@@ -16,10 +16,10 @@ public abstract class DoriDeckPluginAction : PluginAction
         @"\$\{(?<name>[a-zA-Z0-9_.\-]+)\}",
         RegexOptions.Compiled);
     /// <summary>
-    /// Returns the connected <see cref="IDoricoRemote"/>, auto-connecting once if needed.
+    /// Returns the connected <see cref="IScoreInterfaceRemote"/>, auto-connecting once if needed.
     /// Returns <c>null</c> when the connection cannot be established.
     /// </summary>
-    protected async Task<IDoricoRemote?> GetConnectedRemoteAsync(string actionLabel)
+    protected async Task<IScoreInterfaceRemote?> GetConnectedRemoteAsync(string actionLabel)
     {
         var dorico = Main.Instance.DoricoRemote;
 

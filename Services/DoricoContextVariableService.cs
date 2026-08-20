@@ -1,5 +1,5 @@
-using DoricoNet;
-using DoricoNet.Responses;
+using ScoreInterface;
+using ScoreInterface.Responses;
 using SuchByte.MacroDeck.Variables;
 
 namespace DoriDeck.Services;
@@ -20,8 +20,7 @@ public sealed class DoricoContextVariableService
         SetBoolVariable(Main.HasScoreVariableName, status.HasScore);
         SetBoolVariable(Main.HasSelectionVariableName, status.HasSelection);
         SetIntVariable(Main.ActiveOpenScoreIDVariableName, status.ActiveOpenScoreID);
-        var noteInputModeRaw = status.NoteInputMode.ToString() ?? string.Empty;
-        SetStringVariable(Main.NoteInputModeVariableName, noteInputModeRaw.Trim().TrimStart('k').Replace("Mode", string.Empty));
+        SetStringVariable(Main.NoteInputModeVariableName, FriendlyDoricoMode(status.NoteInputMode.ToString() ?? string.Empty));
         SetStringVariable(Main.AccidentalVariableName, status.Accidental.ToString() ?? string.Empty);
 
         var rawMode = status.WindowMode.ToString();
@@ -44,7 +43,7 @@ public sealed class DoricoContextVariableService
         flowsCount = 0;
     }
 
-    public async Task SaveFlowVariablesAsync(IDoricoRemote remote, StatusResponse? status, Action<int> setFlowsCount)
+    public async Task SaveFlowVariablesAsync(IScoreInterfaceRemote remote, StatusResponse? status, Action<int> setFlowsCount)
     {
         if (status?.HasScore != true)
         {

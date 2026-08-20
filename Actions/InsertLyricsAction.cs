@@ -4,7 +4,7 @@ using SuchByte.MacroDeck.GUI.CustomControls;
 using SuchByte.MacroDeck.Logging;
 using DoriDeck.Services;
 using WindowsInput;
-using DoricoNet.Commands;
+using ScoreInterface.Commands;
 
 using System.Text.RegularExpressions;
 using System.Text;

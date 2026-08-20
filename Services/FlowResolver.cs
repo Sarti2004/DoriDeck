@@ -18,13 +18,13 @@ public sealed class FlowResolver : IFlowResolver
 
         if (string.IsNullOrWhiteSpace(activeWindowTitle)) return null;
 
-        var flowT = activeWindowTitle.Split(" in ")[0].Trim();
+        var expectedFlowTitle = activeWindowTitle.Split(" in ")[0].Trim();
 
         return flows.FirstOrDefault(flow =>
         {
             var flowTitle = GetPropertyString(flow, "flowName");
             return !string.IsNullOrWhiteSpace(flowTitle) &&
-                   flowTitle.StartsWith(flowT, StringComparison.OrdinalIgnoreCase);
+                   flowTitle.StartsWith(expectedFlowTitle, StringComparison.OrdinalIgnoreCase);
         });
     }
 

@@ -11,8 +11,9 @@ public class EnglishSyllabifier : ILyricSyllabifier
         @"[A-Za-z]+(?:['’][A-Za-z]+)*",
         RegexOptions.Compiled | RegexOptions.CultureInvariant);
 
-    private readonly Lazy<Dictionary<string, string>> _mobyDictionary =
-        new(LoadMobyDictionary);
+    private readonly Lazy<Dictionary<string, string>> _mobyDictionary = new(LoadMobyDictionary);
+
+    private readonly UserDictionary _userDictionary = new(fileName: "_Words_EN.txt");
 
     private static Dictionary<string, string> LoadMobyDictionary()
     {
@@ -79,10 +80,16 @@ public class EnglishSyllabifier : ILyricSyllabifier
             match => SyllabifyWord(match.Value, dictionary));
     }
 
-    private static string SyllabifyWord(
+    private string SyllabifyWord(
         string word,
         IReadOnlyDictionary<string, string> dictionary)
     {
+
+        if (_userDictionary.TryGetValue(word, out string? syllabified_))
+        {
+            return UserDictionary.MatchCase(word, syllabified_);
+        }
+        
         // First try the complete word, including an apostrophe.
         if (dictionary.TryGetValue(word, out string? syllabified))
         {

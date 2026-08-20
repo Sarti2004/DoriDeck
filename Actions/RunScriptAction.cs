@@ -3,7 +3,7 @@ using SuchByte.MacroDeck.ActionButton;
 using SuchByte.MacroDeck.GUI;
 using SuchByte.MacroDeck.GUI.CustomControls;
 using SuchByte.MacroDeck.Logging;
-using DoricoNet.Commands;
+using ScoreInterface.Commands;
 using System.Text.Json;
 using System.IO;
 

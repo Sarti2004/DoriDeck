@@ -1,7 +1,7 @@
 using System.Diagnostics;
 using System.IO;
-using DoricoNet;
-using DoricoNet.Commands;
+using ScoreInterface;
+using ScoreInterface.Commands;
 
 namespace DoriDeck.Services;
 
@@ -19,16 +19,11 @@ public sealed class CommandLogWatcher : IDisposable
         _reader = reader;
     }
 
-
     public static CommandLogWatcher Open(string logPath)
     {
         try
         {
-            var stream = new FileStream(
-                logPath,
-                FileMode.Open,
-                FileAccess.Read,
-                FileShare.ReadWrite);
+            var stream = new FileStream(logPath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
             stream.Seek(0, SeekOrigin.End);
 
             return new CommandLogWatcher(new StreamReader(stream));
@@ -39,20 +34,6 @@ public sealed class CommandLogWatcher : IDisposable
             return new CommandLogWatcher(null);
         }
     }
-
-
-    public async Task SendCommandAsync(
-        string commandName,
-        TimeSpan fallbackDelay,
-        CancellationToken cancellationToken = default)
-    {
-
-        await WaitForCommandCompletionAsync(
-            commandName,
-            fallbackDelay,
-            cancellationToken);
-    }
-
 
     public async Task WaitForCommandCompletionAsync(
         string commandName,
@@ -66,15 +47,13 @@ public sealed class CommandLogWatcher : IDisposable
         }
 
         await WaitForLineAsync(
-            line =>
-                TryGetCompletedCommand(line, out var completedCommand) &&
+            line => TryGetCompletedCommand(line, out var completedCommand) &&
                 string.Equals(completedCommand, commandName, StringComparison.Ordinal)
                     ? completedCommand
                     : null,
             LogConfirmationTimeout,
             cancellationToken);
     }
-
 
     public Task<string?> WaitForExecutingCommandAsync(
         string commandNamePrefix,
@@ -85,15 +64,13 @@ public sealed class CommandLogWatcher : IDisposable
             line =>
             {
                 var command = TryGetExecutingCommand(line);
-                return command is not null &&
-                    command.StartsWith(commandNamePrefix, StringComparison.Ordinal)
-                        ? command
-                        : null;
+                return command is not null && command.StartsWith(commandNamePrefix, StringComparison.Ordinal)
+                    ? command
+                    : null;
             },
             timeout,
             cancellationToken);
     }
-
 
     private async Task<string?> WaitForLineAsync(
         Func<string, string?> tryMatch,
@@ -135,11 +112,8 @@ public sealed class CommandLogWatcher : IDisposable
                 break;
             }
 
-            await Task.Delay(
-                remaining < TimeSpan.FromMilliseconds(PollIntervalMilliseconds)
-                    ? remaining
-                    : TimeSpan.FromMilliseconds(PollIntervalMilliseconds),
-                cancellationToken);
+            var pollDelay = TimeSpan.FromMilliseconds(PollIntervalMilliseconds);
+            await Task.Delay(remaining < pollDelay ? remaining : pollDelay, cancellationToken);
         }
 
         return null;
@@ -171,8 +145,6 @@ public sealed class CommandLogWatcher : IDisposable
 
         return line[(markerIndex + ExecutingMarker.Length)..].Trim();
     }
-
-    public string? ReadNextLine() => _reader?.ReadLine();
 
     public void SkipToEnd()
     {

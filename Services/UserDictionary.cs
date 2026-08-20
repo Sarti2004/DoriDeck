@@ -80,7 +80,7 @@ public sealed class UserDictionary
         {
             File.WriteAllText(
                 filePath,
-                "## Format: One hyphenated word per line" + Environment.NewLine,
+                "## Format: One hyphenated word per line" + Environment.NewLine + "## Eg: yes-ter-day" + Environment.NewLine,
                 Encoding.UTF8);
         }
 

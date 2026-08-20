@@ -1,11 +1,11 @@
 using System.Diagnostics;
 using System.Text.Json;
-using DoricoNet;
-using DoricoNet.Responses;
+using ScoreInterface;
+using ScoreInterface.Responses;
 using Lea;
 using SuchByte.MacroDeck.Logging;
 using WindowsInput;
-using DoricoNet.Commands;
+using ScoreInterface.Commands;
 
 namespace DoriDeck.Services;
 
@@ -24,8 +24,6 @@ public sealed class DynamicReplacementWalker : IDisposable
     private readonly SemaphoreSlim _runGate = new(1, 1);
     private readonly object _runCancellationLock = new();
     private readonly SelectionChangeTracker _selectionTracker = new();
-
-    // H.InputSimulator instance used for all keyboard injection.
 
     private readonly IKeyboardService _keyboard = new KeyboardService();
 
@@ -46,18 +44,12 @@ public sealed class DynamicReplacementWalker : IDisposable
         DynamicReplacementWalkerOptions? options = null)
     {
         _plugin = plugin ?? throw new ArgumentNullException(nameof(plugin));
-        _eventAggregator = eventAggregator
-            ?? throw new ArgumentNullException(nameof(eventAggregator));
+        _eventAggregator = eventAggregator ?? throw new ArgumentNullException(nameof(eventAggregator));
         _options = options ?? new DynamicReplacementWalkerOptions();
 
-        _selectionSubscription =
-            _eventAggregator.Subscribe<SelectionChangedResponse>(
-                OnSelectionChanged);
+        _selectionSubscription = _eventAggregator.Subscribe<SelectionChangedResponse>(OnSelectionChanged);
     }
 
-    /// <summary>
-    /// Cancels a currently running traversal.
-    /// </summary>
     public void Cancel()
     {
         lock (_runCancellationLock)
@@ -66,11 +58,6 @@ public sealed class DynamicReplacementWalker : IDisposable
         }
     }
 
-    /// <summary>
-    /// Replaces exact dynamic-popover entries while walking forward.
-    /// For example, RunAsync("mp", "f") changes only a plain "mp" entry.
-    /// It does not change "mp dolce" or other compound entries.
-    /// </summary>
     public async Task<DynamicReplacementResult> RunAsync(
         string sourceDynamic,
         string replacementDynamic,
@@ -164,15 +151,13 @@ public sealed class DynamicReplacementWalker : IDisposable
 
                 _logWatcher!.SkipToEnd();
 
-                // Re-check before opening a popover. This is the main guard
-                // against Right Arrow selecting a note at the end.
+                // Re-check before opening a popover.
                 if (!await IsDynamicSelectedAsync(remote, token))
                 {
                     stopReason =
                         DynamicReplacementStopReason.NextSelectionWasNotDynamic;
                     break;
                 }
-
 
                 string entry;
                 try
@@ -203,8 +188,7 @@ public sealed class DynamicReplacementWalker : IDisposable
                 }
 
                 // Dorico can keep selecting the final dynamic when Right Arrow
-                // reaches the end of the flow. Stop after reading the same entry
-                // three consecutive times instead of looping on that last item.
+                // reaches the end of the flow. Stop if the same entry is repeated 3 times.
                 if (consecutiveSameEntryCount >= _options.MaximumConsecutiveIdenticalEntries)
                 {
                     _keyboard.Press(VirtualKeyCode.ESCAPE);
@@ -213,7 +197,6 @@ public sealed class DynamicReplacementWalker : IDisposable
                         DynamicReplacementStopReason.SameEntryRepeated;
                     break;
                 }
-
 
                 if (string.Equals(
                         entry,
@@ -244,9 +227,7 @@ public sealed class DynamicReplacementWalker : IDisposable
                     _options.SelectionSettleMaximum,
                     token);
 
-                var selectionVersionBeforeNavigation =
-                    _selectionTracker.CurrentVersion;
-
+                var selectionVersionBeforeNavigation = _selectionTracker.CurrentVersion;
 
                 if (!string.IsNullOrEmpty(_delayedCommandToSend))
                 {
@@ -255,7 +236,6 @@ public sealed class DynamicReplacementWalker : IDisposable
                     _delayedCommandToSend = null;
                     _keyboard.Press(VirtualKeyCode.LEFT);
                 }
-
 
                 _keyboard.Press(VirtualKeyCode.RIGHT);
 
@@ -363,7 +343,7 @@ public sealed class DynamicReplacementWalker : IDisposable
         _keyboard.Press(VirtualKeyCode.RETURN);
         await Task.Delay(_options.PopoverOpenDelay, cancellationToken);
 
-        // Retry Ctrl+A / Ctrl+C to handle transient focus or clipboard races.
+        // Retry Ctrl+A / Ctrl+C to handle focus or clipboard races.
         for (var attempt = 1; attempt <= _options.CopyRetryCount; attempt++)
         {
             EnsureDoricoIsForeground();
@@ -374,7 +354,6 @@ public sealed class DynamicReplacementWalker : IDisposable
                 _keyboard.PressChord(VirtualKeyCode.CONTROL, VirtualKeyCode.VK_A);
                 await Task.Delay(10, cancellationToken);
             }
-            //_keyboard.PressChord(VirtualKeyCode.CONTROL, VirtualKeyCode.VK_A);
 
             var clipboardSequenceBeforeCopy =
                 WindowAndClipboardInterop.GetClipboardSequence();
@@ -420,11 +399,10 @@ public sealed class DynamicReplacementWalker : IDisposable
 
         _keyboard.PressChord(VirtualKeyCode.CONTROL, VirtualKeyCode.VK_A);
         await Task.Delay(10, cancellationToken);
-        
+
         _keyboard.EnterText(replacementDynamic);
         await Task.Delay(40, cancellationToken);
 
-        // Return commits the changed existing item.
         _keyboard.Press(VirtualKeyCode.RETURN);
         if (_isPlayingTechniqueEventSelected)
         {
@@ -441,10 +419,9 @@ public sealed class DynamicReplacementWalker : IDisposable
 
     private async Task DeleteTextAsync(
         string sourceDynamic,
-        IDoricoRemote remote,
+        IScoreInterfaceRemote remote,
         CancellationToken cancellationToken)
     {
-
         _keyboard.Press(VirtualKeyCode.ESCAPE);
         await Task.Delay(100, cancellationToken);
 
@@ -457,6 +434,7 @@ public sealed class DynamicReplacementWalker : IDisposable
         }
         else if (_isTextEventSelected)
         {
+            // EventEdit.EditExistingText is not a real Dorico command; It needs separate implementation but i feel lazy to implement it;
             currentMode = "EventEdit.EditExistingText";
             filterMode = "Filter.Text";
         }
@@ -497,27 +475,25 @@ public sealed class DynamicReplacementWalker : IDisposable
 
             await SendCommandAndAwaitConfirmationAsync(
                 remote, "EventEdit.NavigateRight", TimeSpan.FromMilliseconds(100), cancellationToken);
-
-            
-        }   
+        }
     }
 
     private async Task SendCommandAndAwaitConfirmationAsync(
-        IDoricoRemote remote,
+        IScoreInterfaceRemote remote,
         string commandName,
         TimeSpan fallbackDelay,
         CancellationToken cancellationToken)
     {
         await remote.SendRequestAsync(new Command(commandName));
 
-        await _logWatcher!.SendCommandAsync(
+        await _logWatcher!.WaitForCommandCompletionAsync(
             commandName,
             fallbackDelay,
             cancellationToken);
     }
 
     private async Task<bool> IsDynamicSelectedAsync(
-        IDoricoRemote remote,
+        IScoreInterfaceRemote remote,
         CancellationToken cancellationToken)
     {
         var properties = await remote
@@ -532,13 +508,13 @@ public sealed class DynamicReplacementWalker : IDisposable
         _isPlayingTechniqueEventSelected = eventTypes.Any(_options.PlayingTechniqueEventTypeMatcher);
         _isTextEventSelected = eventTypes.Any(_options.TextEventTypeMatcher);
 
-        // PlayingTechniqueEvent doesn't work for some reason yet.
+        // Playing-technique doesn't work for some reason;
         return _isDynamicSelected ||
             _isPlayingTechniqueEventSelected ||
             _isTextEventSelected;
     }
 
-    private void EnsureSameScoreIsActive(IDoricoRemote remote)
+    private void EnsureSameScoreIsActive(IScoreInterfaceRemote remote)
     {
         var currentStatus = remote.CurrentStatus;
 
@@ -585,7 +561,6 @@ public sealed class DynamicReplacementWalker : IDisposable
         return false;
     }
 
-
     private static void ValidateDynamicText(
         string value,
         string parameterName)
@@ -615,12 +590,6 @@ public sealed class DynamicReplacementWalker : IDisposable
     private bool IsDoricoForeground() =>
         _applicationFocus.IsForeground("Dorico");
 
-
-    // -------------------------------------------------------------------------
-    // Keyboard helpers — all injection delegated to H.InputSimulator.
-    // -------------------------------------------------------------------------
-
-
     private bool TrySendKey(VirtualKeyCode key)
     {
         try
@@ -638,10 +607,6 @@ public sealed class DynamicReplacementWalker : IDisposable
             return false;
         }
     }
-
-    // -------------------------------------------------------------------------
-    // Lifecycle
-    // -------------------------------------------------------------------------
 
     private void ThrowIfDisposed()
     {
@@ -674,10 +639,6 @@ public sealed class DynamicReplacementWalker : IDisposable
         }
     }
 
-    // -------------------------------------------------------------------------
-    // Public result types
-    // -------------------------------------------------------------------------
-
     public sealed record DynamicReplacementResult(
         int Visited,
         int Changed,
@@ -696,13 +657,14 @@ public sealed class DynamicReplacementWalker : IDisposable
     public sealed record DynamicReplacementWalkerOptions
     {
         /// <summary>
-        /// Matches Dorico event-type strings returned by getproperties.
-        /// The default accepts event types containing "dynamic". kPlayingTechniqueEvent, kPauseEvent (fermata?), kTrillEvent, kImmediateTempoChangeEvent
+        /// Matches Dorico event-type strings returned by GetPropertiesAsync.
+        /// The default accepts any event type containing "dynamic".
         /// </summary>
         public Func<string, bool> DynamicEventTypeMatcher { get; init; } =
             eventType => eventType.Contains(
                 "dynamic",
                 StringComparison.OrdinalIgnoreCase);
+
         public Func<string, bool> PlayingTechniqueEventTypeMatcher { get; init; } =
             eventType => eventType.Equals(
                 "kPlayingTechniqueEvent",
@@ -760,6 +722,4 @@ public sealed class DynamicReplacementWalker : IDisposable
         public TimeSpan CopyRetryDelay { get; init; } =
             TimeSpan.FromMilliseconds(200);
     }
-
 }
-

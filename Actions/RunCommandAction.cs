@@ -2,9 +2,9 @@ using SuchByte.MacroDeck.ActionButton;
 using SuchByte.MacroDeck.GUI;
 using SuchByte.MacroDeck.GUI.CustomControls;
 using SuchByte.MacroDeck.Logging;
-using DoricoNet.Commands;
-using DoricoNet.Enums;
-using DoricoNet.Responses;
+using ScoreInterface.Commands;
+using ScoreInterface.Enums;
+using ScoreInterface.Responses;
 using System.Text.Json;
 
 namespace DoriDeck.Actions;
@@ -149,7 +149,7 @@ public class RunCommandActionConfigurator : ActionConfigControl
             Left = 10
         };
 
-        // Populate a searchable auto-complete source with the commands Dorico reported (IDoricoRemote.GetCommandsAsync)
+        // Populate a searchable auto-complete source with the commands Dorico reported (IScoreInterfaceRemote.GetCommandsAsync)
         var availableCommands = Main.Instance.AvailableCommands;
         if (availableCommands.Count > 0)
         {

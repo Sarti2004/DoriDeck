@@ -1,7 +1,7 @@
 using SuchByte.MacroDeck.ActionButton;
 using SuchByte.MacroDeck.Logging;
-using DoricoNet.Commands;
-using DoricoNet.Enums;
+using ScoreInterface.Commands;
+using ScoreInterface.Enums;
 
 namespace DoriDeck.Actions;
 

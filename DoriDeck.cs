@@ -1,15 +1,11 @@
 using SuchByte.MacroDeck.Plugins;
 using SuchByte.MacroDeck.Logging;
 using Microsoft.Extensions.DependencyInjection;
-#if !DEBUG
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Abstractions;
-#endif
-using DoricoNet;
-using DoricoNet.Commands;
-using DoricoNet.Comms;
-using DoricoNet.Exceptions;
-using DoricoNet.Responses;
+using ScoreInterface;
+using ScoreInterface.Commands;
+using ScoreInterface.Comms;
+using ScoreInterface.Exceptions;
+using ScoreInterface.Responses;
 using Lea;
 using DoriDeck.Actions;
 using DoriDeck.Services;
@@ -18,7 +14,7 @@ namespace DoriDeck;
 
 public class Main : MacroDeckPlugin
 {
-    private IDoricoRemote? _doricoRemote;
+    private IScoreInterfaceRemote? _doricoRemote;
     private IEventAggregator? _eventAggregator;
     private DynamicReplacementWalker? _dynamicReplacementWalker;
     private IServiceProvider? _serviceProvider;
@@ -117,7 +113,7 @@ public class Main : MacroDeckPlugin
     }
 
     public bool IsConnected => _doricoRemote?.IsConnected ?? false;
-    public IDoricoRemote? DoricoRemote => _doricoRemote;
+    public IScoreInterfaceRemote? DoricoRemote => _doricoRemote;
     public DynamicReplacementWalker DynamicReplacementWalker =>
         _dynamicReplacementWalker
         ?? throw new InvalidOperationException(
@@ -158,6 +154,7 @@ public class Main : MacroDeckPlugin
                 Actions.Add(new PickupMeasure());
                 Actions.Add(new SectionHeader());
                 Actions.Add(new TupletAction());
+                Actions.Add(new ChoirReduction());
             }
 
             if (AutoLoadScripts)
@@ -165,7 +162,6 @@ public class Main : MacroDeckPlugin
 
             _contextService.UpdateConnectionVariable(IsConnected);
             _contextService.SaveDisconnectedContextVariables(ref _flows_count);
-
         }
         catch (Exception ex)
         {
@@ -202,7 +198,6 @@ public class Main : MacroDeckPlugin
 
                 MacroDeckLogger.Information(Main.Instance, "Auto-loaded script action: {0}", scriptName);
             }
-
         }
         catch (Exception ex)
         {
@@ -271,41 +266,29 @@ public class Main : MacroDeckPlugin
 
         var services = new ServiceCollection();
 
-        services
-            .AddSingleton<IEventAggregator, EventAggregator>()
-            .AddTransient<IClientWebSocketWrapper, ClientWebSocketWrapper>();
-
-#if DEBUG
         Action<string, bool> logger = (message, isError) =>
         {
+            #if DEBUG
             if (isError)
                 MacroDeckLogger.Error(Main.Instance, "{0}", message);
             else
                 MacroDeckLogger.Information(Main.Instance, "{0}", message);
+            #endif
         };
 
         services
-            .AddSingleton<IDoricoCommsContext>(sp => new DoricoCommsContext(
+            .AddSingleton<IEventAggregator, EventAggregator>()
+            .AddTransient<IClientWebSocketWrapper, ClientWebSocketWrapper>()
+            .AddSingleton<IScoreInterfaceCommsContext>(sp => new ScoreInterfaceCommsContext(
                 sp.GetRequiredService<IClientWebSocketWrapper>(),
                 sp.GetRequiredService<IEventAggregator>(),
                 logger))
-            .AddTransient<IDoricoRemote>(sp => new DoricoRemote(
-                sp.GetRequiredService<IDoricoCommsContext>(),
+            .AddTransient<IScoreInterfaceRemote>(sp => new ScoreInterfaceRemote(
+                sp.GetRequiredService<IScoreInterfaceCommsContext>(),
                 logger));
-#else
-        services
-            .AddSingleton<ILogger>(_ => NullLogger.Instance)
-            .AddSingleton<IDoricoCommsContext>(sp => new DoricoCommsContext(
-                sp.GetRequiredService<IClientWebSocketWrapper>(),
-                sp.GetRequiredService<IEventAggregator>(),
-                sp.GetRequiredService<ILogger>()))
-            .AddTransient<IDoricoRemote>(sp => new DoricoRemote(
-                sp.GetRequiredService<IDoricoCommsContext>(),
-                sp.GetRequiredService<ILogger>()));
-#endif
 
         _serviceProvider = services.BuildServiceProvider();
-        _doricoRemote = _serviceProvider.GetService<IDoricoRemote>();
+        _doricoRemote = _serviceProvider.GetService<IScoreInterfaceRemote>();
         _eventAggregator = _serviceProvider.GetService<IEventAggregator>();
 
         if (_eventAggregator != null)
@@ -320,8 +303,19 @@ public class Main : MacroDeckPlugin
         if (_doricoRemote != null)
         {
             _doricoRemote.Timeout = 60000; // 60 seconds
+
+#if DEBUG
+            _doricoRemote.RawMessageReceived += OnDoricoRawMessageReceived;
+#endif
         }
     }
+
+#if DEBUG
+    private void OnDoricoRawMessageReceived(string rawJson)
+    {
+        MacroDeckLogger.Information(Main.Instance, "Dorico raw message: {0}", rawJson);
+    }
+#endif
 
     public void InitializeDoricoRemote()
     {
@@ -448,7 +442,6 @@ public class Main : MacroDeckPlugin
         {
             var commands = await _doricoRemote.GetCommandsAsync();
 
-            // Build the new list off to the side and assign it in one step;
             _availableCommands = commands
                 .Where(c => !string.IsNullOrEmpty(c.Name))
                 .OrderBy(c => c.Name, StringComparer.OrdinalIgnoreCase)
@@ -489,7 +482,7 @@ public class Main : MacroDeckPlugin
             MacroDeckLogger.Information(Main.Instance, "Command executed: {0}", commandName);
             await RefreshDoricoContextVariablesAsync();
         }
-        catch (DoricoException<Response> ex)
+        catch (ScoreInterfaceException<Response> ex)
         {
             MacroDeckLogger.Error(Main.Instance, "Error sending command '{0}': {1}", commandName, ex.Message);
         }
