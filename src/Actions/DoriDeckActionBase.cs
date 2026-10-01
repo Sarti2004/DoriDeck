@@ -9,12 +9,35 @@ namespace DoriDeck.Actions;
 // Base actions class
 internal abstract class DoriDeckActionBase(DoricoSession session)
 {
+	// Connecting can involve host round-trips (config/secrets) and Dorico itself, neither of which is guaranteed to
+	// answer promptly - e.g. while the host has paused draining. Never hold an action's reply hostage to that.
+	private static readonly TimeSpan ConnectWaitLimit = TimeSpan.FromSeconds(2);
+
+	protected static readonly TimeSpan HostCallWaitLimit = TimeSpan.FromSeconds(2);
+
 	protected DoricoSession Session { get; } = session;
 
 	protected static async Task<IScoreInterfaceRemote?> GetConnectedRemoteAsync(
 		DoricoSession session,
-		CancellationToken cancellationToken) =>
-		await session.EnsureConnectedAsync().WaitAsync(cancellationToken) ? session.Remote : null;
+		CancellationToken cancellationToken)
+	{
+		if (session.IsConnected)
+		{
+			return session.Remote;
+		}
+
+		try
+		{
+			// The connect attempt keeps running in the background if this times out; the session's gate dedupes it.
+			return await session.EnsureConnectedAsync().WaitAsync(ConnectWaitLimit, cancellationToken)
+				? session.Remote
+				: null;
+		}
+		catch (TimeoutException)
+		{
+			return null;
+		}
+	}
 
 	protected static (string ActionName, List<CommandParameter> Parameters) ParseCommand(string commandName)
 	{

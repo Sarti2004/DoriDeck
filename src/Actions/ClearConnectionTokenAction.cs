@@ -25,7 +25,15 @@ internal sealed class ClearConnectionTokenAction (DoricoSession session) : DoriD
 	{
 		public async Task<ActionResult> ExecuteAsync(ActionExecutionContext context)
 		{
-			await session.ClearSessionTokenAsync();
+			try
+			{
+				// The host may not answer config writes promptly (e.g. while draining is paused); the write stays queued
+				// and lands once it resumes, so don't hold the action's reply on it.
+				await session.ClearSessionTokenAsync().WaitAsync(HostCallWaitLimit, context.CancellationToken);
+			}
+			catch (TimeoutException)
+			{
+			}
 
 			return ActionResult.Success();
 		}

@@ -25,9 +25,9 @@ internal sealed class ConnectDoricoAction(DoricoSession session) : DoriDeckActio
 	{
 		public async Task<ActionResult> ExecuteAsync(ActionExecutionContext context)
 		{
-			var connected = await session.EnsureConnectedAsync().WaitAsync(context.CancellationToken);
+			var dorico = await GetConnectedRemoteAsync(session, context.CancellationToken);
 
-			return connected
+			return dorico != null
 				? ActionResult.Success()
 				: ActionResult.Failed(
 					ActionErrorCodes.Unavailable,

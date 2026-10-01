@@ -18,6 +18,7 @@ public sealed class DoricoSession : IAsyncDisposable
 	private const string SessionTokenKey = "SessionToken";
 	private static readonly TimeSpan StatusDebounceDelay = TimeSpan.FromSeconds(3);
 	private static readonly TimeSpan DoricoRequestTimeout = TimeSpan.FromSeconds(5);
+	private static readonly TimeSpan VariableLookupTimeout = TimeSpan.FromSeconds(1);
 
 	public const int DefaultFlowSwitchDelay = 150;
 	public const int DefaultTaskWaitDelay = 100;
@@ -262,8 +263,18 @@ public sealed class DoricoSession : IAsyncDisposable
 				continue;
 			}
 
-			var handle = await _context.Variables.GetByNameAsync(name);
-			replacements[name] = handle?.Value?.ToString() ?? match.Value;
+			try
+			{
+				// Bounded: the host may not answer promptly (e.g. while draining is paused), and an action's reply
+				// must not wait on it. An unresolved placeholder is left as-is, same as an unknown variable.
+				var handle = await _context.Variables.GetByNameAsync(name).WaitAsync(VariableLookupTimeout);
+				replacements[name] = handle?.Value?.ToString() ?? match.Value;
+			}
+			catch (TimeoutException)
+			{
+				_logger.Warning("Timed out resolving Macro Deck variable {Variable}.", name);
+				replacements[name] = match.Value;
+			}
 		}
 
 		return VariablePlaceholder.Replace(content, match => replacements[match.Groups["name"].Value]);
