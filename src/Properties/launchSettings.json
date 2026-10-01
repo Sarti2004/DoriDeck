@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json.schemastore.org/launchsettings.json",
+  "profiles": {
+    "Macro Deck - Real Host": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": false,
+      "workingDirectory": "$(ProjectDir)",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development",
+        "MACRO_DECK_PLUGIN_MODE": "SelfRegistering",
+        "MACRO_DECK_PLUGIN_HOST_URL": "http://127.0.0.1:8193",
+        "MACRO_DECK_PLUGIN_STATE_DIRECTORY": ".macrodeck-dev-state"
+      }
+    }
+  }
+}

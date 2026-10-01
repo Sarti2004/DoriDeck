@@ -1,0 +1,28 @@
+<Project>
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
+    <!-- Keep both plugin projects aligned with the Macro Deck host version they target. -->
+    <CentralPackageFloatingVersionsEnabled>true</CentralPackageFloatingVersionsEnabled>
+    <MacroDeckSdkVersion Condition="'$(MacroDeckSdkVersion)' == ''">3.0.0-beta.14</MacroDeckSdkVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageVersion Include="MacroDeck.Localization" Version="$(MacroDeckSdkVersion)" />
+    <PackageVersion Include="MacroDeck.Plugin.Analyzers" Version="$(MacroDeckSdkVersion)" />
+    <PackageVersion Include="MacroDeck.Plugin.Hosting" Version="$(MacroDeckSdkVersion)" />
+    <PackageVersion Include="MacroDeck.Plugin.Serilog" Version="$(MacroDeckSdkVersion)" />
+    <PackageVersion Include="MacroDeck.Plugin.Testing" Version="$(MacroDeckSdkVersion)" />
+    <PackageVersion Include="MacroDeck.Sdk" Version="$(MacroDeckSdkVersion)" />
+    <PackageVersion Include="MacroDeck.Ui" Version="$(MacroDeckSdkVersion)" />
+    <PackageVersion Include="MacroDeck.Ui.Model" Version="$(MacroDeckSdkVersion)" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageVersion Include="Lea" Version="1.5.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.14.0" />
+    <PackageVersion Include="NUnit" Version="4.3.2" />
+    <PackageVersion Include="NUnit.Analyzers" Version="4.7.0" />
+    <PackageVersion Include="NUnit3TestAdapter" Version="5.0.0" />
+  </ItemGroup>
+</Project>

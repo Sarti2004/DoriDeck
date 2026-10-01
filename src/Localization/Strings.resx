@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- The default-language file. Every translation is checked against it and the fallback chain ends
+       here, so it is required even for a plugin that ships one language. Add a language by adding
+       Localization/Strings.<culture>.resx beside it (Strings.de.resx, Strings.pt-BR.resx).
+       A dotted key becomes a nested class: Actions.LogMessage.Name is Strings.Actions.LogMessage.Name(). -->
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+
+  <data name="Actions.NotConnected" xml:space="preserve">
+    <value>Not connected to Dorico.</value>
+  </data>
+
+  <data name="Actions.ConnectDorico.Name" xml:space="preserve">
+    <value>Connect to Dorico</value>
+  </data>
+  <data name="Actions.ConnectDorico.Description" xml:space="preserve">
+    <value>Connects to Dorico.</value>
+  </data>
+  <data name="Actions.ConnectDorico.ConnectionFailed" xml:space="preserve">
+    <value>Could not connect to Dorico.</value>
+  </data>
+
+  <data name="Actions.RunScript.Name" xml:space="preserve">
+    <value>Run script</value>
+  </data>
+  <data name="Actions.RunScript.Description" xml:space="preserve">
+    <value>Runs a Lua script from the scripts folder.</value>
+  </data>
+  <data name="Actions.RunScript.ScriptName.Label" xml:space="preserve">
+    <value>Script name</value>
+  </data>
+  <data name="Actions.RunScript.ScriptName.Description" xml:space="preserve">
+    <value>The file name of the script to run.</value>
+  </data>
+  <data name="Actions.RunScript.ScriptName.Placeholder" xml:space="preserve">
+    <value>MyScript</value>
+  </data>
+  <data name="Actions.RunScript.ApplyToAllFlows.Label" xml:space="preserve">
+    <value>Apply to all flows</value>
+  </data>
+  <data name="Actions.RunScript.ApplyToAllFlows.Description" xml:space="preserve">
+    <value></value>
+  </data>
+
+  <data name="Actions.DynamicScript.Name" xml:space="preserve">
+    <value>Script - {scriptName}</value>
+  </data>
+  <data name="Actions.DynamicScript.Description" xml:space="preserve">
+    <value>Runs script '{scriptName}' in Dorico.</value>
+  </data>
+
+  <data name="Actions.RunCommand.Name" xml:space="preserve">
+    <value>Run command</value>
+  </data>
+  <data name="Actions.RunCommand.Description" xml:space="preserve">
+    <value>Runs a Dorico command.</value>
+  </data>
+  <data name="Actions.RunCommand.CommandName.Label" xml:space="preserve">
+    <value>Command</value>
+  </data>
+  <data name="Actions.RunCommand.CommandName.Description" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Actions.RunCommand.CommandName.Placeholder" xml:space="preserve">
+    <value>Edit.SelectAll</value>
+  </data>
+  <data name="Actions.RunCommand.ApplyToAllFlows.Label" xml:space="preserve">
+    <value>Apply to all flows</value>
+  </data>
+  <data name="Actions.RunCommand.ApplyToAllFlows.Description" xml:space="preserve">
+    <value></value>
+  </data>
+
+  <data name="Actions.RunCommands.Name" xml:space="preserve">
+    <value>Run command sequence</value>
+  </data>
+  <data name="Actions.RunCommands.Description" xml:space="preserve">
+    <value>Runs a sequence of Dorico commands, one per line.</value>
+  </data>
+  <data name="Actions.RunCommands.Commands.Label" xml:space="preserve">
+    <value>Commands</value>
+  </data>
+  <data name="Actions.RunCommands.Commands.Description" xml:space="preserve">
+    <value>One Dorico command per line. Use Macro Deck variables as ${{variable}}.</value>
+  </data>
+  <data name="Actions.RunCommands.Commands.Placeholder" xml:space="preserve">
+    <value>Edit.SelectAll&#10;Filter.Dynamics</value>
+  </data>
+  <data name="Actions.RunCommands.ApplyToAllFlows.Label" xml:space="preserve">
+    <value>Apply to all flows</value>
+  </data>
+  <data name="Actions.RunCommands.ApplyToAllFlows.Description" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Actions.RunCommands.NoValidCommands" xml:space="preserve">
+    <value>No valid commands found</value>
+  </data>
+
+  <data name="Actions.CustomScript.Name" xml:space="preserve">
+    <value>Custom script</value>
+  </data>
+  <data name="Actions.CustomScript.Description" xml:space="preserve">
+    <value>Runs an inline Lua snippet in Dorico.</value>
+  </data>
+  <data name="Actions.CustomScript.LuaScript.Label" xml:space="preserve">
+    <value>Lua script</value>
+  </data>
+  <data name="Actions.CustomScript.LuaScript.Description" xml:space="preserve">
+    <value>The Lua code to run. Use Macro Deck variables as ${{variable}}.</value>
+  </data>
+  <data name="Actions.CustomScript.LuaScript.Placeholder" xml:space="preserve">
+    <value>local app = DoApp.DoApp()</value>
+  </data>
+
+  <data name="Actions.InsertLyrics.Name" xml:space="preserve">
+    <value>Insert lyrics</value>
+  </data>
+  <data name="Actions.InsertLyrics.Description" xml:space="preserve">
+    <value>Syllabifies the text and Insert lyrics to Dorico</value>
+  </data>
+  <data name="Actions.InsertLyrics.Language.Label" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="Actions.InsertLyrics.Language.Description" xml:space="preserve">
+    <value>Syllabification language</value>
+  </data>
+  <data name="Actions.InsertLyrics.Verse.Label" xml:space="preserve">
+    <value>Insert to</value>
+  </data>
+  <data name="Actions.InsertLyrics.Verse.Description" xml:space="preserve">
+    <value>Lyric line to insert into: a verse number, Chorus or Auto</value>
+  </data>
+  <data name="Actions.InsertLyrics.Verse.Placeholder" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Actions.InsertLyrics.LyricsMode.Label" xml:space="preserve">
+    <value>Mode</value>
+  </data>
+  <data name="Actions.InsertLyrics.LyricsMode.Description" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Actions.InsertLyrics.UserDictionaryFolder.Label" xml:space="preserve">
+    <value>User dictionary folder</value>
+  </data>
+  <data name="Actions.InsertLyrics.UserDictionaryFolder.Description" xml:space="preserve">
+    <value>Copy this path to find or edit your custom syllabification dictionaries. Changing it does not change where they are loaded from.</value>
+  </data>
+  <data name="Actions.InsertLyrics.ClipboardEmpty" xml:space="preserve">
+    <value>The clipboard does not contain any text.</value>
+  </data>
+  <data name="Actions.InsertLyrics.NoLyricsFound" xml:space="preserve">
+    <value>No lyrics found in the clipboard.</value>
+  </data>
+
+  <data name="Actions.DynamicReplacement.Name" xml:space="preserve">
+    <value>Find/replace</value>
+  </data>
+  <data name="Actions.DynamicReplacement.Description" xml:space="preserve">
+    <value>Walks forward through dynamics, playing techniques and system text starting at the current selection, replacing every entry that exactly matches Find (e.g. mp to mf).</value>
+  </data>
+  <data name="Actions.DynamicReplacement.Find.Label" xml:space="preserve">
+    <value>Find</value>
+  </data>
+  <data name="Actions.DynamicReplacement.Find.Description" xml:space="preserve">
+    <value>The exact entry to search for.</value>
+  </data>
+  <data name="Actions.DynamicReplacement.Find.Placeholder" xml:space="preserve">
+    <value>mp</value>
+  </data>
+  <data name="Actions.DynamicReplacement.Replace.Label" xml:space="preserve">
+    <value>Replace with</value>
+  </data>
+  <data name="Actions.DynamicReplacement.Replace.Description" xml:space="preserve">
+    <value>The replacement text, or blank to delete matching entries instead.</value>
+  </data>
+  <data name="Actions.DynamicReplacement.Replace.Placeholder" xml:space="preserve">
+    <value>mf, leave blank to delete</value>
+  </data>
+
+  <data name="Actions.RespellNote.Name" xml:space="preserve">
+    <value>Respell note</value>
+  </data>
+  <data name="Actions.RespellNote.Description" xml:space="preserve">
+    <value>Respells the selected note to its enharmonic equivalent (e.g. C# to Db).</value>
+  </data>
+
+  <data name="Actions.PickupMeasure.Name" xml:space="preserve">
+    <value>Pickup measure</value>
+  </data>
+  <data name="Actions.PickupMeasure.Description" xml:space="preserve">
+    <value>Creates a pickup measure</value>
+  </data>
+
+  <data name="Actions.SectionHeader.Name" xml:space="preserve">
+    <value>Rehearsal mark</value>
+  </data>
+  <data name="Actions.SectionHeader.Description" xml:space="preserve">
+    <value>Insert rehearsal marks that combine an enclosed rehearsal letter with custom section text, such as “VERSE,” “CHORUS,” or “BRIDGE.”</value>
+  </data>
+  <data name="Actions.SectionHeader.Text.Label" xml:space="preserve">
+    <value>Text</value>
+  </data>
+  <data name="Actions.SectionHeader.Text.Description" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Actions.SectionHeader.Text.Placeholder" xml:space="preserve">
+    <value>VERSE</value>
+  </data>
+  <data name="Actions.SectionHeader.NewLine.Label" xml:space="preserve">
+    <value>New line</value>
+  </data>
+  <data name="Actions.SectionHeader.NewLine.Description" xml:space="preserve">
+    <value>Add new line Before the Text</value>
+  </data>
+
+  <data name="Actions.Tuplet.Name" xml:space="preserve">
+    <value>Tuplet</value>
+  </data>
+  <data name="Actions.Tuplet.Description" xml:space="preserve">
+    <value>Starts a tuplet run</value>
+  </data>
+  <data name="Actions.Tuplet.Ratio.Label" xml:space="preserve">
+    <value>Ratio</value>
+  </data>
+  <data name="Actions.Tuplet.Ratio.Description" xml:space="preserve">
+    <value>Leave blank for Dorico's default.</value>
+  </data>
+
+  <data name="Actions.ChoirReduction.Name" xml:space="preserve">
+    <value>Choir reduction</value>
+  </data>
+  <data name="Actions.ChoirReduction.Description" xml:space="preserve">
+    <value>Create a piano version of a choir score using cues in one click.</value>
+  </data>
+  <data name="Actions.ChoirReduction.Voices.Label" xml:space="preserve">
+    <value>Voices</value>
+  </data>
+  <data name="Actions.ChoirReduction.Voices.Description" xml:space="preserve">
+    <value></value>
+  </data>
+
+  <data name="ConfigFlow.StepTitle" xml:space="preserve">
+    <value>DoriDeck settings</value>
+  </data>
+  <data name="ConfigFlow.StepDescription" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="ConfigFlow.ScriptPathLabel" xml:space="preserve">
+    <value>Scripts folder</value>
+  </data>
+  <data name="ConfigFlow.ScriptPathDescription" xml:space="preserve">
+    <value>Dorico scripts path</value>
+  </data>
+  <data name="ConfigFlow.AutoLoadScriptsLabel" xml:space="preserve">
+    <value>Auto-load scripts as actions</value>
+  </data>
+  <data name="ConfigFlow.AutoLoadScriptsDescription" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="ConfigFlow.FlowSwitchDelayLabel" xml:space="preserve">
+    <value>Flow switch delay (ms)</value>
+  </data>
+  <data name="ConfigFlow.FlowSwitchDelayDescription" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="ConfigFlow.TaskWaitDelayLabel" xml:space="preserve">
+    <value>Task wait delay (ms)</value>
+  </data>
+  <data name="ConfigFlow.TaskWaitDelayDescription" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="ConfigFlow.DelayMustNotBeNegative" xml:space="preserve">
+    <value>The delay must be > 0</value>
+  </data>
+
+  <data name="FolderViews.PianoKeyboard.Name" xml:space="preserve">
+    <value>Piano keyboard</value>
+  </data>
+  <data name="FolderViews.PianoKeyboard.Description" xml:space="preserve">
+    <value>A virtual piano keyboard to enter notes in Dorico</value>
+  </data>
+  <data name="Actions.PlayNote.Name" xml:space="preserve">
+    <value>Play note</value>
+  </data>
+  <data name="Actions.PlayNote.Description" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Actions.PlayNote.Note.Label" xml:space="preserve">
+    <value>Note</value>
+  </data>
+  <data name="Actions.PlayNote.Note.Description" xml:space="preserve">
+    <value>The note to play.</value>
+  </data>
+</root>

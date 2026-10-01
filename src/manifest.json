@@ -1,0 +1,28 @@
+{
+  "$schema": "https://schemas.macro-deck.app/plugin-manifest-v1.schema.json",
+  "manifestVersion": 1,
+  "id": "com.sarti2004.dorideck",
+  "name": "DoriDeck",
+  "version": "0.3.1",
+  "description": "Control Dorico from Macro Deck",
+  "homepage": "https://github.com/Sarti2004/DoriDeck",
+  "repository": "https://github.com/Sarti2004/DoriDeck.git",
+  "icon": "Assets/icon.png",
+  "entrypoints": {
+    "win-x64": {
+      "executable": "runtimes/win-x64/DoriDeck.dll",
+      "runtime": { "kind": "FrameworkDependent", "dotnetVersion": "10.0" }
+    },
+    "osx-arm64": {
+      "executable": "runtimes/osx-arm64/DoriDeck.dll",
+      "runtime": { "kind": "FrameworkDependent", "dotnetVersion": "10.0" }
+    }
+  },
+  "publisher": {
+    "name": "Sarti2004"
+  },
+  "license": "MIT",
+  "compatibility": {
+    "macroDeck": ">=3.0.0-beta.12"
+  }
+}

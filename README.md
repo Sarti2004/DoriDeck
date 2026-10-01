@@ -1,6 +1,6 @@
 # DoriDeck
 
-An unofficial **Macro Deck 2** extension that provides an interface for running Dorico commands and scripts directly from Macro Deck.
+An unofficial **Macro Deck 3** extension that provides an interface for running Dorico commands and scripts directly from Macro Deck.
 
 This plugin is intended to make common Dorico workflows faster by allowing users to trigger recorded macros, execute Dorico API commands, and connect Macro Deck buttons to Dorico-related actions.
 
@@ -19,26 +19,26 @@ That said, your workflow may be different. If you are missing a feature, have an
 * Turn any phone or tablet into a control deck.
 * Use on the go — no wires required.
 * Simple to set up and use, with no overwhelming interfaces
-* It’s FREE!.
+* It’s ~~FREE!~~:cry:.
 
 ## Features
 
 Please see [wiki](https://github.com/Sarti2004/DoriDeck/wiki)
 
 ## Compatibility
-Macro Deck 2.15.* required
+Macro Deck 3
+Macro Deck 2.15 version [here](https://github.com/Sarti2004/DoriDeck/releases/download/V0.1.4/Sarti2004.DoriDeck.macroDeckPlugin)
 
 > This plugin has been tested with Dorico Pro 5.1.81 on Windows 11 with Macro Deck 2.15.0.
 
 ## Installation
 
 1. Open Macro Deck on your PC.
-2. Go to `Extensions`.
-3. Open the `Online` Extension Store tab.
-4. Search for `DoriDeck`.
-5. Click `Install`.
+2. Go to `Store`.
+3. Search for `DoriDeck`.
+4. Click `Install`.
 
-### Manual Installation
+### Manual Installation (Macro Deck 2 Only)
 
 1. Download the extension package. [Download](https://github.com/Sarti2004/DoriDeck/releases/download/V0.1.4/Sarti2004.DoriDeck.macroDeckPlugin)
 2. Open Macro Deck on your PC.
@@ -70,7 +70,6 @@ After installing the plugin, open Macro Deck and add one of the available Dorico
 | **Connect**     | Creates a connection between Macro Deck and Dorico.                                          | None          |
 
 ## Limitations
-* Macro Deck currently works on Windows only; it is not available for macOS.
 * Dorico must be running to execute actions successfully.
 * Some actions may depend on your Dorico version.
 * DoriDeck uses Dorico.Net, which depends on an unofficial Dorico API that can change, break, or be disabled at any moment.
@@ -99,7 +98,7 @@ When reporting an issue, please include:
 
 * Macro Deck version
 * Dorico version
-* Windows version
+* OS version
 * Steps to reproduce the issue
 * Expected behavior
 * Actual behavior
