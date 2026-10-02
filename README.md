@@ -4,6 +4,9 @@ An unofficial **Macro Deck** extension that provides an interface for running Do
 
 This plugin is intended to make common Dorico workflows faster by allowing users to trigger recorded macros, execute Dorico API commands, and connect Macro Deck buttons to Dorico-related actions.
 
+<img width="1916" height="1031" alt="ScreenshotMD3" src="https://github.com/user-attachments/assets/b1c7cb4b-31b8-4d56-86d5-ff2b83bdf3df" />
+
+
 ## Project Note
 
 I am not a power Dorico user. I use Dorico casually from time to time, mainly for small projects, especially choir-related work. This extension was created to make my own workflow faster and more comfortable, and it currently works very well for my needs.
