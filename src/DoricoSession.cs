@@ -21,7 +21,7 @@ public sealed class DoricoSession : IAsyncDisposable
 	private static readonly TimeSpan VariableLookupTimeout = TimeSpan.FromSeconds(1);
 
 	public const int DefaultFlowSwitchDelay = 150;
-	public const int DefaultTaskWaitDelay = 100;
+	public const int DefaultTaskWaitDelay = 200;
 
 	private readonly IScoreInterfaceRemote _remote;
 	private readonly IEventAggregator _eventAggregator;

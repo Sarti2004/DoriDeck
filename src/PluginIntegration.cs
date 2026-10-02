@@ -25,10 +25,10 @@ public sealed class PluginIntegration : IPluginIntegration, IVariableProvider, I
 		_staticActions =
 		[
 			new ConnectDoricoAction(_session),
-			new RunScriptAction(_session),
+			new RunScriptAction(_session, logger),
 			new RunCommandAction(_session),
 			new CustomScriptAction(_session),
-			new RunCommandsAction(_session),
+			new RunCommandsAction(_session, logger),
 			new InsertLyricsAction(_session, keyboard, logger),
 			new DynamicReplacementAction(_session, logger),
 			new RespellNoteAction(_session),

@@ -2,6 +2,7 @@ using System.Globalization;
 using MacroDeck.Localization;
 using MacroDeck.Sdk;
 using MacroDeck.Sdk.Actions;
+using Serilog;
 using ScoreInterface;
 using ScoreInterface.Commands;
 using ScoreInterface.Enums;
@@ -9,13 +10,15 @@ using ScoreInterface.Enums;
 namespace DoriDeck.Actions;
 
 /// Runs a sequence of Dorico commands.
-internal sealed class RunCommandsAction(DoricoSession session) : DoriDeckActionBase(session), IActionDefinition
+internal sealed class RunCommandsAction(DoricoSession session, ILogger logger) : DoriDeckActionBase(session), IActionDefinition
 {
 	private static readonly TimeSpan CommandTimeout = TimeSpan.FromSeconds(2);
 	private static readonly char[] LineSeparators = ['\r', '\n'];
 
 	private const string CommandsParameter = "commands";
 	private const string ApplyToAllFlowsParameter = "applyToAllFlows";
+
+	private readonly ILogger _logger = logger.ForContext<RunCommandsAction>();
 
 	public string Id => "run-commands";
 
@@ -40,9 +43,9 @@ internal sealed class RunCommandsAction(DoricoSession session) : DoriDeckActionB
 
 	public MacroDeckPlatform Platforms => MacroDeckPlatform.Windows | MacroDeckPlatform.MacOS;
 
-	public IActionExecutor CreateExecutor() => new Executor(Session);
+	public IActionExecutor CreateExecutor() => new Executor(Session, _logger);
 
-	private sealed class Executor(DoricoSession session) : IActionExecutor
+	private sealed class Executor(DoricoSession session, ILogger logger) : IActionExecutor
 	{
 		public async Task<ActionResult> ExecuteAsync(ActionExecutionContext context)
 		{
@@ -84,12 +87,23 @@ internal sealed class RunCommandsAction(DoricoSession session) : DoriDeckActionB
 			{
 				for (var flowId = 0; flowId < session.FlowsCount; flowId++)
 				{
-					await dorico.SendRequestAsync(
-						new Command("Edit.GoToFlow", new CommandParameter("FlowID", flowId.ToString(CultureInfo.InvariantCulture))),
-						context.CancellationToken);
-					await Task.Delay(session.FlowSwitchDelay, context.CancellationToken);
-
-					await RunSequenceAsync(dorico, commands, context.CancellationToken);
+					try
+					{
+						await dorico.SendRequestAsync(
+							new Command("Edit.GoToFlow", new CommandParameter("FlowID", flowId.ToString(CultureInfo.InvariantCulture))),
+							context.CancellationToken);
+						await Task.Delay(session.FlowSwitchDelay, context.CancellationToken);
+						await RunSequenceAsync(dorico, commands, context.CancellationToken);
+					}
+					catch (OperationCanceledException) when (context.CancellationToken.IsCancellationRequested)
+					{
+						throw;
+					}
+					catch (Exception)
+					{
+						//logger.Warning(ex, "Could not switch to flow {FlowId}; continuing with the next flow.", flowId);
+						continue;
+					}
 				}
 			}
 			else
@@ -113,31 +127,44 @@ internal sealed class RunCommandsAction(DoricoSession session) : DoriDeckActionB
 			{
 				foreach (var commandName in commands)
 				{
-					var (actionName, parameters) = ParseCommand(commandName.Replace(",", "\\\\,"));
-					var targetMode = GetTargetMode(actionName);
-
-					if (targetMode != WindowMode.Undefined && targetMode != currentMode)
+					try
 					{
-						await dorico.SendRequestAsync(
-							new Command("Window.SwitchMode", new CommandParameter("WindowMode", targetMode.ToString())),
-							cancellationToken).WaitAsync(CommandTimeout, cancellationToken);
+						var (actionName, parameters) = ParseCommand(commandName.Replace(",", "\\\\,"));
+						var targetMode = GetTargetMode(actionName);
 
-						currentMode = targetMode;
+						if (targetMode != WindowMode.Undefined && targetMode != currentMode)
+						{
+							await dorico.SendRequestAsync(
+								new Command("Window.SwitchMode", new CommandParameter("WindowMode", targetMode.ToString())),
+								cancellationToken).WaitAsync(CommandTimeout, cancellationToken);
+
+							currentMode = targetMode;
+						}
+
+						await dorico.SendRequestAsync(new Command(actionName, parameters.ToArray()), cancellationToken)
+							.WaitAsync(CommandTimeout, cancellationToken);
+
+						await Task.Delay(session.TaskWaitDelay, cancellationToken);
 					}
-
-					await dorico.SendRequestAsync(new Command(actionName, parameters.ToArray()), cancellationToken)
-						.WaitAsync(CommandTimeout, cancellationToken);
-
-					await Task.Delay(session.TaskWaitDelay, cancellationToken);
+					catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+					{
+						throw;
+					}
+					catch (Exception)
+					{
+						//logger.Warning(ex, "Dorico command {CommandName} failed; continuing with the next command.", commandName);
+					}
 				}
 			}
 			finally
 			{
 				if (originalMode != WindowMode.Undefined && currentMode != WindowMode.Undefined && originalMode != currentMode)
 				{
+					
 					await dorico.SendRequestAsync(
 						new Command("Window.SwitchMode", new CommandParameter("WindowMode", originalMode.ToString())),
 						cancellationToken);
+					
 				}
 			}
 		}

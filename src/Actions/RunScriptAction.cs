@@ -2,19 +2,22 @@ using System.Globalization;
 using MacroDeck.Localization;
 using MacroDeck.Sdk;
 using MacroDeck.Sdk.Actions;
+using Serilog;
 using ScoreInterface.Commands;
 using System.IO;
 
 namespace DoriDeck.Actions;
 
 /// Runs a Lua script from the Dorico scripts folder.
-internal sealed class RunScriptAction(DoricoSession session) :
+internal sealed class RunScriptAction(DoricoSession session, ILogger logger) :
 	DoriDeckActionBase(session),
 	IActionDefinition,
 	IDynamicOptionsActionDefinition
 {
 	private const string ScriptNameParameter = "scriptName";
 	private const string ApplyToAllFlowsParameter = "applyToAllFlows";
+
+	private readonly ILogger _logger = logger.ForContext<RunScriptAction>();
 
 	public string Id => "run-script";
 
@@ -118,9 +121,9 @@ internal sealed class RunScriptAction(DoricoSession session) :
 		}
 	}
 
-	public IActionExecutor CreateExecutor() => new Executor(Session);
+	public IActionExecutor CreateExecutor() => new Executor(Session, _logger);
 
-	private sealed class Executor(DoricoSession session) : IActionExecutor
+	private sealed class Executor(DoricoSession session, ILogger logger) : IActionExecutor
 	{
 		public async Task<ActionResult> ExecuteAsync(ActionExecutionContext context)
 		{
@@ -148,17 +151,51 @@ internal sealed class RunScriptAction(DoricoSession session) :
 			{
 				for (var flowId = 0; flowId < session.FlowsCount; flowId++)
 				{
-					await dorico.SendRequestAsync(
-						new Command("Edit.GoToFlow", new CommandParameter("FlowID", flowId.ToString(CultureInfo.InvariantCulture))),
-						context.CancellationToken);
-					await Task.Delay(session.FlowSwitchDelay, context.CancellationToken);
+					try
+					{
+						await dorico.SendRequestAsync(
+							new Command("Edit.GoToFlow", new CommandParameter("FlowID", flowId.ToString(CultureInfo.InvariantCulture))),
+							context.CancellationToken);
+						await Task.Delay(session.FlowSwitchDelay, context.CancellationToken);
+					}
+					catch (OperationCanceledException) when (context.CancellationToken.IsCancellationRequested)
+					{
+						throw;
+					}
+					catch (Exception ex)
+					{
+						logger.Warning(ex, "Could not switch to flow {FlowId}; continuing with the next flow.", flowId);
+						continue;
+					}
 
-					await RunScriptAsync(dorico, scriptName, context.CancellationToken);
+					try
+					{
+						await RunScriptAsync(dorico, scriptName, context.CancellationToken);
+					}
+					catch (OperationCanceledException) when (context.CancellationToken.IsCancellationRequested)
+					{
+						throw;
+					}
+					catch (Exception ex)
+					{
+						logger.Warning(ex, "Could not run script {ScriptName} for flow {FlowId}; continuing with the next flow.", scriptName, flowId);
+					}
 				}
 			}
 			else
 			{
-				await RunScriptAsync(dorico, scriptName, context.CancellationToken);
+				try
+				{
+					await RunScriptAsync(dorico, scriptName, context.CancellationToken);
+				}
+				catch (OperationCanceledException) when (context.CancellationToken.IsCancellationRequested)
+				{
+					throw;
+				}
+				catch (Exception ex)
+				{
+					logger.Warning(ex, "Could not run script {ScriptName}.", scriptName);
+				}
 			}
 
 			return ActionResult.Success();
