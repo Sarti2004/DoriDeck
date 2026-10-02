@@ -1,7 +1,7 @@
 using MacroDeck.Ui.Components;
 using MacroDeck.Ui.Dsl;
 
-namespace MacroDeck.PianoFolder.Piano;
+namespace DoriDeck.PianoFolder.Piano;
 
 /// Visual system for the virtual piano.  
 /// Macro Deck UI modifier gradients used for now, need to be replaced with images later.

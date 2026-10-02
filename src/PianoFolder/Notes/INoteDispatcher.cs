@@ -1,6 +1,6 @@
 using MacroDeck.Sdk.Actions;
 
-namespace MacroDeck.PianoFolder.Notes;
+namespace DoriDeck.PianoFolder.Notes;
 
 
 public interface INoteDispatcher

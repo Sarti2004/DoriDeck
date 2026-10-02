@@ -1,11 +1,11 @@
 using MacroDeck.Localization;
-using MacroDeck.PianoFolder.Notes;
-using MacroDeck.PianoFolder.Piano;
+using DoriDeck.PianoFolder.Notes;
+using DoriDeck.PianoFolder.Piano;
 using MacroDeck.Sdk;
 using MacroDeck.Sdk.Actions;
 using DoriDeck;
 
-namespace MacroDeck.PianoFolder.Actions;
+namespace DoriDeck.PianoFolder.Actions;
 
 public sealed class PlayNoteAction : IActionDefinition
 {

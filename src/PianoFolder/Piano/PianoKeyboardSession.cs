@@ -4,13 +4,13 @@ using MacroDeck.Ui.Model.Nodes;
 using MacroDeck.Ui.Model.Patches;
 using MacroDeck.Ui.Runtime;
 
-namespace MacroDeck.PianoFolder.Piano;
+namespace DoriDeck.PianoFolder.Piano;
 
 /// <summary>
 /// Adapts a <see cref="UiView"/> (the reactive DSL runtime) to the wire-level <see cref="IUiSession"/>
 /// contract the host talks to - forwarding <c>BuildTree</c>/<c>DrainPatches</c>/<c>Changed</c>/<c>Dispatch</c>
 /// straight through, and translating the view's <c>HandlerFaulted</c> event into <c>IUiSession.Faulted</c>.
-/// One instance is created per folder-view session by <see cref="MacroDeck.PianoFolder.PluginIntegration"/>.
+/// One instance is created per folder-view session by <see cref="DoriDeck.PianoFolder.PluginIntegration"/>.
 /// </summary>
 public sealed class PianoKeyboardSession : IUiSession
 {

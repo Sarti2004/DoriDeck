@@ -1,6 +1,6 @@
 using MacroDeck.Ui.Dsl;
 
-namespace MacroDeck.PianoFolder.Piano;
+namespace DoriDeck.PianoFolder.Piano;
 
 public static class PianoKeyboardModel
 {

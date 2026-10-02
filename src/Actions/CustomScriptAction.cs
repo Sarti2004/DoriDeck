@@ -21,11 +21,11 @@ internal sealed class CustomScriptAction(DoricoSession session) : DoriDeckAction
 
 	public IReadOnlyList<ActionParameter> Parameters { get; } =
 	[
-		ActionParameter.Text(
+		ActionParameter.MultilineText(
 			LuaScriptParameter,
 			label: Strings.Actions.CustomScript.LuaScript.Label(),
 			description: Strings.Actions.CustomScript.LuaScript.Description(),
-			placeholder: Strings.Actions.CustomScript.LuaScript.Placeholder(),
+			defaultValue: "local app = DoApp.DoApp()",
 			required: true),
 	];
 

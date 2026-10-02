@@ -3,7 +3,7 @@ using MacroDeck.Plugin.Serilog;
 using DoriDeck;
 using DoriDeck.Services;
 using Lea;
-using MacroDeck.PianoFolder.Notes;
+using DoriDeck.PianoFolder.Notes;
 using Microsoft.Extensions.DependencyInjection;
 using ScoreInterface;
 using ScoreInterface.Comms;
@@ -26,7 +26,7 @@ var plugin = builder
 	.UseMacroDeckLogging()
 	.UseLocalization(Strings.LocalizationCatalog)
 	.RegisterIntegration<PluginIntegration>()
-	.RegisterIntegration<MacroDeck.PianoFolder.PluginIntegration>()
+	.RegisterIntegration<DoriDeck.PianoFolder.PluginIntegration>()
 	.Build();
 
 await plugin.RunAsync();

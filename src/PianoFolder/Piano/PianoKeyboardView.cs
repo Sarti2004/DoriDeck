@@ -2,7 +2,7 @@ using System.Globalization;
 using MacroDeck.Ui.Components;
 using MacroDeck.Ui.Dsl;
 
-namespace MacroDeck.PianoFolder.Piano;
+namespace DoriDeck.PianoFolder.Piano;
 
 /// <summary>
 /// Builds the piano keyboard folder view tree from a <see cref="PianoKeyboardViewModel"/>.

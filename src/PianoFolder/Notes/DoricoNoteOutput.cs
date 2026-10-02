@@ -7,7 +7,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace MacroDeck.PianoFolder.Notes;
+namespace DoriDeck.PianoFolder.Notes;
 
 public sealed class DoricoNoteOutput : INoteOutput
 {

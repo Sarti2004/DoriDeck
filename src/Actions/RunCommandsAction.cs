@@ -8,7 +8,7 @@ using ScoreInterface.Enums;
 
 namespace DoriDeck.Actions;
 
-/// Runs a sequence of Dorico commands, not ready yet, multiline needs to be implemented
+/// Runs a sequence of Dorico commands.
 internal sealed class RunCommandsAction(DoricoSession session) : DoriDeckActionBase(session), IActionDefinition
 {
 	private static readonly TimeSpan CommandTimeout = TimeSpan.FromSeconds(2);
@@ -25,7 +25,7 @@ internal sealed class RunCommandsAction(DoricoSession session) : DoriDeckActionB
 
 	public IReadOnlyList<ActionParameter> Parameters { get; } =
 	[
-		ActionParameter.Text(
+		ActionParameter.MultilineText(
 			CommandsParameter,
 			label: Strings.Actions.RunCommands.Commands.Label(),
 			description: Strings.Actions.RunCommands.Commands.Description(),

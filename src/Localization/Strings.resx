@@ -120,7 +120,7 @@
     <value>The Lua code to run. Use Macro Deck variables as ${{variable}}.</value>
   </data>
   <data name="Actions.CustomScript.LuaScript.Placeholder" xml:space="preserve">
-    <value>local app = DoApp.DoApp()</value>
+    <value></value>
   </data>
 
   <data name="Actions.InsertLyrics.Name" xml:space="preserve">

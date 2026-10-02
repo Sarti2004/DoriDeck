@@ -1,7 +1,7 @@
-using MacroDeck.PianoFolder.Notes;
+using DoriDeck.PianoFolder.Notes;
 using MacroDeck.Ui.Runtime;
 
-namespace MacroDeck.PianoFolder.Piano;
+namespace DoriDeck.PianoFolder.Piano;
 
 public sealed class PianoKeyboardViewModel
 {

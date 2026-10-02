@@ -1,4 +1,4 @@
-namespace MacroDeck.PianoFolder.Piano;
+namespace DoriDeck.PianoFolder.Piano;
 
 
 public sealed record PianoKey(string NoteId, string ElementKey, int MidiNumber, bool IsAccidental);

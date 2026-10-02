@@ -1,10 +1,8 @@
 # DoriDeck
 
-An unofficial **Macro Deck 3** extension that provides an interface for running Dorico commands and scripts directly from Macro Deck.
+An unofficial **Macro Deck** extension that provides an interface for running Dorico commands and scripts directly from Macro Deck.
 
 This plugin is intended to make common Dorico workflows faster by allowing users to trigger recorded macros, execute Dorico API commands, and connect Macro Deck buttons to Dorico-related actions.
-
-[![YouTube](http://i.ytimg.com/vi/Csyye0_7a9o/maxresdefault.jpg)](https://www.youtube.com/watch?v=Csyye0_7a9o)
 
 ## Project Note
 
@@ -27,9 +25,10 @@ Please see [wiki](https://github.com/Sarti2004/DoriDeck/wiki)
 
 ## Compatibility
 Macro Deck 3
+
 Macro Deck 2.15 version [here](https://github.com/Sarti2004/DoriDeck/releases/download/V0.1.4/Sarti2004.DoriDeck.macroDeckPlugin)
 
-> This plugin has been tested with Dorico Pro 5.1.81 on Windows 11 with Macro Deck 2.15.0.
+> This plugin has been tested with Dorico Pro 5.1.81 on Windows 11 with Macro Deck 3.0.0-beta and 2.15.0.
 
 ## Installation
 
@@ -56,23 +55,23 @@ After installing the plugin, open Macro Deck and add one of the available Dorico
 
 ### Available Actions
 
-| Action          | Description                                                                                  | Configuration |
-| --------------- | -------------------------------------------------------------------------------------------- | ------------- |
-| **Run Script**  | Executes a recorded Dorico macro.                                                            | Script name   |
-| **Run Command** | Executes a Dorico command through the API. Examples of available commands can be found [here](https://github.com/Sarti2004/DoriDeck/wiki/DoriDeck-Command-Examples). | Command text  |
-| **Command Sequence** | Executes a set of Dorico commands through the API. Examples of available commands can be found [here](https://github.com/Sarti2004/DoriDeck/wiki/DoriDeck-Command-Examples). | Command text  |
-| **Find/Replace**     | Replaces Dynamic/Playing Technique in a score (E.g.: p->f, portato->marcato).                                          | Find/Replace          |
-| **Insert Lyrics**    | Syllabify and Paste Lyrics to Dorico.                                          |           |
-| **Pickup Measure**    | Simplify creating a pickup measure                                          |           |
-| **Rehersal Mark**    | Custom rehearsal mark (Section header)                                          |           |
-| **Respell Note**    | Enharmonically Respell note                                         |           |
-| **Choir Reduction**    | Create a piano version of a choir score using cues                                         | Names of the voices         |
-| **Connect**     | Creates a connection between Macro Deck and Dorico.                                          | None          |
+| Action          | Description                                                                                  | 
+| --------------- | -------------------------------------------------------------------------------------------- | 
+| **Run Script**  | Executes a recorded Dorico macro.                                                            | 
+| **Run Command** | Executes a Dorico command through the API. Examples of available commands can be found [here](https://github.com/Sarti2004/DoriDeck/wiki/DoriDeck-Command-Examples). | 
+| **Find/Replace**     | Replaces Dynamic/Playing Technique in a score (E.g.: p->f portato->marcato).            | 
+| **Insert Lyrics**    | Syllabify and Paste Lyrics to Dorico.                                                   |
+| **Pickup Measure**   | Simplify creating a pickup measure                                                      |
+| **Rehersal Mark**    | Custom rehearsal mark (Section header)                                                  |
+| **Respell Note**     | Enharmonically Respell note                                                             | 
+| **Choir Reduction**  | Create a piano version of a choir score using cues                                      | 
+| **Connect**          | Creates a connection between Macro Deck and Dorico.                                     |
+| **Clear Connection Token**  | Re-authenticates the connection to Dorico. Use this if MD cannot connect to Dorico.  |
 
 ## Limitations
 * Dorico must be running to execute actions successfully.
 * Some actions may depend on your Dorico version.
-* DoriDeck uses Dorico.Net, which depends on an unofficial Dorico API that can change, break, or be disabled at any moment.
+* DoriDeck uses unofficial Dorico API that can change, break, or be disabled at any moment.
 
 ## Disclaimer
 

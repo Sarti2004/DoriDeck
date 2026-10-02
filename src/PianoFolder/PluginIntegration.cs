@@ -1,6 +1,6 @@
-using MacroDeck.PianoFolder.Actions;
-using MacroDeck.PianoFolder.Notes;
-using MacroDeck.PianoFolder.Piano;
+using DoriDeck.PianoFolder.Actions;
+using DoriDeck.PianoFolder.Notes;
+using DoriDeck.PianoFolder.Piano;
 using DoriDeck;
 using MacroDeck.Sdk;
 using MacroDeck.Sdk.Actions;
@@ -10,7 +10,7 @@ using MacroDeck.Ui.Model.Surfaces;
 using MacroDeck.Ui.Runtime;
 using Serilog;
 
-namespace MacroDeck.PianoFolder;
+namespace DoriDeck.PianoFolder;
 
 /// <summary>
 /// The plugin's one integration: declares the <c>play-note</c> action, registers the piano keyboard

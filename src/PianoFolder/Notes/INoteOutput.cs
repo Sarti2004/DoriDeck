@@ -1,4 +1,4 @@
-namespace MacroDeck.PianoFolder.Notes;
+namespace DoriDeck.PianoFolder.Notes;
 
 
 public interface INoteOutput

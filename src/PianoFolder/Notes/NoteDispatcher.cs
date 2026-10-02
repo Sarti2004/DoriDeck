@@ -1,9 +1,9 @@
 using MacroDeck.Localization;
-using MacroDeck.PianoFolder.Piano;
+using DoriDeck.PianoFolder.Piano;
 using MacroDeck.Sdk.Actions;
 using Serilog;
 
-namespace MacroDeck.PianoFolder.Notes;
+namespace DoriDeck.PianoFolder.Notes;
 
 public sealed class NoteDispatcher(INoteOutput output, ILogger logger) : INoteDispatcher
 {

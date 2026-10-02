@@ -3,7 +3,7 @@
   "manifestVersion": 1,
   "id": "com.sarti2004.dorideck",
   "name": "DoriDeck",
-  "version": "0.3.1-beta.6",
+  "version": "0.3.1-beta.8",
   "description": "Control Dorico from Macro Deck",
   "homepage": "https://github.com/Sarti2004/DoriDeck",
   "repository": "https://github.com/Sarti2004/DoriDeck.git",
@@ -24,5 +24,11 @@
   "license": "MIT",
   "compatibility": {
     "macroDeck": ">=3.0.0-beta.10"
+  },
+  "ai": {
+    "interaction": false,
+    "generatedContent": false,
+    "generatedAssets": false,
+    "services": []
   }
 }
