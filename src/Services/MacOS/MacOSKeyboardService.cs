@@ -158,10 +158,8 @@ internal sealed class MacOSKeyboardService : IKeyboardService
 
         try
         {
-            if (flags != 0)
-            {
-                CGEventSetFlags(keyEvent, flags);
-            }
+            // keyboard fix, triggers shortcuts otherwise (like Ctrl+M in replacements:))
+            CGEventSetFlags(keyEvent, flags);
 
             CGEventPost(CGHidEventTap, keyEvent);
         }
@@ -186,6 +184,9 @@ internal sealed class MacOSKeyboardService : IKeyboardService
 
         try
         {
+            // keyboard fix
+            CGEventSetFlags(keyEvent, 0);
+
             var buffer = new ushort[unicodeChars.Length];
             for (var i = 0; i < unicodeChars.Length; i++)
             {

@@ -12,6 +12,13 @@ namespace DoriDeck.Services.MacOS;
 internal static class ObjectiveCRuntime
 {
 	private const string ObjCLibrary = "/usr/lib/libobjc.dylib";
+	private const string AppKitFramework = "/System/Library/Frameworks/AppKit.framework/AppKit";
+
+	static ObjectiveCRuntime()
+	{
+		// it looks like it doesn't work without it.
+		NativeLibrary.Load(AppKitFramework);
+	}
 
 	[DllImport(ObjCLibrary, CharSet = CharSet.Ansi, BestFitMapping = false)]
 	private static extern IntPtr objc_getClass(string name);
@@ -34,6 +41,9 @@ internal static class ObjectiveCRuntime
 	[DllImport(ObjCLibrary, EntryPoint = "objc_msgSend")]
 	private static extern long objc_msgSend_long(IntPtr receiver, IntPtr selector);
 
+	[DllImport(ObjCLibrary, EntryPoint = "objc_msgSend")]
+	private static extern byte objc_msgSend_bool_ulong(IntPtr receiver, IntPtr selector, ulong arg1);
+
 	public static IntPtr GetClass(string name) => objc_getClass(name);
 
 	public static IntPtr Selector(string name) => sel_registerName(name);
@@ -52,6 +62,9 @@ internal static class ObjectiveCRuntime
 
 	public static long SendInt64(IntPtr receiver, IntPtr selector) =>
 		receiver == IntPtr.Zero ? 0 : objc_msgSend_long(receiver, selector);
+
+	public static bool SendBool(IntPtr receiver, IntPtr selector, ulong arg1) =>
+		receiver != IntPtr.Zero && objc_msgSend_bool_ulong(receiver, selector, arg1) != 0;
 }
 
 /// <summary>

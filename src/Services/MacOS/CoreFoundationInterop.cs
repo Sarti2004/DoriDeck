@@ -4,6 +4,7 @@ using System.Runtime.InteropServices;
 namespace DoriDeck.Services.MacOS;
 
 /// <summary>
+/// some copy/paste, sorry.
 /// CoreFoundation bindings for the handful of operations used to read and build NSString, NSArray
 /// and NSData values. CFString/NSString, CFArray/NSArray and CFData/NSData are toll-free bridged,
 /// so a pointer obtained from an Objective-C message can be passed directly into these functions.
@@ -23,13 +24,13 @@ internal static class CoreFoundationInterop
 	[DllImport(CoreFoundationLibrary)]
 	private static extern void CFRelease(IntPtr cf);
 
-	[DllImport(CoreFoundationLibrary)]
+	[DllImport(CoreFoundationLibrary, CharSet = CharSet.Unicode)]
 	private static extern IntPtr CFStringCreateWithCharacters(IntPtr alloc, char[] chars, long numChars);
 
 	[DllImport(CoreFoundationLibrary)]
 	private static extern long CFStringGetLength(IntPtr theString);
 
-	[DllImport(CoreFoundationLibrary)]
+	[DllImport(CoreFoundationLibrary, CharSet = CharSet.Unicode)]
 	private static extern void CFStringGetCharacters(IntPtr theString, CFRange range, char[] buffer);
 
 	[DllImport(CoreFoundationLibrary)]

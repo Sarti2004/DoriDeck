@@ -8,6 +8,12 @@ public sealed class ApplicationFocusService : IApplicationFocusService
 	{
 		ArgumentException.ThrowIfNullOrWhiteSpace(processNamePrefix);
 
+		if (OperatingSystem.IsMacOS())
+		{
+			// MacOS activates Dorico once. Nothing to check here.
+			return true;
+		}
+
 		var window =
 			WindowAndClipboardInterop.GetForegroundWindowHandle();
 

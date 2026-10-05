@@ -1,4 +1,5 @@
 using DoriDeck.Services;
+using DoriDeck.Services.MacOS;
 using MacroDeck.Localization;
 using MacroDeck.Sdk;
 using MacroDeck.Sdk.Actions;
@@ -66,6 +67,11 @@ internal sealed class ChoirReductionAction(DoricoSession session, IKeyboardServi
 			}
 
 			var token = context.CancellationToken;
+
+			if (OperatingSystem.IsMacOS() && !NSRunningApplicationInterop.ActivateDorico())
+			{
+				return ActionResult.Failed(ActionErrorCodes.Unavailable, Strings.Actions.NotConnected());
+			}
 
 			await dorico.SetLayoutOptionsAsync([new OptionValue("cueLayoutOptions.showCues", "false")], cancellationToken: token);
 			await Task.Delay(300, token);

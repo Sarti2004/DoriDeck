@@ -2,6 +2,7 @@ using System.Diagnostics;
 using System.Text;
 using System.Text.RegularExpressions;
 using DoriDeck.Services;
+using DoriDeck.Services.MacOS;
 using DoriDeck.Syllabifiers;
 using MacroDeck.Localization;
 using MacroDeck.Sdk;
@@ -190,6 +191,11 @@ internal sealed class InsertLyricsAction(DoricoSession session, IKeyboardService
 
 			var dorico = await GetConnectedRemoteAsync(session, context.CancellationToken);
 			if (dorico == null)
+			{
+				return ActionResult.Failed(ActionErrorCodes.Unavailable, Strings.Actions.NotConnected());
+			}
+
+			if (OperatingSystem.IsMacOS() && !NSRunningApplicationInterop.ActivateDorico())
 			{
 				return ActionResult.Failed(ActionErrorCodes.Unavailable, Strings.Actions.NotConnected());
 			}

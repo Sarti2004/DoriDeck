@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using DoriDeck.Services.MacOS;
 using Lea;
 using ScoreInterface;
 using ScoreInterface.Commands;
@@ -99,6 +100,11 @@ public sealed class DynamicReplacementWalker : IDisposable
 			}
 
 			var remote = _session.Remote;
+
+			if (OperatingSystem.IsMacOS() && !NSRunningApplicationInterop.ActivateDorico())
+			{
+				throw new InvalidOperationException("Dorico is not running.");
+			}
 
 			EnsureDoricoIsForeground();
 
@@ -460,7 +466,7 @@ public sealed class DynamicReplacementWalker : IDisposable
 	}
 
 	private void EnsureDoricoIsForeground() =>
-		_applicationFocus.EnsureForeground("Dorico", "Dorico must remain the foreground application while dynamic replacement is running.");
+		_applicationFocus.EnsureForeground("Dorico", "Dorico must be running to continue dynamic replacement.");
 
 	private bool IsDoricoForeground() => _applicationFocus.IsForeground("Dorico");
 
