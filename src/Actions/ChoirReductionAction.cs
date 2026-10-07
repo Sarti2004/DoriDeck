@@ -35,6 +35,7 @@ internal sealed class ChoirReductionAction(DoricoSession session, IKeyboardServi
 			VoicesParameter,
 			label: Strings.Actions.ChoirReduction.Voices.Label(),
 			description: Strings.Actions.ChoirReduction.Voices.Description(),
+			defaultValue: DefaultVoices,
 			placeholder: DefaultVoices,
 			required: false),
 	];

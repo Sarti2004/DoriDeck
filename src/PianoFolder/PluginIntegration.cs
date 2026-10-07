@@ -136,6 +136,15 @@ public sealed class PluginIntegration : IPluginIntegration, IFolderViewProvider,
         void OnNoteInputActiveChanged(bool active) => model.NoteInputActive.Value = active;
         _dispatcher.NoteInputActiveChanged += OnNoteInputActiveChanged;
 
+        if (_dispatcher.RhythmDots is { } rhythmDots)
+        {
+            model.RhythmDots.Value = rhythmDots;
+        }
+
+        // Keeps the rhythm dots toggle on the value Dorico is using, including changes made in Dorico itself.
+        void OnRhythmDotsChanged(int dots) => model.RhythmDots.Value = dots;
+        _dispatcher.RhythmDotsChanged += OnRhythmDotsChanged;
+
         var view = new UiView(request.Surface, PianoKeyboardView.Build(model));
         return Task.FromResult<IUiSession?>(new PianoKeyboardSession(
             view,
@@ -143,6 +152,7 @@ public sealed class PluginIntegration : IPluginIntegration, IFolderViewProvider,
             {
                 _dispatcher.DurationChanged -= OnDurationChanged;
                 _dispatcher.NoteInputActiveChanged -= OnNoteInputActiveChanged;
+                _dispatcher.RhythmDotsChanged -= OnRhythmDotsChanged;
             }));
     }
 

@@ -53,6 +53,14 @@ public sealed class DoricoNoteOutput : INoteOutput
         remove => _session.NoteInputActiveChanged -= value;
     }
 
+    public int? RhythmDots => _session.RhythmDots;
+
+    public event Action<int>? RhythmDotsChanged
+    {
+        add => _session.RhythmDotsChanged += value;
+        remove => _session.RhythmDotsChanged -= value;
+    }
+
     private void OnDoricoDurationChanged(string doricoNoteValue)
     {
         // leave the selection as is for unknown durations.
@@ -146,6 +154,13 @@ public sealed class DoricoNoteOutput : INoteOutput
 
     public Task SendForwardAsync(CancellationToken cancellationToken) =>
         QueueSendAsync(() => SendCommandAsync(new Command("NoteInput.MoveRight"))).WaitAsync(cancellationToken);
+
+    public Task SendRhythmDotsAsync(int rhythmDots, CancellationToken cancellationToken) =>
+        QueueSendAsync(() => SendCommandAsync(
+            new Command(
+                "NoteInput.SetDotted",
+                new CommandParameter("Value", "1"),
+                new CommandParameter("Set", rhythmDots > 0 ? "true" : "false")))).WaitAsync(cancellationToken);
 
     /// <summary>The Dorico note value name for a duration selected in the note input row.</summary>
     private static string DoricoNoteValue(NoteDuration duration) => duration switch

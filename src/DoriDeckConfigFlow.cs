@@ -121,7 +121,7 @@ internal sealed class DoriDeckConfigFlow(DoricoSession session) : IConfigFlow
 			ActionParameter.Folder(
 				DoriDeckConfigKeys.ScriptPath,
 				label: Strings.ConfigFlow.ScriptPathLabel(),
-				description: Strings.ConfigFlow.ScriptPathDescription(),
+				description: $"Default: {DefaultScriptPath(session.DoricoVersion)}",
 				//defaultValue: DefaultScriptPath,
 				required: false),
 			ActionParameter.Toggle(

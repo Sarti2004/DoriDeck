@@ -96,6 +96,8 @@ public sealed class DoricoSession : IAsyncDisposable
 
 	public int RhythmDots { get; private set; }
 
+	public event Action<int>? RhythmDotsChanged;
+
 	public bool NoteInputActive { get; private set; }
 
 	/// <summary>Flag reported from Dorico</summary>
@@ -477,8 +479,9 @@ public sealed class DoricoSession : IAsyncDisposable
 
 		if (status.RhythmDots.HasValue)
 		{
-			RhythmDots = status.RhythmDots.Value;
+			SetRhythmDots(status.RhythmDots.Value);
 		}
+
 		if (status.RestMode.HasValue)
 		{
 			RestMode = status.RestMode.Value;
@@ -495,6 +498,15 @@ public sealed class DoricoSession : IAsyncDisposable
 		{
 			Duration = status.Duration;
 			DurationChanged?.Invoke(Duration);
+		}
+	}
+
+	private void SetRhythmDots(int active)
+	{
+		if (active != RhythmDots)
+		{
+			RhythmDots = active;
+			RhythmDotsChanged?.Invoke(active);
 		}
 	}
 

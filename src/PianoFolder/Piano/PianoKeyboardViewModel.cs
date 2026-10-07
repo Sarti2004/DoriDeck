@@ -33,6 +33,8 @@ public sealed class PianoKeyboardViewModel
 
     public UiState<NoteDuration> Duration { get; } = new(NoteDuration.Quarter);
 
+    public UiState<int> RhythmDots { get; } = new(0);
+
     public UiState<bool> NoteInputActive { get; } = new(false);
 
     public UiState<int> Octaves { get; }

@@ -30,6 +30,9 @@ public sealed class NoteDispatcher(INoteOutput output, ILogger logger) : INoteDi
     public Task<ActionResult> DispatchDurationAsync(NoteDuration duration, CancellationToken cancellationToken) =>
         SendAsync(ct => output.SendDurationAsync(duration, ct), $"duration {duration}", cancellationToken);
 
+    public Task<ActionResult> DispatchRhythmDotsAsync(int rhythmDots, CancellationToken cancellationToken) =>
+        SendAsync(ct => output.SendRhythmDotsAsync(rhythmDots, ct), $"rhythm dots {rhythmDots}", cancellationToken);
+
     public Task<ActionResult> DispatchReturnAsync(CancellationToken cancellationToken) =>
         SendAsync(output.SendReturnAsync, "Return", cancellationToken);
 
@@ -50,6 +53,14 @@ public sealed class NoteDispatcher(INoteOutput output, ILogger logger) : INoteDi
     {
         add => output.NoteInputActiveChanged += value;
         remove => output.NoteInputActiveChanged -= value;
+    }
+
+    public int? RhythmDots => output.RhythmDots;
+
+    public event Action<int>? RhythmDotsChanged
+    {
+        add => output.RhythmDotsChanged += value;
+        remove => output.RhythmDotsChanged -= value;
     }
 
     private async Task<ActionResult> SendAsync(

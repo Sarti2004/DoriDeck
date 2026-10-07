@@ -10,7 +10,10 @@ public interface INoteDispatcher
     Task<ActionResult> DispatchDurationAsync(NoteDuration duration, CancellationToken cancellationToken) =>
         Task.FromResult(ActionResult.Success());
 
-      Task<ActionResult> DispatchReturnAsync(CancellationToken cancellationToken) =>
+    Task<ActionResult> DispatchRhythmDotsAsync(int rhythmDots, CancellationToken cancellationToken) =>
+        Task.FromResult(ActionResult.Success());
+
+    Task<ActionResult> DispatchReturnAsync(CancellationToken cancellationToken) =>
         Task.FromResult(ActionResult.Success());
 
     Task<ActionResult> DispatchForwardAsync(CancellationToken cancellationToken) =>
@@ -27,8 +30,15 @@ public interface INoteDispatcher
 
     bool? NoteInputActive => null;
 
-
     event Action<bool>? NoteInputActiveChanged
+    {
+        add { }
+        remove { }
+    }
+
+    int? RhythmDots => null;
+
+    event Action<int>? RhythmDotsChanged
     {
         add { }
         remove { }

@@ -7,6 +7,8 @@ public interface INoteOutput
 
     Task SendDurationAsync(NoteDuration duration, CancellationToken cancellationToken) => Task.CompletedTask;
 
+    Task SendRhythmDotsAsync(int rhythmDots, CancellationToken cancellationToken) => Task.CompletedTask;
+
     Task SendReturnAsync(CancellationToken cancellationToken) => Task.CompletedTask;
 
     Task SendForwardAsync(CancellationToken cancellationToken) => Task.CompletedTask;
@@ -22,6 +24,14 @@ public interface INoteOutput
     bool? NoteInputActive => null;
 
     event Action<bool>? NoteInputActiveChanged
+    {
+        add { }
+        remove { }
+    }
+
+    int? RhythmDots => null;
+
+    event Action<int>? RhythmDotsChanged
     {
         add { }
         remove { }

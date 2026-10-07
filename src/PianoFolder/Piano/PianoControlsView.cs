@@ -234,6 +234,13 @@ internal static class PianoControlsView
                 {
                     model.Duration.Value = duration;
                     return model.Dispatcher.DispatchDurationAsync(duration, ct);
+                }),
+                UiEventHandler.OnAsync(UiComponentEvents.LongPress, async ct =>
+                {
+                    model.Duration.Value = duration;
+                    model.RhythmDots.Value = model.RhythmDots.Value > 0 ? 0 : 1;
+                    await model.Dispatcher.DispatchDurationAsync(duration, ct).ConfigureAwait(false);
+                    await model.Dispatcher.DispatchRhythmDotsAsync(model.RhythmDots.Value, ct).ConfigureAwait(false);
                 })
             ],
         };
