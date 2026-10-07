@@ -16,7 +16,7 @@ public static class PianoKeyboardModel
     public const int MinTransposeOctaveNumber = -2;
     public const int MaxTransposeOctaveNumber = 2;
 
-    public static int TransposeOctaveNumber { get; }
+    public static int TransposeOctaveNumber { get; } = 0;
 
     private const string ElementKeyPrefix = "piano-";
 
@@ -65,7 +65,6 @@ public static class PianoKeyboardModel
         return keys;
     }
 
-
     public static IReadOnlyList<PianoKey> BuildAccidentalKeys(int octaveCount) =>
         BuildAccidentalKeys(octaveCount, 0);
 
@@ -94,9 +93,15 @@ public static class PianoKeyboardModel
         return keys;
     }
 
-   
     public static IReadOnlyList<PianoKey> BuildChromaticKeys(int octaveCount) =>
         BuildChromaticKeys(octaveCount, 0);
+
+    /// <summary>The visible keyboard split into octaves (C to B, twelve keys each), lowest first.</summary>
+    public static IReadOnlyList<PianoOctave> BuildOctaves(int octaveCount, int octaveShift) =>
+        BuildChromaticKeys(octaveCount, octaveShift)
+            .Chunk(12)
+            .Select(keys => new PianoOctave(keys))
+            .ToList();
 
     private static IReadOnlyList<PianoKey> BuildChromaticKeys(int octaveCount, int octaveShift) =>
         BuildNaturalKeys(octaveCount, octaveShift)
@@ -104,8 +109,6 @@ public static class PianoKeyboardModel
             .OrderBy(key => key.MidiNumber)
             .ToList();
 
-    /// The black band's row, one slot per natural - the same count and the same equal <c>fill</c> share
-    /// per slot as the white band 
     public static IReadOnlyList<BlackBandSlot> BuildBlackBandSlots(int octaveCount) =>
         BuildBlackBandSlots(octaveCount, 0);
 
@@ -139,9 +142,6 @@ public static class PianoKeyboardModel
         return slots;
     }
 
-    /// <summary>Every note id playable by the <c>play-note</c> action, across the full
-    /// <see cref="MaxOctaveCount"/> range regardless of what a given folder view instance currently shows,
-    /// ordered by pitch. Used to build the action's parameter catalog and to validate incoming values.</summary>
     public static IReadOnlyList<PianoKey> AllPlayableKeys() =>
         Enumerable
             .Range(

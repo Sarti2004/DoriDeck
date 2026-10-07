@@ -256,6 +256,12 @@
   <data name="ConfigFlow.StepDescription" xml:space="preserve">
     <value></value>
   </data>
+  <data name="ConfigFlow.DoricoVersionLabel" xml:space="preserve">
+    <value>Dorico version</value>
+  </data>
+  <data name="ConfigFlow.DoricoVersionDescription" xml:space="preserve">
+    <value>Major version number of your Dorico installation</value>
+  </data>
   <data name="ConfigFlow.ScriptPathLabel" xml:space="preserve">
     <value>Scripts folder</value>
   </data>
@@ -288,7 +294,7 @@
     <value>Piano keyboard</value>
   </data>
   <data name="FolderViews.PianoKeyboard.Description" xml:space="preserve">
-    <value>A virtual piano keyboard to enter notes in Dorico</value>
+    <value>Virtual piano keyboard.</value>
   </data>
   <data name="Actions.PlayNote.Name" xml:space="preserve">
     <value>Play note</value>

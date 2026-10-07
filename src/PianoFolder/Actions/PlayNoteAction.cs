@@ -3,10 +3,15 @@ using DoriDeck.PianoFolder.Notes;
 using DoriDeck.PianoFolder.Piano;
 using MacroDeck.Sdk;
 using MacroDeck.Sdk.Actions;
-using DoriDeck;
 
 namespace DoriDeck.PianoFolder.Actions;
 
+/// <summary>
+/// The one action this plugin declares. It is bindable directly to any Macro Deck button (its
+/// <c>note</c> parameter is a fixed choice list built from <see cref="PianoKeyboardModel.AllPlayableKeys"/>),
+/// and it is the same action every key of the piano keyboard folder view maps to - each key simply
+/// supplies its own note id as the parameter value rather than each key needing its own action.
+/// </summary>
 public sealed class PlayNoteAction : IActionDefinition
 {
     private const string NoteParameter = "note";

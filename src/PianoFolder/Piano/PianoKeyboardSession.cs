@@ -6,20 +6,17 @@ using MacroDeck.Ui.Runtime;
 
 namespace DoriDeck.PianoFolder.Piano;
 
-/// <summary>
-/// Adapts a <see cref="UiView"/> (the reactive DSL runtime) to the wire-level <see cref="IUiSession"/>
-/// contract the host talks to - forwarding <c>BuildTree</c>/<c>DrainPatches</c>/<c>Changed</c>/<c>Dispatch</c>
-/// straight through, and translating the view's <c>HandlerFaulted</c> event into <c>IUiSession.Faulted</c>.
-/// One instance is created per folder-view session by <see cref="DoriDeck.PianoFolder.PluginIntegration"/>.
-/// </summary>
 public sealed class PianoKeyboardSession : IUiSession
 {
     private readonly UiView _view;
+    private readonly Action? _onDispose;
     private EventHandler<UiSessionFaultedEventArgs>? _faulted;
 
-    public PianoKeyboardSession(UiView view)
+    /// <param name="onDispose">Releases anything the session's view model subscribed to outside the view.</param>
+    public PianoKeyboardSession(UiView view, Action? onDispose = null)
     {
         _view = view;
+        _onDispose = onDispose;
         _view.HandlerFaulted += OnHandlerFaulted;
     }
 
@@ -44,6 +41,7 @@ public sealed class PianoKeyboardSession : IUiSession
     public ValueTask DisposeAsync()
     {
         _view.HandlerFaulted -= OnHandlerFaulted;
+        _onDispose?.Invoke();
         return ValueTask.CompletedTask;
     }
 

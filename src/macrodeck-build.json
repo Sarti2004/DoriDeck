@@ -1,6 +1,10 @@
 {
   "version": 1,
-  "include": ["mhyph.txt"],
+  "include": ["mhyph.txt","Assets/Keys/accidental-idle.png", 
+    "Assets/Keys/accidental-pressed.png", 
+    "Assets/Keys/natural-idle.png", "Assets/Keys/natural-pressed.png",
+    "Assets/Durations/whole.png", "Assets/Durations/half.png", "Assets/Durations/quarter.png",
+    "Assets/Durations/eighth.png", "Assets/Durations/sixteenth.png", "Assets/Durations/thirty-second.png"],
   "targets": {
     "win-x64": {
       "executable": "dotnet",

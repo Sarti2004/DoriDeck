@@ -1,9 +1,9 @@
 using DoriDeck.PianoFolder.Actions;
 using DoriDeck.PianoFolder.Notes;
 using DoriDeck.PianoFolder.Piano;
-using DoriDeck;
 using MacroDeck.Sdk;
 using MacroDeck.Sdk.Actions;
+using MacroDeck.Sdk.Decks;
 using MacroDeck.Sdk.FolderViews;
 using MacroDeck.Sdk.Ui;
 using MacroDeck.Ui.Model.Surfaces;
@@ -13,19 +13,14 @@ using Serilog;
 namespace DoriDeck.PianoFolder;
 
 /// <summary>
-/// The plugin's one integration: declares the <c>play-note</c> action, registers the piano keyboard
-/// folder view, and serves its UI session. Folder-view registration (<see cref="IFolderViewProvider"/>)
-/// is deliberately separate from view composition (<see cref="Piano.PianoKeyboardView"/>) and from note
-/// dispatch (<see cref="INoteDispatcher"/>): this class only wires the three together.
+/// Mostly copy/pasted from examples.
 /// </summary>
 public sealed class PluginIntegration : IPluginIntegration, IFolderViewProvider, IUiProvider
 {
-
     public const string FolderViewId = "piano-keyboard";
 
     private readonly ILogger _logger;
     private readonly INoteDispatcher _dispatcher;
-    private IFolderViewProviderContext? _folderViewContext;
 
     public PluginIntegration(ILogger logger, INoteDispatcher dispatcher)
     {
@@ -38,41 +33,50 @@ public sealed class PluginIntegration : IPluginIntegration, IFolderViewProvider,
 
     public string ProviderName => "Piano Folder";
 
-    public Task InitializeAsync(IIntegrationContext context)
-    {
-        _logger.Information("Initialized.");
-        return Task.CompletedTask;
-    }
+    private PianoKeyArtwork? _artwork;
 
-    public async Task ShutdownAsync()
+    private IDeckNavigator? _deck;
+
+    private readonly System.Collections.Concurrent.ConcurrentDictionary<string, string> _cameFrom = new(StringComparer.Ordinal);
+
+    public async Task InitializeAsync(IIntegrationContext context)
     {
-        if (_folderViewContext is null || string.IsNullOrEmpty(_qualifiedFolderViewId))
+        if (_deck is not null)
         {
-            return;
+            _deck.ClientChanged -= OnClientChanged;
         }
 
-        await _folderViewContext.UnregisterFolderViewAsync(_qualifiedFolderViewId);
-        _folderViewContext = null;
-        _qualifiedFolderViewId = null;
+        _deck = context.Deck;
+        _deck.ClientChanged += OnClientChanged;
+
+        try
+        {
+            _artwork = await PianoKeyArtwork.RegisterAsync(context.UiResources);
+        }
+        catch (Exception exception) when (exception is UiResourceException or IOException)
+        {
+            _artwork = null;
+            _logger.Warning(exception, "Images unavailable; use gradient keys.");
+        }
+
+        _logger.Information("Initialized.");
     }
+
+    public Task ShutdownAsync() => Task.CompletedTask;
 
     private static FolderViewDescriptor Descriptor { get; } = new(
         FolderViewId,
         Strings.FolderViews.PianoKeyboard.Name(),
         Strings.FolderViews.PianoKeyboard.Description(),
-        HasConfiguration: true);
-
+        HasConfiguration: true,Navigation: FolderViewNavigation.Hidden);
 
     private string? _qualifiedFolderViewId;
 
-    /// <summary>Static declaration, so the folder view can be discovered without a running session.</summary>
     public IReadOnlyList<FolderViewDescriptor> GetFolderViews() => [Descriptor];
 
-    /// <summary>Runtime registration, per the SDK's folder-view registration contract.</summary>
     public async Task InitializeAsync(IFolderViewProviderContext context, CancellationToken cancellationToken = default)
     {
         var registration = await context.RegisterFolderViewAsync(Descriptor, cancellationToken);
-        _folderViewContext = context;
         _qualifiedFolderViewId = registration.FolderViewId;
         _logger.Information(
             "Registered folder view {LocalId} as {QualifiedId}.",
@@ -108,8 +112,75 @@ public sealed class PluginIntegration : IPluginIntegration, IFolderViewProvider,
             return Task.FromResult<IUiSession?>(null);
         }
 
-        var model = new PianoKeyboardViewModel(_dispatcher);
+        request.Surface.Attributes.TryGetValue(UiFolderSurfaceAttributes.FolderId, out var folderIdElement);
+        var folderId = folderIdElement.ValueKind == System.Text.Json.JsonValueKind.String ? folderIdElement.GetString() : null;
+        Func<CancellationToken, Task>? goBack = _deck is { } deck && folderId is not null
+            ? ct => GoBackAsync(deck, folderId, ct)
+            : null;
+
+        var model = new PianoKeyboardViewModel(_dispatcher, _artwork, goBack);
+        if (_dispatcher.CurrentDuration is { } currentDuration)
+        {
+            model.Duration.Value = currentDuration;
+        }
+
+        // Keeps the note input row on the duration Dorico is using, including changes made in Dorico itself.
+        void OnDurationChanged(NoteDuration duration) => model.Duration.Value = duration;
+        _dispatcher.DurationChanged += OnDurationChanged;
+
+        if (_dispatcher.NoteInputActive is { } noteInputActive)
+        {
+            model.NoteInputActive.Value = noteInputActive;
+        }
+
+        void OnNoteInputActiveChanged(bool active) => model.NoteInputActive.Value = active;
+        _dispatcher.NoteInputActiveChanged += OnNoteInputActiveChanged;
+
         var view = new UiView(request.Surface, PianoKeyboardView.Build(model));
-        return Task.FromResult<IUiSession?>(new PianoKeyboardSession(view));
+        return Task.FromResult<IUiSession?>(new PianoKeyboardSession(
+            view,
+            onDispose: () =>
+            {
+                _dispatcher.DurationChanged -= OnDurationChanged;
+                _dispatcher.NoteInputActiveChanged -= OnNoteInputActiveChanged;
+            }));
+    }
+
+    private void OnClientChanged(object? sender, DeckClientChangedEventArgs e)
+    {
+        if (e.PreviousFolderId is { Length: > 0 } previous &&
+            !string.Equals(previous, e.Client.FolderId, StringComparison.Ordinal))
+        {
+            _cameFrom[e.Client.ClientId] = previous;
+        }
+    }
+
+    /// <summary>
+    /// Back button custom implementation, Macro decks own bakc button is covered , lazy to investigate;
+    /// </summary>
+    private async Task GoBackAsync(IDeckNavigator deck, string folderId, CancellationToken cancellationToken)
+    {
+        var clients = deck.GetClients();
+        var viewers = clients
+            .Where(client => string.Equals(client.FolderId, folderId, StringComparison.Ordinal))
+            .ToList();
+
+        if (viewers.Count == 0)
+        {
+            return;
+        }
+
+        foreach (var client in viewers)
+        {
+            if (_cameFrom.TryGetValue(client.ClientId, out var previous) &&
+                !string.Equals(previous, folderId, StringComparison.Ordinal))
+            {
+                await deck.ChangeFolderAsync(previous, client.ClientId, cancellationToken).ConfigureAwait(false);
+            }
+            else
+            {
+                await deck.GoToParentAsync(client.ClientId, cancellationToken).ConfigureAwait(false);
+            }
+        }
     }
 }

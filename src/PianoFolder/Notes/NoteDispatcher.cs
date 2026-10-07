@@ -21,9 +21,45 @@ public sealed class NoteDispatcher(INoteOutput output, ILogger logger) : INoteDi
 
         var midiNumber = key.MidiNumber + PianoKeyboardModel.ClampTranspose(transposeSemitones);
 
+        return await SendAsync(
+            ct => output.SendNoteOnAsync(midiNumber, ct),
+            $"{noteId} ({midiNumber})",
+            cancellationToken).ConfigureAwait(false);
+    }
+
+    public Task<ActionResult> DispatchDurationAsync(NoteDuration duration, CancellationToken cancellationToken) =>
+        SendAsync(ct => output.SendDurationAsync(duration, ct), $"duration {duration}", cancellationToken);
+
+    public Task<ActionResult> DispatchReturnAsync(CancellationToken cancellationToken) =>
+        SendAsync(output.SendReturnAsync, "Return", cancellationToken);
+
+    public Task<ActionResult> DispatchForwardAsync(CancellationToken cancellationToken) =>
+        SendAsync(output.SendForwardAsync, "Forward", cancellationToken);
+
+    public NoteDuration? CurrentDuration => output.CurrentDuration;
+
+    public event Action<NoteDuration>? DurationChanged
+    {
+        add => output.DurationChanged += value;
+        remove => output.DurationChanged -= value;
+    }
+
+    public bool? NoteInputActive => output.NoteInputActive;
+
+    public event Action<bool>? NoteInputActiveChanged
+    {
+        add => output.NoteInputActiveChanged += value;
+        remove => output.NoteInputActiveChanged -= value;
+    }
+
+    private async Task<ActionResult> SendAsync(
+        Func<CancellationToken, Task> send,
+        string what,
+        CancellationToken cancellationToken)
+    {
         try
         {
-            await output.SendNoteOnAsync(midiNumber, cancellationToken).ConfigureAwait(false);
+            await send(cancellationToken).ConfigureAwait(false);
             return ActionResult.Success();
         }
         catch (OperationCanceledException)
@@ -32,7 +68,7 @@ public sealed class NoteDispatcher(INoteOutput output, ILogger logger) : INoteDi
         }
         catch (Exception exception)
         {
-            _logger.Warning(exception, "Note output failed for {NoteId} ({MidiNumber}).", noteId, midiNumber);
+            _logger.Warning(exception, "Note output failed for {What}.", what);
             return ActionResult.Failed(ActionErrorCodes.ProviderError, LocalizedText.FromLiteral(exception.Message));
         }
     }

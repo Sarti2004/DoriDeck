@@ -24,6 +24,7 @@ internal static class ScoreInterfaceJsonOptions
 		};
 
 		options.Converters.Add(new SafeEnumConverterFactory());
+		options.Converters.Add(new FlexibleBooleanConverter());
 
 		return options;
 	}

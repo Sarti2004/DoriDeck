@@ -1,4 +1,5 @@
 using System.Globalization;
+using MacroDeck.Plugin.Hosting.Integrations.HostApis;
 using MacroDeck.Sdk;
 using MacroDeck.Sdk.Actions;
 using MacroDeck.Sdk.ConfigFlow;
@@ -12,14 +13,16 @@ namespace DoriDeck;
 public sealed class PluginIntegration : IPluginIntegration, IVariableProvider, IConfigFlowProvider
 {
 	private readonly DoricoSession _session;
+	private readonly IPluginCatalogNotifier _catalogNotifier;
 	private readonly ILogger _logger;
 	private readonly IReadOnlyList<IActionDefinition> _staticActions;
 	private IReadOnlyList<IActionDefinition> _actions;
 	private HashSet<string> _dynamicScriptNames = [];
 
-	public PluginIntegration(DoricoSession session, IKeyboardService keyboard, ILogger logger)
+	public PluginIntegration(DoricoSession session, IKeyboardService keyboard, IPluginCatalogNotifier catalogNotifier, ILogger logger)
 	{
 		_session = session;
+		_catalogNotifier = catalogNotifier;
 		_logger = logger.ForContext<PluginIntegration>();
 
 		_staticActions =
@@ -63,6 +66,8 @@ public sealed class PluginIntegration : IPluginIntegration, IVariableProvider, I
 		("dorico_activeOpenScoreID", "active-open-score-id", VariableType.Numeric, s => s.ActiveOpenScoreId),
 		("dorico_noteInputMode", "note-input-mode", VariableType.Text, s => s.NoteInputMode),
 		("dorico_accidental", "accidental", VariableType.Text, s => s.Accidental),
+		("dorico_noteInputActive", "note-input-active", VariableType.Boolean, s => s.NoteInputActive),
+		("dorico_restMode", "rest-mode", VariableType.Boolean, s => s.RestMode),
 		("dorico_tuplet_mode", "tuplet-mode", VariableType.Boolean, s => s.TupletMode),
 	];
 
@@ -89,7 +94,7 @@ public sealed class PluginIntegration : IPluginIntegration, IVariableProvider, I
 		return ValueTask.FromResult(reading);
 	}
 
-	public IConfigFlow CreateConfigFlow() => new DoriDeckConfigFlow();
+	public IConfigFlow CreateConfigFlow() => new DoriDeckConfigFlow(_session);
 
 	public async Task InitializeAsync(IIntegrationContext context)
 	{
@@ -100,7 +105,9 @@ public sealed class PluginIntegration : IPluginIntegration, IVariableProvider, I
 
 	public Task ShutdownAsync() => _session.ShutdownAsync();
 
-	/// Creates a new action for every script in the script path
+	/// Creates a new action for every script in the script path. The host takes the action catalog at
+	/// handshake, before <see cref="InitializeAsync"/> has read the config, so a changed list has to be
+	/// announced or the host never sees the dynamic actions.
 	private void RefreshDynamicScriptActions()
 	{
 		IReadOnlyList<string> scriptNames = _session.AutoLoadScripts
@@ -123,5 +130,6 @@ public sealed class PluginIntegration : IPluginIntegration, IVariableProvider, I
 		});
 
 		_actions = [.. _staticActions, .. dynamicActions];
+		_catalogNotifier.CatalogChanged("actions", reason: "Script actions reloaded");
 	}
 }

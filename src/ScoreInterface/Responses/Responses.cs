@@ -31,6 +31,21 @@ public sealed record StatusResponse : IEvent
 	public WindowMode WindowMode { get; init; }
 
 	public Accidental Accidental { get; init; }
+
+	/// <summary>The note-input duration, e.g. "kCrotchet" or "kMinim".</summary>
+	public string? Duration { get; init; }
+
+	/// <summary>The number of rhythm dots applied to the note-input duration.</summary>
+	public int? RhythmDots { get; init; }
+
+	/// <summary>The rhythmic grid resolution, e.g. "kCrotchet".</summary>
+	public string? RhythmicGridResolutionValue { get; init; }
+
+	/// <summary>Whether the note-input caret is active.</summary>
+	public bool? NoteInputActive { get; init; }
+
+	/// <summary>Whether note input is entering rests instead of notes.</summary>
+	public bool? RestMode { get; init; }
 }
 
 /// <summary>

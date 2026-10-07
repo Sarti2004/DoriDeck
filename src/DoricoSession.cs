@@ -7,6 +7,7 @@ using ScoreInterface.Responses;
 using DoriDeck.Services;
 using Lea;
 using Serilog;
+using System.Text.Json.Nodes;
 
 namespace DoriDeck;
 
@@ -22,6 +23,7 @@ public sealed class DoricoSession : IAsyncDisposable
 
 	public const int DefaultFlowSwitchDelay = 150;
 	public const int DefaultTaskWaitDelay = 200;
+	public const string DefaultDoricoVersion = "6";
 
 	private readonly IScoreInterfaceRemote _remote;
 	private readonly IEventAggregator _eventAggregator;
@@ -38,7 +40,7 @@ public sealed class DoricoSession : IAsyncDisposable
 	private Guid _configEntryId;
 	private CancellationTokenSource? _statusDebounceCts;
 	private DynamicReplacementWalker? _dynamicReplacementWalker;
-	private string _doricoVersion = "6";
+	private string _doricoVersion = DefaultDoricoVersion;
 	private int _flowsCount;
 
 	public DoricoSession(
@@ -56,6 +58,7 @@ public sealed class DoricoSession : IAsyncDisposable
 
 		_disconnectSubscription = _eventAggregator.Subscribe<DisconnectResponse>(OnDoricoDisconnected);
 		_statusSubscription = _eventAggregator.Subscribe<StatusResponse>(OnDoricoStatusChanged);
+		_remote.RawMessageReceived += OnDoricoRawMessage;
 	}
 
 	public bool IsConnected => _remote.IsConnected;
@@ -65,6 +68,8 @@ public sealed class DoricoSession : IAsyncDisposable
 	public int FlowsCount => _flowsCount;
 
 	public string ScriptPath { get; private set; } = string.Empty;
+
+	public string DoricoVersion { get; private set; } = DefaultDoricoVersion;
 
 	public bool AutoLoadScripts { get; private set; }
 
@@ -86,6 +91,21 @@ public sealed class DoricoSession : IAsyncDisposable
 
 	public string WindowMode { get; private set; } = string.Empty;
 
+	/// <summary>Dorico's note-input duration, e.g. "kCrotchet", or empty until a status reports one.</summary>
+	public string Duration { get; private set; } = string.Empty;
+
+	public int RhythmDots { get; private set; }
+
+	public bool NoteInputActive { get; private set; }
+
+	/// <summary>Flag reported from Dorico</summary>
+	public event Action<bool>? NoteInputActiveChanged;
+
+	public bool RestMode { get; private set; }
+
+	/// <summary>Flag reported from Dorico</summary>
+	public event Action<string>? DurationChanged;
+
 	public string CurrentFlowId { get; private set; } = string.Empty;
 
 	public string CurrentFlowName { get; private set; } = string.Empty;
@@ -105,14 +125,13 @@ public sealed class DoricoSession : IAsyncDisposable
 		_dynamicReplacementWalker ??=
 			new DynamicReplacementWalker(this, _eventAggregator, _keyboard, _applicationFocus, _logger);
 
-	/// <summary>
-	/// Reads settings from persisted configuration and connects to Dorico. Safe to call repeatedly:
-	/// the host reruns it after every reconnect and configuration change.
-	/// </summary>
 	public async Task InitializeAsync(IIntegrationContext context)
 	{
 		_context = context;
 		_configEntryId = await ResolveConfigEntryIdAsync(context);
+
+		DoricoVersion = await ReadConfigValueAsync(DoriDeckConfigKeys.DoricoVersion, DefaultDoricoVersion);
+		_doricoVersion = DoricoVersion;
 
 		ScriptPath = await ReadConfigValueAsync(DoriDeckConfigKeys.ScriptPath, DefaultScriptPath());
 		AutoLoadScripts = await ReadConfigBoolAsync(DoriDeckConfigKeys.AutoLoadScripts, defaultValue: false);
@@ -122,13 +141,6 @@ public sealed class DoricoSession : IAsyncDisposable
 		await EnsureConnectedAsync();
 	}
 
-	/// <summary>
-	/// <c>IIntegrationContext</c> carries no entry id of its own, so the entry this plugin was configured
-	/// into has to be found by scanning <c>IIntegrationConfig.GetEntriesAsync</c> for the title
-	/// <see cref="DoriDeckConfigKeys.ConfigEntryTitle"/> gave it. Falls back to the first entry, then to
-	/// <see cref="Guid.Empty"/>, so a renamed or not-yet-configured entry still resolves to something
-	/// rather than throwing.
-	/// </summary>
 	private static async Task<Guid> ResolveConfigEntryIdAsync(IIntegrationContext context)
 	{
 		var entries = await context.Config.GetEntriesAsync();
@@ -324,6 +336,15 @@ public sealed class DoricoSession : IAsyncDisposable
 		ResetDisconnectedState();
 	}
 
+	// Debug: logs every status message exactly as Dorico sent it
+	private void OnDoricoRawMessage(string json)
+	{
+		if (json.Contains("\"status\"", StringComparison.OrdinalIgnoreCase))
+		{
+			//_logger.Information("Dorico raw status: {Json}", json);
+		}
+	}
+
 	private void OnDoricoStatusChanged(StatusResponse status)
 	{
 		ApplyStatus(status);
@@ -342,6 +363,7 @@ public sealed class DoricoSession : IAsyncDisposable
 
 	private async Task RefreshFlowsDebouncedAsync(StatusResponse status, CancellationToken cancellationToken)
 	{
+		_logger.Information("Dorico status: {@Status}", status);
 		try
 		{
 			await Task.Delay(StatusDebounceDelay, cancellationToken);
@@ -373,7 +395,7 @@ public sealed class DoricoSession : IAsyncDisposable
 				try
 				{
 					status = await _remote.GetStatusAsync(cancellationToken).WaitAsync(DoricoRequestTimeout, cancellationToken);
-					//_logger.Information("{Status}", status);
+					//_logger.Information("Dorico status2: {@Status}", status);
 				}
 				catch (TimeoutException)
 				{
@@ -384,7 +406,6 @@ public sealed class DoricoSession : IAsyncDisposable
 				{
 					ApplyStatus(status);
 				}
-
 				
 			}
 
@@ -405,7 +426,7 @@ public sealed class DoricoSession : IAsyncDisposable
 				var activeWindowTitle = ActiveWindowReader.GetActiveDoricoWindowTitle();
 				var currentFlow = ResolveCurrentFlow(flows, activeWindowTitle);
 
-				_logger.Information($"Refreshed flows: {_flowsCount} flows found");
+				//_logger.Information($"Refreshed flows: {_flowsCount} flows found");
 				CurrentFlowId = currentFlow?.FlowID.ToString(CultureInfo.InvariantCulture) ?? string.Empty;
 				CurrentFlowName = currentFlow?.FlowName ?? string.Empty;
 			}
@@ -452,6 +473,38 @@ public sealed class DoricoSession : IAsyncDisposable
 		Accidental = status.Accidental.ToString();
 		WindowModeRaw = status.WindowMode.ToString();
 		WindowMode = FriendlyDoricoMode(WindowModeRaw);
+		//_logger.Information("Dorico status: {@Status}", status);
+
+		if (status.RhythmDots.HasValue)
+		{
+			RhythmDots = status.RhythmDots.Value;
+		}
+		if (status.RestMode.HasValue)
+		{
+			RestMode = status.RestMode.Value;
+		}
+
+		if (status.NoteInputActive.HasValue)
+		{
+			//_logger.Information($"Dorico NoteInputActive: {status.NoteInputActive.Value}");
+			SetNoteInputActive(status.NoteInputActive.Value);
+		}
+
+		if (!string.IsNullOrEmpty(status.Duration) &&
+			!string.Equals(status.Duration, Duration, StringComparison.OrdinalIgnoreCase))
+		{
+			Duration = status.Duration;
+			DurationChanged?.Invoke(Duration);
+		}
+	}
+
+	private void SetNoteInputActive(bool active)
+	{
+		if (active != NoteInputActive)
+		{
+			NoteInputActive = active;
+			NoteInputActiveChanged?.Invoke(active);
+		}
 	}
 
 	private void ResetDisconnectedState()
@@ -463,6 +516,10 @@ public sealed class DoricoSession : IAsyncDisposable
 		Accidental = string.Empty;
 		WindowMode = string.Empty;
 		WindowModeRaw = string.Empty;
+		Duration = string.Empty;
+		RhythmDots = 0;
+		SetNoteInputActive(false);
+		RestMode = false;
 		CurrentFlowId = string.Empty;
 		CurrentFlowName = string.Empty;
 		TupletMode = false;
@@ -472,11 +529,11 @@ public sealed class DoricoSession : IAsyncDisposable
 	private static string FriendlyDoricoMode(string rawMode) =>
 		rawMode.Trim().TrimStart('k').Replace("Mode", string.Empty);
 
-	private static string DefaultScriptPath() =>
+	private string DefaultScriptPath() =>
 		Path.Combine(
 			Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
 			"Steinberg",
-			"Dorico 6",
+			$"Dorico {DoricoVersion}",
 			"Script Plug-ins") + Path.DirectorySeparatorChar;
 
 	private async Task<string> ReadConfigValueAsync(string key, string fallback)
@@ -525,6 +582,7 @@ public sealed class DoricoSession : IAsyncDisposable
 	{
 		_eventAggregator.Unsubscribe<DisconnectResponse>(_disconnectSubscription);
 		_eventAggregator.Unsubscribe<StatusResponse>(_statusSubscription);
+		_remote.RawMessageReceived -= OnDoricoRawMessage;
 
 		lock (_statusDebounceLock)
 		{

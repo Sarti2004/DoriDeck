@@ -12,12 +12,18 @@ public static class DoriDeckConfigKeys
 	public const string ConfigEntryTitle = "DoriDeck";
 
 	public const string ScriptPath = "ScriptPath";
+	public const string DoricoVersion = "DoricoVersion";
 	public const string AutoLoadScripts = "AutoLoadScripts";
 	public const string FlowSwitchDelay = "FlowSwitchDelay";
 	public const string TaskWaitDelay = "TaskWaitDelay";
 }
 
-internal sealed class DoriDeckConfigFlow : IConfigFlow
+/// <summary>
+/// <c>IConfigFlowContext</c> carries none of the entry's stored values, so the form is prefilled from
+/// <paramref name="session"/>, which holds what was last read from config. Without it every reopen
+/// would show the field defaults and look as if nothing had been saved.
+/// </summary>
+internal sealed class DoriDeckConfigFlow(DoricoSession session) : IConfigFlow
 {
 	private const string SettingsStepId = "settings";
 
@@ -34,8 +40,16 @@ internal sealed class DoriDeckConfigFlow : IConfigFlow
 			? scriptPathValue?.ToString()?.Trim()
 			: null;
 
+		var doricoVersion = values.TryGetValue(DoriDeckConfigKeys.DoricoVersion, out var doricoVersionValue)
+			? doricoVersionValue?.ToString()?.Trim()
+			: null;
+		if (string.IsNullOrEmpty(doricoVersion))
+		{
+			doricoVersion = DoricoSession.DefaultDoricoVersion;
+		}
+
 		var autoLoadScripts = values.TryGetValue(DoriDeckConfigKeys.AutoLoadScripts, out var autoLoadValue) &&
-			autoLoadValue is bool autoLoadBool && autoLoadBool;
+			bool.TryParse(autoLoadValue?.ToString(), out var autoLoadBool) && autoLoadBool;
 
 		if (!TryReadNonNegativeInt(values, DoriDeckConfigKeys.FlowSwitchDelay, DoricoSession.DefaultFlowSwitchDelay, out var flowSwitchDelay))
 		{
@@ -55,14 +69,13 @@ internal sealed class DoriDeckConfigFlow : IConfigFlow
 
 		var entries = new Dictionary<string, ConfigFlowValue>
 		{
-			[DoriDeckConfigKeys.ScriptPath] = ConfigFlowValue.Plain(string.IsNullOrEmpty(scriptPath) ? DefaultScriptPath : scriptPath),
-			[DoriDeckConfigKeys.AutoLoadScripts] = ConfigFlowValue.Plain(autoLoadScripts.ToString()),
+			[DoriDeckConfigKeys.ScriptPath] = ConfigFlowValue.Plain(string.IsNullOrEmpty(scriptPath) ? DefaultScriptPath(doricoVersion) : scriptPath),
+			[DoriDeckConfigKeys.DoricoVersion] = ConfigFlowValue.Plain(doricoVersion),
+			[DoriDeckConfigKeys.AutoLoadScripts] = ConfigFlowValue.Plain(autoLoadScripts ? "true" : "false"),
 			[DoriDeckConfigKeys.FlowSwitchDelay] = ConfigFlowValue.Plain(flowSwitchDelay.ToString(CultureInfo.InvariantCulture)),
 			[DoriDeckConfigKeys.TaskWaitDelay] = ConfigFlowValue.Plain(taskWaitDelay.ToString(CultureInfo.InvariantCulture)),
 		};
 
-		// ConfigFlowResult.Complete takes a plain string: the host stores it as the configured entry's
-		// name and the user renames it from there, so it is written in the default language and left.
 		return Task.FromResult(ConfigFlowResult.Complete(DoriDeckConfigKeys.ConfigEntryTitle, entries));
 	}
 
@@ -91,7 +104,7 @@ internal sealed class DoriDeckConfigFlow : IConfigFlow
 		return true;
 	}
 
-	private static ConfigFlowStep BuildStep() => new()
+	private ConfigFlowStep BuildStep() => new()
 	{
 		StepId = SettingsStepId,
 		Title = Strings.ConfigFlow.StepTitle(),
@@ -99,35 +112,42 @@ internal sealed class DoriDeckConfigFlow : IConfigFlow
 		Fields =
 		[
 			ActionParameter.Text(
+				DoriDeckConfigKeys.DoricoVersion,
+				label: Strings.ConfigFlow.DoricoVersionLabel(),
+				description: Strings.ConfigFlow.DoricoVersionDescription(),
+				placeholder: DoricoSession.DefaultDoricoVersion,
+				defaultValue: session.DoricoVersion,
+				required: false),
+			ActionParameter.Folder(
 				DoriDeckConfigKeys.ScriptPath,
 				label: Strings.ConfigFlow.ScriptPathLabel(),
 				description: Strings.ConfigFlow.ScriptPathDescription(),
-				defaultValue: DefaultScriptPath,
+				//defaultValue: DefaultScriptPath,
 				required: false),
 			ActionParameter.Toggle(
 				DoriDeckConfigKeys.AutoLoadScripts,
 				label: Strings.ConfigFlow.AutoLoadScriptsLabel(),
 				description: Strings.ConfigFlow.AutoLoadScriptsDescription(),
-				defaultValue: false),
+				defaultValue: session.AutoLoadScripts),
 			ActionParameter.Number(
 				DoriDeckConfigKeys.FlowSwitchDelay,
 				label: Strings.ConfigFlow.FlowSwitchDelayLabel(),
 				description: Strings.ConfigFlow.FlowSwitchDelayDescription(),
 				required: false,
-				defaultValue: DoricoSession.DefaultFlowSwitchDelay),
+				defaultValue: session.FlowSwitchDelay),
 			ActionParameter.Number(
 				DoriDeckConfigKeys.TaskWaitDelay,
 				label: Strings.ConfigFlow.TaskWaitDelayLabel(),
 				description: Strings.ConfigFlow.TaskWaitDelayDescription(),
 				required: false,
-				defaultValue: DoricoSession.DefaultTaskWaitDelay),
+				defaultValue: session.TaskWaitDelay),
 		],
 	};
 
-	private static string DefaultScriptPath =>
+	private static string DefaultScriptPath(string doricoVersion) =>
 		Path.Combine(
 			Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
 			"Steinberg",
-			"Dorico 6",
+			$"Dorico {doricoVersion}",
 			"Script Plug-ins") + Path.DirectorySeparatorChar;
 }

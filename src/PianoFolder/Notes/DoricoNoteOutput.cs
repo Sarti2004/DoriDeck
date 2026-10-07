@@ -11,7 +11,7 @@ namespace DoriDeck.PianoFolder.Notes;
 
 public sealed class DoricoNoteOutput : INoteOutput
 {
-    public const int DefaultGroupingWindowMilliseconds = 50;
+    public const int DefaultGroupingWindowMilliseconds = 50; // must be > 0
 
     private readonly DoricoSession _session;
     private readonly TimeSpan _groupingWindow;
@@ -23,6 +23,9 @@ public sealed class DoricoNoteOutput : INoteOutput
 
     private TaskCompletionSource? _currentBatch;
 
+    /// <summary>Whether the first note send has already checked note input. Only touched inside the send queue.</summary>
+    private bool _noteInputStartHandled;
+
     public DoricoNoteOutput(DoricoSession session)
         : this(session, TimeSpan.FromMilliseconds(DefaultGroupingWindowMilliseconds))
     {
@@ -32,16 +35,45 @@ public sealed class DoricoNoteOutput : INoteOutput
     {
         ArgumentNullException.ThrowIfNull(session);
 
-        if (groupingWindow <= TimeSpan.Zero)
-        {
-            throw new ArgumentOutOfRangeException(
-                nameof(groupingWindow),
-                groupingWindow,
-                "The note-grouping window must be greater than zero.");
-        }
-
         _session = session;
         _groupingWindow = groupingWindow;
+        _session.DurationChanged += OnDoricoDurationChanged;
+        _session.NoteInputActiveChanged += OnDoricoNoteInputActiveChanged;
+    }
+
+    public NoteDuration? CurrentDuration => TryParseDoricoNoteValue(_session.Duration);
+
+    public event Action<NoteDuration>? DurationChanged;
+
+    public bool? NoteInputActive => _session.NoteInputActive;
+
+    public event Action<bool>? NoteInputActiveChanged
+    {
+        add => _session.NoteInputActiveChanged += value;
+        remove => _session.NoteInputActiveChanged -= value;
+    }
+
+    private void OnDoricoDurationChanged(string doricoNoteValue)
+    {
+        // leave the selection as is for unknown durations.
+        if (TryParseDoricoNoteValue(doricoNoteValue) is { } duration)
+        {
+            DurationChanged?.Invoke(duration);
+        }
+    }
+
+    private void OnDoricoNoteInputActiveChanged(bool active)
+    {
+        // Once Dorico leaves note input, the next note send has to enter it again. Queued so the flag is
+        // still only touched inside the send queue.
+        if (!active)
+        {
+            _ = QueueSendAsync(() =>
+            {
+                _noteInputStartHandled = false;
+                return Task.CompletedTask;
+            });
+        }
     }
 
     public async Task SendNoteOnAsync(int midiNumber, CancellationToken cancellationToken)
@@ -85,7 +117,7 @@ public sealed class DoricoNoteOutput : INoteOutput
                 }
             }
 
-            await QueueBatchSendAsync(midiNumbers).ConfigureAwait(false);
+            await QueueSendAsync(() => SendMidiNoteInputAsync(midiNumbers)).ConfigureAwait(false);
             batch.TrySetResult();
         }
         catch (Exception exception)
@@ -103,17 +135,52 @@ public sealed class DoricoNoteOutput : INoteOutput
         }
     }
 
-    private Task QueueBatchSendAsync(int[] midiNumbers)
+    public Task SendDurationAsync(NoteDuration duration, CancellationToken cancellationToken) =>
+        QueueSendAsync(() => SendCommandAsync(
+            new Command(
+                "NoteInput.NoteValue",
+                new CommandParameter("LogDuration", DoricoNoteValue(duration)),new CommandParameter("Set", "true")))).WaitAsync(cancellationToken);
+
+    public Task SendReturnAsync(CancellationToken cancellationToken) =>
+        QueueSendAsync(() => SendCommandAsync(new Command("NoteInput.MoveLeft"))).WaitAsync(cancellationToken);
+
+    public Task SendForwardAsync(CancellationToken cancellationToken) =>
+        QueueSendAsync(() => SendCommandAsync(new Command("NoteInput.MoveRight"))).WaitAsync(cancellationToken);
+
+    /// <summary>The Dorico note value name for a duration selected in the note input row.</summary>
+    private static string DoricoNoteValue(NoteDuration duration) => duration switch
+    {
+        NoteDuration.Whole => "kSemibreve",
+        NoteDuration.Half => "kMinim",
+        NoteDuration.Quarter => "kCrotchet",
+        NoteDuration.Eighth => "kQuaver",
+        NoteDuration.Sixteenth => "kSemiQuaver",
+        NoteDuration.ThirtySecond => "kDemiSemiQuaver",
+        _ => throw new ArgumentOutOfRangeException(nameof(duration), duration, "Not implemented."),
+    };
+
+    /// <summary>The note input row duration for a Dorico note value name, or <c>null</c> when it has none.</summary>
+    private static NoteDuration? TryParseDoricoNoteValue(string doricoNoteValue) =>
+        Enum.GetValues<NoteDuration>()
+            .Cast<NoteDuration?>()
+            .FirstOrDefault(duration => string.Equals(
+                DoricoNoteValue(duration!.Value), doricoNoteValue, StringComparison.OrdinalIgnoreCase));
+
+    /// <summary>
+    /// Queues one Dorico send behind every earlier note batch and command, so the score sees them in the
+    /// order they were pressed.
+    /// </summary>
+    private Task QueueSendAsync(Func<Task> send)
     {
         lock (_sendSync)
         {
-            Task sendTask = SendBatchAfterAsync(_sendTail, midiNumbers);
+            Task sendTask = SendAfterAsync(_sendTail, send);
             _sendTail = sendTask;
             return sendTask;
         }
     }
 
-    private async Task SendBatchAfterAsync(Task previousSend, int[] midiNumbers)
+    private async Task SendAfterAsync(Task previousSend, Func<Task> send)
     {
         try
         {
@@ -121,20 +188,42 @@ public sealed class DoricoNoteOutput : INoteOutput
         }
         catch
         {
-            // A failed batch has already reported its error; it must not block later notes.
+            // A failed send has already reported its error; it must not block later ones.
         }
 
-        if (!await _session.EnsureConnectedAsync().ConfigureAwait(false))
+        // No connection attempt here: while Dorico is not connected, SendCommandAsync drops the send.
+        await send().ConfigureAwait(false);
+    }
+
+    private async Task SendMidiNoteInputAsync(int[] midiNumbers)
+    {
+        // Returning before the start check keeps a disconnected send from using up the one NoteInput.Start.
+        if (!_session.Remote.IsConnected)
         {
-            throw new InvalidOperationException("Could not connect to Dorico.");
+            return;
+        }
+
+        // Only the first note send since Dorico last left note input (or ever) starts note input.
+        if (!_noteInputStartHandled)
+        {
+            if (!_session.NoteInputActive)
+            {
+                await SendCommandAsync(new Command("NoteInput.Enter")).ConfigureAwait(false);
+            }
+
+            _noteInputStartHandled = true;
         }
 
         string midiPitches = string.Join("\\\\,", midiNumbers.Select(
             midi => midi.ToString(CultureInfo.InvariantCulture)));
 
-        await _session.Remote.SendRequestAsync(
+        await SendCommandAsync(
             new Command(
                 "NoteInput.MIDINoteInput",
                 new CommandParameter("MIDIPitches", midiPitches))).ConfigureAwait(false);
     }
+
+    /// <summary>Sends a command to Dorico, or does nothing while Dorico is not connected.</summary>
+    private Task SendCommandAsync(Command command) =>
+        _session.Remote.IsConnected ? _session.Remote.SendRequestAsync(command) : Task.CompletedTask;
 }

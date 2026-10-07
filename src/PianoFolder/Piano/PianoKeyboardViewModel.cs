@@ -5,14 +5,18 @@ namespace DoriDeck.PianoFolder.Piano;
 
 public sealed class PianoKeyboardViewModel
 {
-    public PianoKeyboardViewModel(INoteDispatcher dispatcher)
+    public PianoKeyboardViewModel(
+        INoteDispatcher dispatcher,
+        PianoKeyArtwork? artwork = null,
+        Func<CancellationToken, Task>? goBack = null)
     {
         Dispatcher = dispatcher;
+        Artwork = artwork;
+        GoBack = goBack;
         Octaves = new UiState<int>(PianoKeyboardModel.DefaultOctaveCount);
         Transpose = new UiState<int>(0);
 
-        // Built once for the full playable range so switching octave count never needs to add or remove
-        // dictionary entries - only which keys are currently rendered (and thus reachable) changes.
+        // Copy paste;
         PressedByNoteId = PianoKeyboardModel.AllPlayableKeys().ToDictionary(
             key => key.NoteId,
             _ => new UiState<bool>(false),
@@ -20,6 +24,16 @@ public sealed class PianoKeyboardViewModel
     }
 
     public INoteDispatcher Dispatcher { get; }
+
+    public PianoKeyArtwork? Artwork { get; }
+
+    public Func<CancellationToken, Task>? GoBack { get; }
+
+    public UiState<bool> ShowNoteInput { get; } = new(false);
+
+    public UiState<NoteDuration> Duration { get; } = new(NoteDuration.Quarter);
+
+    public UiState<bool> NoteInputActive { get; } = new(false);
 
     public UiState<int> Octaves { get; }
 
