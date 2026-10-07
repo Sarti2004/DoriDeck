@@ -245,8 +245,17 @@ internal static class PianoControlsView
             ],
         };
 
+        var dottedIcon = model.Artwork?.DottedDurationIcons.GetValueOrDefault(duration);
+
         button = model.Artwork?.DurationIcons.GetValueOrDefault(duration) is { } icon
-            ? button with { Source = icon, Fit = UiComponentImageFits.Contain, Zoom = 0.7 }
+            ? button with
+            {
+                Source = UiValue.From(() => model.Duration.Value == duration && model.RhythmDots.Value > 0 && dottedIcon is not null
+                    ? dottedIcon
+                    : icon),
+                Fit = UiComponentImageFits.Contain,
+                Zoom = 0.7,
+            }
             : button with { Children = [SegmentText($"{key}-label", DurationLabels[duration])] };
 
         return new UiModifier

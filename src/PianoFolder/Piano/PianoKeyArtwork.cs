@@ -9,7 +9,8 @@ public sealed record PianoKeyArtwork(
     UiResource NaturalPressed,
     UiResource AccidentalIdle,
     UiResource AccidentalPressed,
-    IReadOnlyDictionary<NoteDuration, UiResource> DurationIcons)
+    IReadOnlyDictionary<NoteDuration, UiResource> DurationIcons,
+    IReadOnlyDictionary<NoteDuration, UiResource> DottedDurationIcons)
 {
     private const string MediaType = "image/png";
 
@@ -41,9 +42,12 @@ public sealed record PianoKeyArtwork(
         Task<UiResource> Key(string name) => Register("Keys", name, name);
 
         var durationIcons = new Dictionary<NoteDuration, UiResource>();
+        var dottedDurationIcons = new Dictionary<NoteDuration, UiResource>();
         foreach (var (duration, file) in DurationFiles)
         {
             durationIcons[duration] = await Register("Durations", file, $"duration-{file}").ConfigureAwait(false);
+            dottedDurationIcons[duration] = await Register(
+                "Durations", $"{file}_dotted", $"duration-{file}-dotted").ConfigureAwait(false);
         }
 
         return new PianoKeyArtwork(
@@ -51,6 +55,7 @@ public sealed record PianoKeyArtwork(
             await Key("natural-pressed").ConfigureAwait(false),
             await Key("accidental-idle").ConfigureAwait(false),
             await Key("accidental-pressed").ConfigureAwait(false),
-            durationIcons);
+            durationIcons,
+            dottedDurationIcons);
     }
 }
