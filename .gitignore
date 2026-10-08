@@ -98,7 +98,6 @@ buildNumber.properties
 .flattened-pom.xml
 
 # .NET
-keys/
 *.user
 *.suo
 

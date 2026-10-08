@@ -4,7 +4,9 @@
     "Assets/Keys/accidental-pressed.png", 
     "Assets/Keys/natural-idle.png", "Assets/Keys/natural-pressed.png",
     "Assets/Durations/whole.png", "Assets/Durations/half.png", "Assets/Durations/quarter.png",
-    "Assets/Durations/eighth.png", "Assets/Durations/sixteenth.png", "Assets/Durations/thirty-second.png"],
+    "Assets/Durations/eighth.png", "Assets/Durations/sixteenth.png", "Assets/Durations/thirty-second.png",
+  "Assets/Durations/whole_dotted.png", "Assets/Durations/half_dotted.png", "Assets/Durations/quarter_dotted.png",
+    "Assets/Durations/eighth_dotted.png", "Assets/Durations/sixteenth_dotted.png", "Assets/Durations/thirty-second_dotted.png"],
   "targets": {
     "win-x64": {
       "executable": "dotnet",
