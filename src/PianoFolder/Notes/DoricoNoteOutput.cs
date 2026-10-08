@@ -23,6 +23,8 @@ public sealed class DoricoNoteOutput : INoteOutput
 
     private TaskCompletionSource? _currentBatch;
 
+    private bool _reconnectHandled;
+
     /// <summary>Whether the first note send has already checked note input. Only touched inside the send queue.</summary>
     private bool _noteInputStartHandled;
 
@@ -39,6 +41,7 @@ public sealed class DoricoNoteOutput : INoteOutput
         _groupingWindow = groupingWindow;
         _session.DurationChanged += OnDoricoDurationChanged;
         _session.NoteInputActiveChanged += OnDoricoNoteInputActiveChanged;
+        _session.Disconnected += OnDoricoDisconnected;
     }
 
     public NoteDuration? CurrentDuration => TryParseDoricoNoteValue(_session.Duration);
@@ -68,6 +71,16 @@ public sealed class DoricoNoteOutput : INoteOutput
         {
             DurationChanged?.Invoke(duration);
         }
+    }
+
+    private void OnDoricoDisconnected()
+    {
+        // A confirmed disconnect clears the flag so the next disconnected send tries to reconnect again.
+        _ = QueueSendAsync(() =>
+        {
+            _reconnectHandled = false;
+            return Task.CompletedTask;
+        });
     }
 
     private void OnDoricoNoteInputActiveChanged(bool active)
@@ -213,6 +226,17 @@ public sealed class DoricoNoteOutput : INoteOutput
     private async Task SendMidiNoteInputAsync(int[] midiNumbers)
     {
         // Returning before the start check keeps a disconnected send from using up the one NoteInput.Start.
+        if (!_session.Remote.IsConnected && !_reconnectHandled)
+        {
+            try
+            {
+                await _session.EnsureConnectedAsync().WaitAsync(TimeSpan.FromSeconds(2)).ConfigureAwait(false);
+            }
+            catch (TimeoutException)
+            {
+            }
+            _reconnectHandled = true;
+        }
         if (!_session.Remote.IsConnected)
         {
             return;

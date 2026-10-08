@@ -108,6 +108,9 @@ public sealed class DoricoSession : IAsyncDisposable
 	/// <summary>Flag reported from Dorico</summary>
 	public event Action<string>? DurationChanged;
 
+	/// <summary>Raised when Dorico sends a confirmed disconnect notification.</summary>
+	public event Action? Disconnected;
+
 	public string CurrentFlowId { get; private set; } = string.Empty;
 
 	public string CurrentFlowName { get; private set; } = string.Empty;
@@ -336,6 +339,7 @@ public sealed class DoricoSession : IAsyncDisposable
 	{
 		_logger.Warning("Dorico disconnected.");
 		ResetDisconnectedState();
+		Disconnected?.Invoke();
 	}
 
 	// Debug: logs every status message exactly as Dorico sent it
