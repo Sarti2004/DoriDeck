@@ -32,6 +32,7 @@ Macro Deck 3
 Macro Deck 2.15 version [here](https://github.com/Sarti2004/DoriDeck/releases/download/V0.1.4/Sarti2004.DoriDeck.macroDeckPlugin)
 
 > This plugin has been tested with Dorico Pro 5.1.81 on Windows 11 with Macro Deck 3.0.0-beta and 2.15.0.
+> and Dorico Pro 6.2.31 on  MacOS 15.6 with Macro Deck 3.0.0-beta
 
 ## Installation
 
@@ -70,6 +71,7 @@ After installing the plugin, open Macro Deck and add one of the available Dorico
 | **Choir Reduction**  | Create a piano version of a choir score using cues                                      | 
 | **Connect**          | Creates a connection between Macro Deck and Dorico.                                     |
 | **Clear Connection Token**  | Re-authenticates the connection to Dorico. Use this if MD cannot connect to Dorico.  |
+| **Virtual Keyboard**  | Virtual piano keyboard folder to enter notes to Dorico  |
 
 ## Limitations
 * Dorico must be running to execute actions successfully.
