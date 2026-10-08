@@ -225,7 +225,6 @@ public sealed class DoricoNoteOutput : INoteOutput
 
     private async Task SendMidiNoteInputAsync(int[] midiNumbers)
     {
-        // Returning before the start check keeps a disconnected send from using up the one NoteInput.Start.
         if (!_session.Remote.IsConnected && !_reconnectHandled)
         {
             try
