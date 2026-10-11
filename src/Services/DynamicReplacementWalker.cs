@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using DoriDeck.Services.MacOS;
+using DoriDeck.Services.Windows;
 using Lea;
 using ScoreInterface;
 using ScoreInterface.Commands;
@@ -104,6 +105,10 @@ public sealed class DynamicReplacementWalker : IDisposable
 			if (OperatingSystem.IsMacOS() && !NSRunningApplicationInterop.ActivateDorico())
 			{
 				throw new InvalidOperationException("Dorico is not running.");
+			}
+			else if (OperatingSystem.IsWindows())
+			{
+				WindowsApplicationInterop.ActivateDorico();
 			}
 
 			EnsureDoricoIsForeground();

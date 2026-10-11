@@ -40,9 +40,10 @@ internal sealed class TupletAction(DoricoSession session) : DoriDeckActionBase(s
 				return ActionResult.Failed(ActionErrorCodes.Unavailable, Strings.Actions.NotConnected());
 			}
 
+			// cancel previous tuplet run if active
+			await dorico.SendRequestAsync(new Command("NoteInput.EndTupletRun"), context.CancellationToken);
 			if (session.TupletMode)
 			{
-				await dorico.SendRequestAsync(new Command("NoteInput.EndTupletRun"), context.CancellationToken);
 				session.TupletMode = false;
 				return ActionResult.Success();
 			}
