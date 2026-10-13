@@ -34,6 +34,7 @@ public sealed class DoricoSession : IAsyncDisposable
 	private readonly SemaphoreSlim _contextVariableGate = new(1, 1);
 	private readonly SubscriptionToken _disconnectSubscription;
 	private readonly SubscriptionToken _statusSubscription;
+	private readonly SubscriptionToken _optionsChangedSubscription;
 	private readonly object _statusDebounceLock = new();
 
 	private IIntegrationContext? _context;
@@ -58,6 +59,7 @@ public sealed class DoricoSession : IAsyncDisposable
 
 		_disconnectSubscription = _eventAggregator.Subscribe<DisconnectResponse>(OnDoricoDisconnected);
 		_statusSubscription = _eventAggregator.Subscribe<StatusResponse>(OnDoricoStatusChanged);
+		_optionsChangedSubscription = _eventAggregator.Subscribe<OptionsChangedResponse>(OnDoricoOptionsChanged);
 		_remote.RawMessageReceived += OnDoricoRawMessage;
 	}
 
@@ -119,6 +121,16 @@ public sealed class DoricoSession : IAsyncDisposable
 
 	public IReadOnlyList<CommandInfo> AvailableCommands { get; private set; } = [];
 
+	///list of recent files from FileList.xml</summary>
+	public IReadOnlyList<string> RecentFiles { get; private set; } = [];
+
+	public string DoricoRecentFileListPath =>
+		Path.Combine(
+			Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+			"Steinberg",
+			$"Dorico {_doricoVersion}",
+			"recentFileList.xml");
+
 	public string DoricoApplicationLogPath =>
 		Path.Combine(
 			Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
@@ -144,6 +156,7 @@ public sealed class DoricoSession : IAsyncDisposable
 		TaskWaitDelay = await ReadConfigIntAsync(DoriDeckConfigKeys.TaskWaitDelay, DefaultTaskWaitDelay);
 
 		await EnsureConnectedAsync();
+		LoadRecentFiles();
 	}
 
 	private static async Task<Guid> ResolveConfigEntryIdAsync(IIntegrationContext context)
@@ -367,9 +380,35 @@ public sealed class DoricoSession : IAsyncDisposable
 		_ = RefreshFlowsDebouncedAsync(status, cancellationToken);
 	}
 
+	private void OnDoricoOptionsChanged(OptionsChangedResponse response) => LoadRecentFiles();
+
+	private void LoadRecentFiles()
+	{
+		var path = DoricoRecentFileListPath;
+
+		try
+		{
+			if (!File.Exists(path))
+			{
+				RecentFiles = [];
+				return;
+			}
+
+			RecentFiles = System.Xml.Linq.XDocument.Load(path)
+				.Descendants("file")
+				.Select(file => file.Value.Trim())
+				.Where(file => file.Length > 0)
+				.ToList();
+		}
+		catch (Exception ex)
+		{
+			_logger.Warning(ex, "Failed to read Dorico recent file list {Path}.", path);
+		}
+	}
+
 	private async Task RefreshFlowsDebouncedAsync(StatusResponse status, CancellationToken cancellationToken)
 	{
-		_logger.Information("Dorico status: {@Status}", status);
+		//_logger.Information("Dorico status: {@Status}", status);
 		try
 		{
 			await Task.Delay(StatusDebounceDelay, cancellationToken);
@@ -598,6 +637,7 @@ public sealed class DoricoSession : IAsyncDisposable
 	{
 		_eventAggregator.Unsubscribe<DisconnectResponse>(_disconnectSubscription);
 		_eventAggregator.Unsubscribe<StatusResponse>(_statusSubscription);
+		_eventAggregator.Unsubscribe<OptionsChangedResponse>(_optionsChangedSubscription);
 		_remote.RawMessageReceived -= OnDoricoRawMessage;
 
 		lock (_statusDebounceLock)

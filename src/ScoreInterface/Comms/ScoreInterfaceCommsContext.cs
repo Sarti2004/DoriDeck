@@ -266,6 +266,9 @@ public sealed class ScoreInterfaceCommsContext : IScoreInterfaceCommsContext
 			case "selectionchanged":
 				HandleSelectionChangedMessage(content);
 				break;
+			case "optionschanged":
+				HandleOptionsChangedMessage(content);
+				break;
 			case "response":
 				HandleResponseMessage(content);
 				break;
@@ -337,6 +340,22 @@ public sealed class ScoreInterfaceCommsContext : IScoreInterfaceCommsContext
 		catch (JsonException ex)
 		{
 			_logger?.Invoke($"Could not parse selectionchanged message: {ex.Message}\n{content}", true);
+		}
+	}
+
+	private void HandleOptionsChangedMessage(string content)
+	{
+		try
+		{
+			var options = JsonSerializer.Deserialize<OptionsChangedResponse>(content, ScoreInterfaceJsonOptions.Options);
+			if (options != null)
+			{
+				_eventAggregator.Publish(options);
+			}
+		}
+		catch (JsonException ex)
+		{
+			_logger?.Invoke($"Could not parse optionschanged message: {ex.Message}\n{content}", true);
 		}
 	}
 

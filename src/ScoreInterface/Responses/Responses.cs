@@ -58,6 +58,9 @@ public sealed record DisconnectResponse(WebSocketCloseStatus? CloseStatus, strin
 /// </summary>
 public sealed record SelectionChangedResponse(int OpenScoreId) : IEvent;
 
+
+public sealed record OptionsChangedResponse(int OpenScoreId) : IEvent;
+
 /// <summary>
 /// Details on an individual command Dorico accepts via a command message.
 /// </summary>

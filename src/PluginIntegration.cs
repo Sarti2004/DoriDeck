@@ -39,6 +39,8 @@ public sealed class PluginIntegration : IPluginIntegration, IVariableProvider, I
 			new SectionHeaderAction(_session),
 			new TupletAction(_session),
 			new ChoirReductionAction(_session, keyboard),
+			new OpenRecentFileAction(_session),
+			new OpenPreviousFileAction(_session),
 			new ClearConnectionTokenAction(_session),
 		];
 
