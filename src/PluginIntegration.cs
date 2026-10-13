@@ -71,6 +71,8 @@ public sealed class PluginIntegration : IPluginIntegration, IVariableProvider, I
 		("dorico_noteInputActive", "note-input-active", VariableType.Boolean, s => s.NoteInputActive),
 		("dorico_restMode", "rest-mode", VariableType.Boolean, s => s.RestMode),
 		("dorico_tuplet_mode", "tuplet-mode", VariableType.Boolean, s => s.TupletMode),
+		("dorico_recent_file", "recent-file", VariableType.Text, s => s.RecentFileName(0)),
+		("dorico_previous_file", "previous-file", VariableType.Text, s => s.RecentFileName(1)),
 	];
 
 	private static readonly Dictionary<string, Func<DoricoSession, object?>> VariableReadersById =

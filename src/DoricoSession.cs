@@ -124,6 +124,12 @@ public sealed class DoricoSession : IAsyncDisposable
 	///list of recent files from FileList.xml</summary>
 	public IReadOnlyList<string> RecentFiles { get; private set; } = [];
 
+	public string RecentFileName(int index)
+	{
+		var recentFiles = RecentFiles;
+		return index < recentFiles.Count ? Path.GetFileNameWithoutExtension(recentFiles[index]) : string.Empty;
+	}
+
 	public string DoricoRecentFileListPath =>
 		Path.Combine(
 			Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
