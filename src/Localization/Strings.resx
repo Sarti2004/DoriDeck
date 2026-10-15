@@ -224,6 +224,21 @@
     <value>Add new line Before the Text</value>
   </data>
 
+  <data name="Actions.ChangeParagraphStyle.Name" xml:space="preserve">
+    <value>Change paragraph style</value>
+  </data>
+  <data name="Actions.ChangeParagraphStyle.Description" xml:space="preserve">
+    <value>Applies a text style to the selected text items.</value>
+  </data>
+  <data name="Actions.ChangeParagraphStyle.Style.Label" xml:space="preserve">
+    <value>Style</value>
+  </data>
+  <data name="Actions.ChangeParagraphStyle.Style.Description" xml:space="preserve">
+    <value>Text style</value>
+  </data>
+  <data name="Actions.ChangeParagraphStyle.Style.Placeholder" xml:space="preserve">
+    <value>Default Text</value>
+  </data>
   <data name="Actions.Tuplet.Name" xml:space="preserve">
     <value>Tuplet</value>
   </data>

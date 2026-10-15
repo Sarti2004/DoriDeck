@@ -217,6 +217,7 @@ internal sealed class MacOSKeyboardService : IKeyboardService
     private static ushort MapKeyCode(DoriDeckKey key) => key switch
     {
         DoriDeckKey.Return => 0x24,
+        DoriDeckKey.Tab => 0x30,
         DoriDeckKey.Escape => 0x35,
         DoriDeckKey.UpArrow => 0x7E,
         DoriDeckKey.DownArrow => 0x7D,

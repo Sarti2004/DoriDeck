@@ -84,6 +84,7 @@ internal sealed class WindowsKeyboardService : IKeyboardService
     private static ushort Map(DoriDeckKey key) => key switch
     {
         DoriDeckKey.Return => 0x0D,
+        DoriDeckKey.Tab => 0x09,
         DoriDeckKey.Escape => 0x1B,
         DoriDeckKey.UpArrow => 0x26,
         DoriDeckKey.DownArrow => 0x28,
