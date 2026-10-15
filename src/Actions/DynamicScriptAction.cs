@@ -15,7 +15,7 @@ internal sealed class DynamicScriptAction(DoricoSession session, string id, stri
 
 	public IReadOnlyList<ActionParameter> Parameters => [];
 
-	public MacroDeckPlatform Platforms => MacroDeckPlatform.Windows | MacroDeckPlatform.MacOS;
+	public MacroDeckPlatform Platforms => MacroDeckPlatform.Windows | MacroDeckPlatform.MacOs;
 
 	public IActionExecutor CreateExecutor() => new Executor(Session, scriptName);
 

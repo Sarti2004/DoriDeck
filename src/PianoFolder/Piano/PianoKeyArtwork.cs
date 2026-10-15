@@ -26,6 +26,29 @@ public sealed record PianoKeyArtwork(
 
     public static string AssetDirectory { get; } = Path.Combine(AppContext.BaseDirectory, "Assets");
 
+    /// <summary>Registers only the duration icons, plain and dotted, under the same names the piano uses.</summary>
+    public static async Task<(IReadOnlyDictionary<NoteDuration, UiResource> Plain, IReadOnlyDictionary<NoteDuration, UiResource> Dotted)>
+        RegisterDurationIconsAsync(IUiResourceRegistry resources, CancellationToken cancellationToken = default)
+    {
+        async Task<UiResource> Register(string file, string name)
+        {
+            var content = await File.ReadAllBytesAsync(
+                Path.Combine(AssetDirectory, "Durations", $"{file}.png"),
+                cancellationToken).ConfigureAwait(false);
+            return await resources.RegisterAsync(name, content, MediaType, cancellationToken).ConfigureAwait(false);
+        }
+
+        var icons = new Dictionary<NoteDuration, UiResource>();
+        var dottedIcons = new Dictionary<NoteDuration, UiResource>();
+        foreach (var (duration, file) in DurationFiles)
+        {
+            icons[duration] = await Register(file, $"duration-{file}").ConfigureAwait(false);
+            dottedIcons[duration] = await Register($"{file}_dotted", $"duration-{file}-dotted").ConfigureAwait(false);
+        }
+
+        return (icons, dottedIcons);
+    }
+
     public static async Task<PianoKeyArtwork> RegisterAsync(
         IUiResourceRegistry resources,
         CancellationToken cancellationToken = default)

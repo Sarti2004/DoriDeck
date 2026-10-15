@@ -33,7 +33,7 @@ internal sealed class SectionHeaderAction(DoricoSession session) : DoriDeckActio
 			defaultValue: true),
 	];
 
-	public MacroDeckPlatform Platforms => MacroDeckPlatform.Windows | MacroDeckPlatform.MacOS;
+	public MacroDeckPlatform Platforms => MacroDeckPlatform.Windows | MacroDeckPlatform.MacOs;
 
 	public IActionExecutor CreateExecutor() => new Executor(Session);
 

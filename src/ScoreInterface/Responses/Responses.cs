@@ -46,6 +46,12 @@ public sealed record StatusResponse : IEvent
 
 	/// <summary>Whether note input is entering rests instead of notes.</summary>
 	public bool? RestMode { get; init; }
+
+	/// <summary>Whether Dorico is playing back.</summary>
+	public bool? InPlayback { get; init; }
+
+	/// <summary>Whether Dorico is recording.</summary>
+	public bool? IsRecording { get; init; }
 }
 
 /// <summary>

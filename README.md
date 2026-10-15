@@ -20,7 +20,6 @@ That said, your workflow may be different. If you are missing a feature, have an
 * Turn any phone or tablet into a control deck.
 * Use on the go — no wires required.
 * Simple to set up and use, with no overwhelming interfaces
-* It’s ~~FREE!~~:cry:.
 
 ## Features
 
@@ -51,7 +50,7 @@ Macro Deck 2.15 version [here](https://github.com/Sarti2004/DoriDeck/releases/do
 
 You can also download the notation icon pack from [here](https://github.com/Sarti2004/MusicNotationIcons/releases/download/V0.0.3/Sarti2004.MusicNotation.macroDeckIconPack).
 
-Starter [profile](https://raw.githubusercontent.com/Sarti2004/DoriDeck/main/99.json) to simplify your setup (add it to %AppData%/Macro Deck/profiles/ folder).
+Demo [profile](https://raw.githubusercontent.com/Sarti2004/MusicNotationIcons/main/Demo.macroDeckProfile) to simplify your setup.
 
 ## Usage
 
@@ -71,6 +70,8 @@ After installing the plugin, open Macro Deck and add one of the available Dorico
 | **Choir Reduction**  | Create a piano version of a choir score using cues                                      | 
 | **Connect**          | Creates a connection between Macro Deck and Dorico.                                     |
 | **Clear Connection Token**  | Re-authenticates the connection to Dorico. Use this if MD cannot connect to Dorico.  |
+| **Open Recent File**  | Opens the first project in Dorico's recent file list.  |
+| **Open Previous File**  | Opens the second project in Dorico's recent file list.  |
 | **Virtual Keyboard**  | Virtual piano keyboard folder to enter notes to Dorico  |
 
 ## Limitations

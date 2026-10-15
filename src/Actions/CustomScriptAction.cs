@@ -29,7 +29,7 @@ internal sealed class CustomScriptAction(DoricoSession session) : DoriDeckAction
 			required: true),
 	];
 
-	public MacroDeckPlatform Platforms => MacroDeckPlatform.Windows | MacroDeckPlatform.MacOS;
+	public MacroDeckPlatform Platforms => MacroDeckPlatform.Windows | MacroDeckPlatform.MacOs;
 
 	public IActionExecutor CreateExecutor() => new Executor(Session);
 

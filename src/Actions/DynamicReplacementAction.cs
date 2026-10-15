@@ -39,7 +39,7 @@ internal sealed class DynamicReplacementAction(DoricoSession session, ILogger lo
 			required: false),
 	];
 
-	public MacroDeckPlatform Platforms => MacroDeckPlatform.Windows | MacroDeckPlatform.MacOS;
+	public MacroDeckPlatform Platforms => MacroDeckPlatform.Windows | MacroDeckPlatform.MacOs;
 
 	public IActionExecutor CreateExecutor() => new Executor(Session, _logger);
 

@@ -296,6 +296,12 @@
   <data name="FolderViews.PianoKeyboard.Description" xml:space="preserve">
     <value>Virtual piano keyboard.</value>
   </data>
+  <data name="WidgetTypes.ScoreInfo.Name" xml:space="preserve">
+    <value>Dorico score</value>
+  </data>
+  <data name="WidgetTypes.ScoreInfo.Description" xml:space="preserve">
+    <value>Current Score Information</value>
+  </data>
   <data name="Actions.PlayNote.Name" xml:space="preserve">
     <value>Play note</value>
   </data>

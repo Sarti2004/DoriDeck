@@ -27,6 +27,7 @@ var plugin = builder
 	.UseLocalization(Strings.LocalizationCatalog)
 	.RegisterIntegration<PluginIntegration>()
 	.RegisterIntegration<DoriDeck.PianoFolder.PluginIntegration>()
+	.RegisterIntegration<DoriDeck.ScoreWidget.ScoreWidgetIntegration>()
 	.Build();
 
 await plugin.RunAsync();

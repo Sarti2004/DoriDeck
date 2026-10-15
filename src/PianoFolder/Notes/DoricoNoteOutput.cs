@@ -188,7 +188,7 @@ public sealed class DoricoNoteOutput : INoteOutput
     };
 
     /// <summary>The note input row duration for a Dorico note value name, or <c>null</c> when it has none.</summary>
-    private static NoteDuration? TryParseDoricoNoteValue(string doricoNoteValue) =>
+    public static NoteDuration? TryParseDoricoNoteValue(string doricoNoteValue) =>
         Enum.GetValues<NoteDuration>()
             .Cast<NoteDuration?>()
             .FirstOrDefault(duration => string.Equals(
@@ -208,7 +208,7 @@ public sealed class DoricoNoteOutput : INoteOutput
         }
     }
 
-    private async Task SendAfterAsync(Task previousSend, Func<Task> send)
+    private static async Task SendAfterAsync(Task previousSend, Func<Task> send)
     {
         try
         {
