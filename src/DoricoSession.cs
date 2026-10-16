@@ -6,6 +6,7 @@ using MacroDeck.Sdk;
 using ScoreInterface;
 using ScoreInterface.Comms;
 using ScoreInterface.Enums;
+using ScoreInterface.Exceptions;
 using ScoreInterface.Responses;
 using DoriDeck.Services;
 using Lea;
@@ -521,16 +522,27 @@ public sealed class DoricoSession : IAsyncDisposable
 		return VariablePlaceholder.Replace(content, match => replacements[match.Groups["name"].Value]);
 	}
 
-	/// Names of the paragraph styles in the active score, or an empty list if Dorico doesn't expose them.
+	/// Names of the paragraph styles in the active score, or an empty list if no score is open or Dorico
+	/// doesn't expose them.
 	public async Task<IReadOnlyList<string>> GetParagraphStylesAsync(CancellationToken cancellationToken = default)
 	{
-		var libraryCollections = await _remote.GetLibraryCollectionsAsync(cancellationToken);
-		if (libraryCollections?.Collections.Contains(ParagraphStyleCollection) != true)
+		LibraryEntitiesListResponse? paragraphStyles;
+		try
 		{
+			var libraryCollections = await _remote.GetLibraryCollectionsAsync(cancellationToken);
+			if (libraryCollections?.Collections.Contains(ParagraphStyleCollection) != true)
+			{
+				return [];
+			}
+
+			paragraphStyles = await _remote.GetLibraryEntitiesAsync(ParagraphStyleCollection, cancellationToken);
+		}
+		catch (ScoreInterfaceException<Response> ex) when (ex.Response.Detail == "kNoScore")
+		{
+			// Library collections belong to a score; Dorico refuses the request while only the Hub is open.
 			return [];
 		}
 
-		var paragraphStyles = await _remote.GetLibraryEntitiesAsync(ParagraphStyleCollection, cancellationToken);
 		return (paragraphStyles?.LibraryEntities ?? [])
 			.Select(entity => entity.Name)
 			.Where(name => !string.IsNullOrWhiteSpace(name))
