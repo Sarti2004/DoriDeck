@@ -73,6 +73,7 @@ After installing the plugin, open Macro Deck and add one of the available Dorico
 | **Open Recent File**  | Opens the first project in Dorico's recent file list.  |
 | **Open Previous File**  | Opens the second project in Dorico's recent file list.  |
 | **Virtual Keyboard**  | Virtual piano keyboard folder to enter notes to Dorico  |
+| **Change Paragraph Style**  |  Change style of selected staff-attached or system text with a single click  |
 
 ## Limitations
 * Dorico must be running to execute actions successfully.
