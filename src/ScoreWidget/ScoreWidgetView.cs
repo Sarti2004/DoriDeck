@@ -468,7 +468,7 @@ public static class ScoreWidgetView
 			],
 		};
 
-	/// Status pills along the top: mode, playback, recording, note input and rhythmic grid.
+	/// Status on the top: mode, rhythmic grid, playback, recording, note input.
 	private static UiElement Indicators(string key, ScoreWidgetViewModel model, double height) =>
 		new UiStack
 		{

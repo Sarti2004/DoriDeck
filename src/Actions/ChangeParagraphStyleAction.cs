@@ -1,3 +1,5 @@
+using System.Runtime.InteropServices;
+using System.Runtime.Versioning;
 using DoriDeck.Services;
 using DoriDeck.Services.MacOS;
 using DoriDeck.Services.Windows;
@@ -18,6 +20,7 @@ internal sealed class ChangeParagraphStyleAction(DoricoSession session, IKeyboar
 	private const string StyleParameter = "style";
 	private const int DialogOpenDelayMilliseconds = 100;
 	private const int KeyDelayMilliseconds = 20;
+	private const int UiAutomationAttempts = 10;
 
 	private readonly ILogger _logger = logger.ForContext<ChangeParagraphStyleAction>();
 
@@ -129,16 +132,50 @@ internal sealed class ChangeParagraphStyleAction(DoricoSession session, IKeyboar
 			await Task.Delay(DialogOpenDelayMilliseconds, token);
 
 			await PressAsync(DoriDeckKey.Return, token);
-			keyboard.EnterText(style);
+			if (!(OperatingSystem.IsWindows() && session.DoricoVersion == "5" && await SelectWithUiAutomationAsync(style, token)))
+			{
+				keyboard.EnterText(style);
+			}
 			await Task.Delay(KeyDelayMilliseconds, token);
 			await PressAsync(DoriDeckKey.Return, token);
 
 			// Move focus from the style list to the OK button and press it.
-			await PressAsync(DoriDeckKey.Tab, token);
-			await PressAsync(DoriDeckKey.Tab, token);
+			if (session.DoricoVersion == "5")
+			{
+				await PressAsync(DoriDeckKey.Tab, token);
+			}
+			else
+			{
+				await PressAsync(DoriDeckKey.Tab, token);
+				await PressAsync(DoriDeckKey.Tab, token);
+			}
 			await PressAsync(DoriDeckKey.Return, token);
 
 			return ActionResult.Success();
+		}
+
+		// The dropdown popup appears asynchronously after Return, so retry until its items are exposed.
+		[SupportedOSPlatform("windows")]
+		private static async Task<bool> SelectWithUiAutomationAsync(string style, CancellationToken cancellationToken)
+		{
+			for (var attempt = 0; attempt < UiAutomationAttempts; attempt++)
+			{
+				try
+				{
+					if (WindowsUiAutomation.SelectDropdownItem(style))
+					{
+						return true;
+					}
+				}
+				catch (COMException)
+				{
+					// The popup can disappear or rebuild between lookups; try again.
+				}
+
+				await Task.Delay(KeyDelayMilliseconds, cancellationToken);
+			}
+
+			return false;
 		}
 
 		private async Task PressAsync(DoriDeckKey key, CancellationToken cancellationToken)
