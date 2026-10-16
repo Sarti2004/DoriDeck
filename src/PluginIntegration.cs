@@ -37,6 +37,7 @@ public sealed class PluginIntegration : IPluginIntegration, IVariableProvider, I
 			new RespellNoteAction(_session),
 			new PickupMeasureAction(_session),
 			new SectionHeaderAction(_session),
+			new ChangeParagraphStyleAction(_session, keyboard, logger),
 			new TupletAction(_session),
 			new ChoirReductionAction(_session, keyboard),
 			new OpenRecentFileAction(_session),

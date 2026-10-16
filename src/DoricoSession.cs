@@ -6,6 +6,7 @@ using MacroDeck.Sdk;
 using ScoreInterface;
 using ScoreInterface.Comms;
 using ScoreInterface.Enums;
+using ScoreInterface.Exceptions;
 using ScoreInterface.Responses;
 using DoriDeck.Services;
 using Lea;
@@ -29,6 +30,7 @@ public sealed class DoricoSession : IAsyncDisposable
 	public const int DefaultFlowSwitchDelay = 150;
 	public const int DefaultTaskWaitDelay = 200;
 	public const string DefaultDoricoVersion = "6";
+	private const string ParagraphStyleCollection = "kParagraphStyleCollection";
 
 	private readonly IScoreInterfaceRemote _remote;
 	private readonly IEventAggregator _eventAggregator;
@@ -520,6 +522,35 @@ public sealed class DoricoSession : IAsyncDisposable
 		return VariablePlaceholder.Replace(content, match => replacements[match.Groups["name"].Value]);
 	}
 
+	/// Names of the paragraph styles in the active score, or an empty list if no score is open or Dorico
+	/// doesn't expose them.
+	public async Task<IReadOnlyList<string>> GetParagraphStylesAsync(CancellationToken cancellationToken = default)
+	{
+		LibraryEntitiesListResponse? paragraphStyles;
+		try
+		{
+			var libraryCollections = await _remote.GetLibraryCollectionsAsync(cancellationToken);
+			if (libraryCollections?.Collections.Contains(ParagraphStyleCollection) != true)
+			{
+				return [];
+			}
+
+			paragraphStyles = await _remote.GetLibraryEntitiesAsync(ParagraphStyleCollection, cancellationToken);
+		}
+		catch (ScoreInterfaceException<Response> ex) when (ex.Response.Detail == "kNoScore")
+		{
+			// Library collections belong to a score; Dorico refuses the request while only the Hub is open.
+			return [];
+		}
+
+		return (paragraphStyles?.LibraryEntities ?? [])
+			.Select(entity => entity.Name)
+			.Where(name => !string.IsNullOrWhiteSpace(name))
+			.Distinct(StringComparer.Ordinal)
+			.OrderBy(name => name, StringComparer.OrdinalIgnoreCase)
+			.ToList();
+	}
+
 	private async Task OnConnectedAsync()
 	{
 		if (!_remote.IsConnected)
@@ -576,7 +607,7 @@ public sealed class DoricoSession : IAsyncDisposable
 		{
 			//_logger.Information("Dorico raw status: {Json}", json);
 		}
-			//_logger.Information("Dorico raw status: {Json}", json);
+		//_logger.Information("Dorico raw status: {Json}", json);
 	}
 
 	private void OnDoricoStatusChanged(StatusResponse status)

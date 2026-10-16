@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "isRoot": true,
+  "tools": {
+    "macrodeck.plugin.cli": {
+      "version": "3.0.0-beta.17",
+      "commands": [
+        "macrodeck-plugin"
+      ],
+      "rollForward": false
+    }
+  }
+}

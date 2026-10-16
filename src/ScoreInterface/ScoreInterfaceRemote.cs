@@ -63,6 +63,10 @@ public interface IScoreInterfaceRemote
 
 	Task<PropertiesListResponse?> GetPropertiesAsync(CancellationToken cancellationToken = default);
 
+	Task<LibraryCollectionsListResponse?> GetLibraryCollectionsAsync(CancellationToken cancellationToken = default);
+
+	Task<LibraryEntitiesListResponse?> GetLibraryEntitiesAsync(string collection, CancellationToken cancellationToken = default);
+
 	Task<StatusResponse?> GetStatusAsync(CancellationToken cancellationToken = default);
 
 	Task<Response?> SendRequestAsync(Command command, CancellationToken cancellationToken = default);
@@ -268,6 +272,35 @@ public sealed class ScoreInterfaceRemote : IScoreInterfaceRemote
 		ThrowIfError(result);
 
 		return Deserialize<PropertiesListResponse>(result.Json);
+	}
+
+	public async Task<LibraryCollectionsListResponse?> GetLibraryCollectionsAsync(CancellationToken cancellationToken = default)
+	{
+		AssertConnected();
+
+		var result = await _comms.SendAsync(
+			"{\"message\": \"getlibrarycollections\"}", "librarycollectionslist", cancellationToken, Timeout)
+			.ConfigureAwait(false);
+
+		ThrowIfError(result);
+
+		return Deserialize<LibraryCollectionsListResponse>(result.Json);
+	}
+
+	public async Task<LibraryEntitiesListResponse?> GetLibraryEntitiesAsync(
+		string collection,
+		CancellationToken cancellationToken = default)
+	{
+		ArgumentException.ThrowIfNullOrEmpty(collection);
+		AssertConnected();
+
+		var result = await _comms.SendAsync(
+			$"{{\"message\": \"getlibraryentities\", \"collection\": \"{collection}\"}}", "libraryentitieslist", cancellationToken, Timeout)
+			.ConfigureAwait(false);
+
+		ThrowIfError(result);
+
+		return Deserialize<LibraryEntitiesListResponse>(result.Json);
 	}
 
 	public async Task<StatusResponse?> GetStatusAsync(CancellationToken cancellationToken = default)
