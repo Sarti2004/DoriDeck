@@ -68,7 +68,7 @@ public sealed class PluginIntegration : IPluginIntegration, IFolderViewProvider,
         FolderViewId,
         Strings.FolderViews.PianoKeyboard.Name(),
         Strings.FolderViews.PianoKeyboard.Description(),
-        HasConfiguration: true,Navigation: FolderViewNavigation.Hidden);
+        Navigation: FolderViewNavigation.Hidden);
 
     private string? _qualifiedFolderViewId;
 

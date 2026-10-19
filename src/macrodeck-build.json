@@ -6,7 +6,10 @@
     "Assets/Durations/whole.png", "Assets/Durations/half.png", "Assets/Durations/quarter.png",
     "Assets/Durations/eighth.png", "Assets/Durations/sixteenth.png", "Assets/Durations/thirty-second.png",
   "Assets/Durations/whole_dotted.png", "Assets/Durations/half_dotted.png", "Assets/Durations/quarter_dotted.png",
-    "Assets/Durations/eighth_dotted.png", "Assets/Durations/sixteenth_dotted.png", "Assets/Durations/thirty-second_dotted.png"],
+    "Assets/Durations/eighth_dotted.png", "Assets/Durations/sixteenth_dotted.png", "Assets/Durations/thirty-second_dotted.png",
+    "Assets/Durations/breve.png", "Assets/Durations/sixty-fourth.png",
+    "Assets/Durations/breve_dotted.png", "Assets/Durations/sixty-fourth_dotted.png",
+    "Assets/Durations/8th plus.png", "Assets/Backgrounds/brushed-metal.jpg"],
   "targets": {
     "win-x64": {
       "executable": "dotnet",

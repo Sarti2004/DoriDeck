@@ -3,9 +3,7 @@ using System.Runtime.Versioning;
 
 namespace DoriDeck.Services.Windows;
 
-/// Minimal UI Automation client over the native UIAutomationCore COM API. The project targets plain
-/// net10.0, so System.Windows.Automation (WPF) is not available; only the vtable slots actually used
-/// are declared, the rest are placeholders that keep the slot order intact.
+
 [SupportedOSPlatform("windows")]
 internal static class WindowsUiAutomation
 {
@@ -16,8 +14,6 @@ internal static class WindowsUiAutomation
 
 	private static readonly Guid CUIAutomationClsid = new("ff48dba4-60ef-4201-aa87-54103eef594e");
 
-	/// Selects the list item named <paramref name="itemName"/> in the open dropdown that has keyboard focus.
-	/// Returns false when no such item is found or it cannot be selected.
 	public static bool SelectDropdownItem(string itemName)
 	{
 		var automation = (IUIAutomation)Activator.CreateInstance(Type.GetTypeFromCLSID(CUIAutomationClsid, throwOnError: true)!)!;

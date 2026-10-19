@@ -195,7 +195,7 @@ internal static class PianoControlsView
                 Label("duration-label", "Duration", 0.12),
                 SegmentGroup(
                     "durations",
-                    Enum.GetValues<NoteDuration>().Select(duration => DurationSegment(model, duration)).ToList(),
+                    DurationLabels.Keys.Select(duration => DurationSegment(model, duration)).ToList(),
                     segmentWidth: 0.08),
                 new UiStack { Key = "note-input-spacer", Fill = true },
                 SegmentGroup(

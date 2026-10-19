@@ -16,12 +16,14 @@ public sealed record PianoKeyArtwork(
 
     private static readonly IReadOnlyDictionary<NoteDuration, string> DurationFiles = new Dictionary<NoteDuration, string>
     {
+        [NoteDuration.Breve] = "breve",
         [NoteDuration.Whole] = "whole",
         [NoteDuration.Half] = "half",
         [NoteDuration.Quarter] = "quarter",
         [NoteDuration.Eighth] = "eighth",
         [NoteDuration.Sixteenth] = "sixteenth",
         [NoteDuration.ThirtySecond] = "thirty-second",
+        [NoteDuration.SixtyFourth] = "sixty-fourth",
     };
 
     public static string AssetDirectory { get; } = Path.Combine(AppContext.BaseDirectory, "Assets");

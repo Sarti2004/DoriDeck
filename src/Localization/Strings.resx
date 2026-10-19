@@ -311,6 +311,12 @@
   <data name="FolderViews.PianoKeyboard.Description" xml:space="preserve">
     <value>Virtual piano keyboard.</value>
   </data>
+  <data name="FolderViews.NoteDurationPad.Name" xml:space="preserve">
+    <value>Note duration pad</value>
+  </data>
+  <data name="FolderViews.NoteDurationPad.Description" xml:space="preserve">
+    <value>Note duration buttons</value>
+  </data>
   <data name="WidgetTypes.ScoreInfo.Name" xml:space="preserve">
     <value>Dorico score</value>
   </data>
