@@ -71,8 +71,10 @@ After installing the plugin, open Macro Deck and add one of the available Dorico
 | **Connect**          | Creates a connection between Macro Deck and Dorico.                                     |
 | **Clear Connection Token**  | Re-authenticates the connection to Dorico. Use this if MD cannot connect to Dorico.  |
 | **Open Recent File**  | Opens the first project in Dorico's recent file list.  |
+| **Change Paragraph Style**  |  Change the style of selected staff-attached or system text with a single click.  |
 | **Open Previous File**  | Opens the second project in Dorico's recent file list.  |
 | **Virtual Keyboard**  | Virtual piano keyboard folder to enter notes to Dorico  |
+| **Note Duration Pad**  | Folder view for changing note duration from your phone or tablet  |
 
 ## Limitations
 * Dorico must be running to execute actions successfully.
