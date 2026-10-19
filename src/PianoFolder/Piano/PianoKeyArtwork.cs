@@ -16,15 +16,40 @@ public sealed record PianoKeyArtwork(
 
     private static readonly IReadOnlyDictionary<NoteDuration, string> DurationFiles = new Dictionary<NoteDuration, string>
     {
+        [NoteDuration.Breve] = "breve",
         [NoteDuration.Whole] = "whole",
         [NoteDuration.Half] = "half",
         [NoteDuration.Quarter] = "quarter",
         [NoteDuration.Eighth] = "eighth",
         [NoteDuration.Sixteenth] = "sixteenth",
         [NoteDuration.ThirtySecond] = "thirty-second",
+        [NoteDuration.SixtyFourth] = "sixty-fourth",
     };
 
     public static string AssetDirectory { get; } = Path.Combine(AppContext.BaseDirectory, "Assets");
+
+    /// <summary>Registers only the duration icons, plain and dotted, under the same names the piano uses.</summary>
+    public static async Task<(IReadOnlyDictionary<NoteDuration, UiResource> Plain, IReadOnlyDictionary<NoteDuration, UiResource> Dotted)>
+        RegisterDurationIconsAsync(IUiResourceRegistry resources, CancellationToken cancellationToken = default)
+    {
+        async Task<UiResource> Register(string file, string name)
+        {
+            var content = await File.ReadAllBytesAsync(
+                Path.Combine(AssetDirectory, "Durations", $"{file}.png"),
+                cancellationToken).ConfigureAwait(false);
+            return await resources.RegisterAsync(name, content, MediaType, cancellationToken).ConfigureAwait(false);
+        }
+
+        var icons = new Dictionary<NoteDuration, UiResource>();
+        var dottedIcons = new Dictionary<NoteDuration, UiResource>();
+        foreach (var (duration, file) in DurationFiles)
+        {
+            icons[duration] = await Register(file, $"duration-{file}").ConfigureAwait(false);
+            dottedIcons[duration] = await Register($"{file}_dotted", $"duration-{file}-dotted").ConfigureAwait(false);
+        }
+
+        return (icons, dottedIcons);
+    }
 
     public static async Task<PianoKeyArtwork> RegisterAsync(
         IUiResourceRegistry resources,

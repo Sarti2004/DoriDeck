@@ -1,8 +1,12 @@
+using System.Diagnostics;
 using System.Globalization;
+using System.Net;
+using System.Net.Sockets;
 using MacroDeck.Sdk;
 using ScoreInterface;
 using ScoreInterface.Comms;
 using ScoreInterface.Enums;
+using ScoreInterface.Exceptions;
 using ScoreInterface.Responses;
 using DoriDeck.Services;
 using Lea;
@@ -20,10 +24,13 @@ public sealed class DoricoSession : IAsyncDisposable
 	private static readonly TimeSpan StatusDebounceDelay = TimeSpan.FromSeconds(3);
 	private static readonly TimeSpan DoricoRequestTimeout = TimeSpan.FromSeconds(5);
 	private static readonly TimeSpan VariableLookupTimeout = TimeSpan.FromSeconds(1);
+	private static readonly TimeSpan AutoConnectRetryInterval = TimeSpan.FromSeconds(2);
+	private static readonly TimeSpan AutoConnectWindow = TimeSpan.FromSeconds(90);
 
 	public const int DefaultFlowSwitchDelay = 150;
 	public const int DefaultTaskWaitDelay = 200;
 	public const string DefaultDoricoVersion = "6";
+	private const string ParagraphStyleCollection = "kParagraphStyleCollection";
 
 	private readonly IScoreInterfaceRemote _remote;
 	private readonly IEventAggregator _eventAggregator;
@@ -35,12 +42,23 @@ public sealed class DoricoSession : IAsyncDisposable
 	private readonly SubscriptionToken _disconnectSubscription;
 	private readonly SubscriptionToken _statusSubscription;
 	private readonly SubscriptionToken _optionsChangedSubscription;
+	private readonly SubscriptionToken _selectionChangedSubscription;
 	private readonly object _statusDebounceLock = new();
+	private readonly object _scoreInfoLock = new();
+	private readonly ScoreOpenLogReader _scoreOpenLogReader;
+
+	// Score info already read, by OCF session id (= openScoreID), so switching between open scores reads neither the
+	// log nor the score again. A few KB per score opened in this Dorico run; cleared when Dorico restarts.
+	private readonly Dictionary<int, LoadedScore> _loadedScores = new();
+	private int? _loadedScoreId;
+	private readonly CancellationTokenSource _shutdownCts = new();
 
 	private IIntegrationContext? _context;
 	private Guid _configEntryId;
 	private CancellationTokenSource? _statusDebounceCts;
 	private DynamicReplacementWalker? _dynamicReplacementWalker;
+	private DoricoLaunchWatcher? _launchWatcher;
+	private int _autoConnecting;
 	private string _doricoVersion = DefaultDoricoVersion;
 	private int _flowsCount;
 
@@ -56,10 +74,12 @@ public sealed class DoricoSession : IAsyncDisposable
 		_keyboard = keyboard;
 		_applicationFocus = applicationFocus;
 		_logger = logger.ForContext<DoricoSession>();
+		_scoreOpenLogReader = new ScoreOpenLogReader(logger);
 
 		_disconnectSubscription = _eventAggregator.Subscribe<DisconnectResponse>(OnDoricoDisconnected);
 		_statusSubscription = _eventAggregator.Subscribe<StatusResponse>(OnDoricoStatusChanged);
 		_optionsChangedSubscription = _eventAggregator.Subscribe<OptionsChangedResponse>(OnDoricoOptionsChanged);
+		_selectionChangedSubscription = _eventAggregator.Subscribe<SelectionChangedResponse>(OnDoricoSelectionChanged);
 		_remote.RawMessageReceived += OnDoricoRawMessage;
 	}
 
@@ -83,7 +103,7 @@ public sealed class DoricoSession : IAsyncDisposable
 
 	public bool HasSelection { get; private set; }
 
-	public int ActiveOpenScoreId { get; private set; }
+	public int ActiveOpenScoreId { get; private set; } = -1;
 
 	public string NoteInputMode { get; private set; } = string.Empty;
 
@@ -107,6 +127,13 @@ public sealed class DoricoSession : IAsyncDisposable
 
 	public bool RestMode { get; private set; }
 
+	public bool InPlayback { get; private set; }
+
+	public bool IsRecording { get; private set; }
+
+	/// <summary>Dorico's rhythmic grid resolution, e.g. "kCrotchet", or empty until a status reports one.</summary>
+	public string RhythmicGridResolution { get; private set; } = string.Empty;
+
 	/// <summary>Flag reported from Dorico</summary>
 	public event Action<string>? DurationChanged;
 
@@ -120,6 +147,18 @@ public sealed class DoricoSession : IAsyncDisposable
 	public bool TupletMode { get; set; }
 
 	public IReadOnlyList<CommandInfo> AvailableCommands { get; private set; } = [];
+
+	public string ScoreInfoPath { get; private set; } = string.Empty;
+
+	public string ScoreInfoJson { get; private set; } = string.Empty;
+
+	public event Action<string>? ScoreInfoChanged;
+
+	public ScoreSummary? ScoreSummary { get; private set; }
+
+	public byte[]? ScorePreviewPng { get; private set; }
+
+	public event Action? DisplayStateChanged;
 
 	///list of recent files from FileList.xml</summary>
 	public IReadOnlyList<string> RecentFiles { get; private set; } = [];
@@ -161,8 +200,170 @@ public sealed class DoricoSession : IAsyncDisposable
 		FlowSwitchDelay = await ReadConfigIntAsync(DoriDeckConfigKeys.FlowSwitchDelay, DefaultFlowSwitchDelay);
 		TaskWaitDelay = await ReadConfigIntAsync(DoriDeckConfigKeys.TaskWaitDelay, DefaultTaskWaitDelay);
 
+		_launchWatcher = new DoricoLaunchWatcher(DoricoApplicationLogPath, _logger);
+		_launchWatcher.Launched += OnDoricoLaunched;
+
 		await EnsureConnectedAsync();
 		LoadRecentFiles();
+	}
+
+	private void OnDoricoLaunched()
+	{
+		ForgetLoadedScores();
+
+		if (IsConnected || Interlocked.Exchange(ref _autoConnecting, 1) == 1)
+		{
+			return;
+		}
+
+		_ = AutoConnectAsync();
+	}
+
+	/// Dorico takes a while after launch to open its Remote Control port, so retry for a bounded window.
+	private async Task AutoConnectAsync()
+	{
+		try
+		{
+			if (string.IsNullOrEmpty(await ReadSessionTokenAsync()))
+			{
+				_logger.Information("Dorico started, but DoriDeck has no saved session; can not connect automatically.");
+				return;
+			}
+
+			var started = Stopwatch.StartNew();
+			while (!IsConnected && started.Elapsed < AutoConnectWindow)
+			{
+				await Task.Delay(AutoConnectRetryInterval, _shutdownCts.Token);
+
+				// Cheap probe first so attempts made while Dorico is still starting don't each log a failure.
+				if (await IsRemoteControlListeningAsync(_shutdownCts.Token) && await EnsureConnectedAsync())
+				{
+					_logger.Information("Connected to Dorico automatically after it started.");
+					return;
+				}
+			}
+		}
+		catch (OperationCanceledException) when (_shutdownCts.IsCancellationRequested)
+		{
+		}
+		catch (Exception ex)
+		{
+			_logger.Warning(ex, "Failed to connect to Dorico automatically.");
+		}
+		finally
+		{
+			Interlocked.Exchange(ref _autoConnecting, 0);
+		}
+	}
+
+	private static async Task<bool> IsRemoteControlListeningAsync(CancellationToken cancellationToken)
+	{
+		try
+		{
+			var port = new Uri(new ConnectionArguments().Address).Port;
+			using var client = new TcpClient();
+			await client.ConnectAsync(IPAddress.Loopback, port, cancellationToken);
+			return true;
+		}
+		catch (SocketException)
+		{
+			return false;
+		}
+	}
+
+	private sealed record LoadedScore(string Path, string Json, ScoreSummary Summary);
+
+	/// Shows the info of the active score. Only a score not seen before needs the log, and only the lines Dorico
+	/// wrote since the last read; a score already shown, or switched back to, costs a dictionary lookup.
+	private void RefreshScoreInfo()
+	{
+		// Refreshes run on the thread pool; serialize them so the last one to finish reflects the latest active id.
+		lock (_scoreInfoLock)
+		{
+			if (!HasScore)
+			{
+				return;
+			}
+
+			var scoreId = ActiveOpenScoreId;
+			if (_loadedScoreId == scoreId)
+			{
+				return;
+			}
+
+			if (!_loadedScores.TryGetValue(scoreId, out var score))
+			{
+				var scorePath = _scoreOpenLogReader.GetScorePath(scoreId);
+				if (scorePath is null)
+				{
+					_scoreOpenLogReader.ReadNewlyOpenedScores(DoricoApplicationLogPath);
+					scorePath = _scoreOpenLogReader.GetScorePath(scoreId);
+				}
+
+				// No path means a score that was never saved, so there is nothing to read. Clear the previous score's
+				// info rather than showing it for this one, and remember the id so the log isn't searched again.
+				score = scorePath is null ? null : LoadScore(scorePath);
+				if (score is not null)
+				{
+					_loadedScores[scoreId] = score;
+				}
+			}
+
+			_loadedScoreId = scoreId;
+			ShowScore(score);
+		}
+	}
+
+	private LoadedScore? LoadScore(string scorePath)
+	{
+		try
+		{
+			var json = ScoreInfoReader.ReadJson(scorePath);
+			//_logger.Information("Json.{json}", json);
+			return new LoadedScore(scorePath, json, ScoreSummary.FromJson(json, scorePath));
+		}
+		catch (Exception ex)
+		{
+			_logger.Information(ex, "Failed to read score info from {Path}.", scorePath);
+			return null;
+		}
+	}
+
+	private void ShowScore(LoadedScore? score)
+	{
+		ScoreInfoPath = score?.Path ?? string.Empty;
+		ScoreInfoJson = score?.Json ?? string.Empty;
+		ScoreSummary = score?.Summary;
+
+		// Not cached: at a few hundred KB each, previews of every score opened would add up. One zip entry per switch.
+		ScorePreviewPng = score is null ? null : ReadPreview(score.Path);
+
+		ScoreInfoChanged?.Invoke(ScoreInfoJson);
+		DisplayStateChanged?.Invoke();
+	}
+
+	/// Session ids restart from 0 in every Dorico run, so cached info must not outlive it.
+	private void ForgetLoadedScores()
+	{
+		lock (_scoreInfoLock)
+		{
+			_scoreOpenLogReader.Reset();
+			_loadedScores.Clear();
+			_loadedScoreId = null;
+		}
+	}
+
+	private byte[]? ReadPreview(string scorePath)
+	{
+		try
+		{
+			return ScoreInfoReader.ReadPreviewPng(scorePath);
+		}
+		catch (Exception ex)
+		{
+			_logger.Information(ex, "Failed to read the score preview from {Path}.", scorePath);
+			return null;
+		}
 	}
 
 	private static async Task<Guid> ResolveConfigEntryIdAsync(IIntegrationContext context)
@@ -172,11 +373,13 @@ public sealed class DoricoSession : IAsyncDisposable
 		var match = entries.FirstOrDefault(entry =>
 			string.Equals(entry.Title, DoriDeckConfigKeys.ConfigEntryTitle, StringComparison.Ordinal));
 
-		return (match ?? entries.FirstOrDefault())?.Id ?? Guid.Empty;
+		return (match ?? (entries.Count > 0 ? entries[0] : null))?.Id ?? Guid.Empty;
 	}
 
 	public Task ShutdownAsync()
 	{
+		_shutdownCts.Cancel();
+
 		lock (_statusDebounceLock)
 		{
 			_statusDebounceCts?.Cancel();
@@ -186,6 +389,9 @@ public sealed class DoricoSession : IAsyncDisposable
 
 		_dynamicReplacementWalker?.Dispose();
 		_dynamicReplacementWalker = null;
+
+		_launchWatcher?.Dispose();
+		_launchWatcher = null;
 
 		return _remote.IsConnected ? _remote.DisconnectAsync() : Task.CompletedTask;
 	}
@@ -316,6 +522,35 @@ public sealed class DoricoSession : IAsyncDisposable
 		return VariablePlaceholder.Replace(content, match => replacements[match.Groups["name"].Value]);
 	}
 
+	/// Names of the paragraph styles in the active score, or an empty list if no score is open or Dorico
+	/// doesn't expose them.
+	public async Task<IReadOnlyList<string>> GetParagraphStylesAsync(CancellationToken cancellationToken = default)
+	{
+		LibraryEntitiesListResponse? paragraphStyles;
+		try
+		{
+			var libraryCollections = await _remote.GetLibraryCollectionsAsync(cancellationToken);
+			if (libraryCollections?.Collections.Contains(ParagraphStyleCollection) != true)
+			{
+				return [];
+			}
+
+			paragraphStyles = await _remote.GetLibraryEntitiesAsync(ParagraphStyleCollection, cancellationToken);
+		}
+		catch (ScoreInterfaceException<Response> ex) when (ex.Response.Detail == "kNoScore")
+		{
+			// Library collections belong to a score; Dorico refuses the request while only the Hub is open.
+			return [];
+		}
+
+		return (paragraphStyles?.LibraryEntities ?? [])
+			.Select(entity => entity.Name)
+			.Where(name => !string.IsNullOrWhiteSpace(name))
+			.Distinct(StringComparer.Ordinal)
+			.OrderBy(name => name, StringComparer.OrdinalIgnoreCase)
+			.ToList();
+	}
+
 	private async Task OnConnectedAsync()
 	{
 		if (!_remote.IsConnected)
@@ -330,6 +565,9 @@ public sealed class DoricoSession : IAsyncDisposable
 
 		_logger.Information("Connected to Dorico.");
 		await RefreshContextAsync();
+
+		// Picks up a score opened before we connected, e.g. Dorico launched by double-clicking a .dorico file.
+		_ = Task.Run(RefreshScoreInfo);
 
 		var appInfo = await _remote.GetAppInfoAsync();
 		if (appInfo?.Number is { Length: > 0 } versionNumber)
@@ -356,7 +594,8 @@ public sealed class DoricoSession : IAsyncDisposable
 
 	private void OnDoricoDisconnected(DisconnectResponse response)
 	{
-		_logger.Warning("Dorico disconnected.");
+		_logger.Information("Dorico disconnected.");
+		ForgetLoadedScores();
 		ResetDisconnectedState();
 		Disconnected?.Invoke();
 	}
@@ -368,6 +607,7 @@ public sealed class DoricoSession : IAsyncDisposable
 		{
 			//_logger.Information("Dorico raw status: {Json}", json);
 		}
+		//_logger.Information("Dorico raw status: {Json}", json);
 	}
 
 	private void OnDoricoStatusChanged(StatusResponse status)
@@ -386,7 +626,25 @@ public sealed class DoricoSession : IAsyncDisposable
 		_ = RefreshFlowsDebouncedAsync(status, cancellationToken);
 	}
 
-	private void OnDoricoOptionsChanged(OptionsChangedResponse response) => LoadRecentFiles();
+	private void OnDoricoOptionsChanged(OptionsChangedResponse response)
+	{
+		LoadRecentFiles();
+
+		// Opening a score updates the recent file list, so this is also our cue to look for it in the log.
+		_ = Task.Run(RefreshScoreInfo);
+	}
+
+	/// Dorico sends selectionchanged when the user switches to another open score, before any status reports it.
+	private void OnDoricoSelectionChanged(SelectionChangedResponse response)
+	{
+		if (response.OpenScoreId == ActiveOpenScoreId)
+		{
+			return;
+		}
+
+		ActiveOpenScoreId = response.OpenScoreId;
+		_ = Task.Run(RefreshScoreInfo);
+	}
 
 	private void LoadRecentFiles()
 	{
@@ -397,6 +655,7 @@ public sealed class DoricoSession : IAsyncDisposable
 			if (!File.Exists(path))
 			{
 				RecentFiles = [];
+				DisplayStateChanged?.Invoke();
 				return;
 			}
 
@@ -410,6 +669,8 @@ public sealed class DoricoSession : IAsyncDisposable
 		{
 			_logger.Warning(ex, "Failed to read Dorico recent file list {Path}.", path);
 		}
+
+		DisplayStateChanged?.Invoke();
 	}
 
 	private async Task RefreshFlowsDebouncedAsync(StatusResponse status, CancellationToken cancellationToken)
@@ -517,14 +778,41 @@ public sealed class DoricoSession : IAsyncDisposable
 
 	private void ApplyStatus(StatusResponse status)
 	{
+		var scoreChanged = status.HasScore && (!HasScore || status.ActiveOpenScoreID != ActiveOpenScoreId);
+		var previousHasScore = HasScore;
+		var previousWindowMode = WindowMode;
+		var previousInPlayback = InPlayback;
+		var previousIsRecording = IsRecording;
+		var previousGridResolution = RhythmicGridResolution;
+
 		HasScore = status.HasScore;
 		HasSelection = status.HasSelection;
 		ActiveOpenScoreId = status.ActiveOpenScoreID;
+
+		if (scoreChanged)
+		{
+			_ = Task.Run(RefreshScoreInfo);
+		}
 		NoteInputMode = FriendlyDoricoMode(status.NoteInputMode.ToString());
 		Accidental = status.Accidental.ToString();
 		WindowModeRaw = status.WindowMode.ToString();
 		WindowMode = FriendlyDoricoMode(WindowModeRaw);
 		//_logger.Information("Dorico status: {@Status}", status);
+		InPlayback = status.InPlayback ?? InPlayback;
+		IsRecording = status.IsRecording ?? IsRecording;
+		if (!string.IsNullOrEmpty(status.RhythmicGridResolutionValue))
+		{
+			RhythmicGridResolution = status.RhythmicGridResolutionValue;
+		}
+
+		if (HasScore != previousHasScore ||
+			!string.Equals(WindowMode, previousWindowMode, StringComparison.Ordinal) ||
+			InPlayback != previousInPlayback ||
+			IsRecording != previousIsRecording ||
+			!string.Equals(RhythmicGridResolution, previousGridResolution, StringComparison.Ordinal))
+		{
+			DisplayStateChanged?.Invoke();
+		}
 
 		if (status.RhythmDots.HasValue)
 		{
@@ -572,7 +860,7 @@ public sealed class DoricoSession : IAsyncDisposable
 	{
 		HasScore = false;
 		HasSelection = false;
-		ActiveOpenScoreId = 0;
+		ActiveOpenScoreId = -1;
 		NoteInputMode = string.Empty;
 		Accidental = string.Empty;
 		WindowMode = string.Empty;
@@ -581,10 +869,14 @@ public sealed class DoricoSession : IAsyncDisposable
 		RhythmDots = 0;
 		SetNoteInputActive(false);
 		RestMode = false;
+		InPlayback = false;
+		IsRecording = false;
+		RhythmicGridResolution = string.Empty;
 		CurrentFlowId = string.Empty;
 		CurrentFlowName = string.Empty;
 		TupletMode = false;
 		_flowsCount = 0;
+		DisplayStateChanged?.Invoke();
 	}
 
 	private static string FriendlyDoricoMode(string rawMode) =>
@@ -644,6 +936,7 @@ public sealed class DoricoSession : IAsyncDisposable
 		_eventAggregator.Unsubscribe<DisconnectResponse>(_disconnectSubscription);
 		_eventAggregator.Unsubscribe<StatusResponse>(_statusSubscription);
 		_eventAggregator.Unsubscribe<OptionsChangedResponse>(_optionsChangedSubscription);
+		_eventAggregator.Unsubscribe<SelectionChangedResponse>(_selectionChangedSubscription);
 		_remote.RawMessageReceived -= OnDoricoRawMessage;
 
 		lock (_statusDebounceLock)
@@ -652,6 +945,9 @@ public sealed class DoricoSession : IAsyncDisposable
 		}
 
 		_dynamicReplacementWalker?.Dispose();
+		_shutdownCts.Cancel();
+		_shutdownCts.Dispose();
+		_launchWatcher?.Dispose();
 		_connectGate.Dispose();
 		_contextVariableGate.Dispose();
 

@@ -178,17 +178,19 @@ public sealed class DoricoNoteOutput : INoteOutput
     /// <summary>The Dorico note value name for a duration selected in the note input row.</summary>
     private static string DoricoNoteValue(NoteDuration duration) => duration switch
     {
+        NoteDuration.Breve => "kBreve",
         NoteDuration.Whole => "kSemibreve",
         NoteDuration.Half => "kMinim",
         NoteDuration.Quarter => "kCrotchet",
         NoteDuration.Eighth => "kQuaver",
         NoteDuration.Sixteenth => "kSemiQuaver",
         NoteDuration.ThirtySecond => "kDemiSemiQuaver",
+        NoteDuration.SixtyFourth => "kHemiDemiSemiQuaver",
         _ => throw new ArgumentOutOfRangeException(nameof(duration), duration, "Not implemented."),
     };
 
     /// <summary>The note input row duration for a Dorico note value name, or <c>null</c> when it has none.</summary>
-    private static NoteDuration? TryParseDoricoNoteValue(string doricoNoteValue) =>
+    public static NoteDuration? TryParseDoricoNoteValue(string doricoNoteValue) =>
         Enum.GetValues<NoteDuration>()
             .Cast<NoteDuration?>()
             .FirstOrDefault(duration => string.Equals(
@@ -208,7 +210,7 @@ public sealed class DoricoNoteOutput : INoteOutput
         }
     }
 
-    private async Task SendAfterAsync(Task previousSend, Func<Task> send)
+    private static async Task SendAfterAsync(Task previousSend, Func<Task> send)
     {
         try
         {

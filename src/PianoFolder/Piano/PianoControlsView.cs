@@ -1,3 +1,4 @@
+using System.Globalization;
 using DoriDeck.PianoFolder.Notes;
 using MacroDeck.Ui.Components;
 using MacroDeck.Ui.Dsl;
@@ -25,7 +26,7 @@ internal static class PianoControlsView
                             .Range(PianoKeyboardModel.MinOctaveCount, PianoKeyboardModel.MaxOctaveCount)
                             .Select(octaves => Segment(
                                 $"octave-tab-{octaves}",
-                                octaves.ToString(),
+                                octaves.ToString(CultureInfo.InvariantCulture),
                                 () => model.Octaves.Value == octaves,
                                 () => model.Octaves.Value = PianoKeyboardModel.ClampOctaveCount(octaves)))
                             .ToList()),
@@ -39,7 +40,7 @@ internal static class PianoControlsView
                                 PianoKeyboardModel.MaxTransposeOctaveNumber - PianoKeyboardModel.MinTransposeOctaveNumber + 1)
                             .Select(shift => Segment(
                                 $"octave-shift-{ShiftKey(shift)}",
-                                shift > 0 ? $"+{shift}" : shift.ToString(),
+                                shift > 0 ? $"+{shift}" : shift.ToString(CultureInfo.InvariantCulture),
                                 () => model.TransposeOctaveNumber.Value == shift,
                                 () => model.TransposeOctaveNumber.Value =
                                     PianoKeyboardModel.ClampTransposeOctaveNumber(shift)))
@@ -194,7 +195,7 @@ internal static class PianoControlsView
                 Label("duration-label", "Duration", 0.12),
                 SegmentGroup(
                     "durations",
-                    Enum.GetValues<NoteDuration>().Select(duration => DurationSegment(model, duration)).ToList(),
+                    DurationLabels.Keys.Select(duration => DurationSegment(model, duration)).ToList(),
                     segmentWidth: 0.08),
                 new UiStack { Key = "note-input-spacer", Fill = true },
                 SegmentGroup(
@@ -446,7 +447,7 @@ internal static class PianoControlsView
                                 Key = "transpose-value",
                                 Text = UiText.From(() => model.Transpose.Value > 0
                                     ? $"+{model.Transpose.Value}"
-                                    : model.Transpose.Value.ToString()),
+                                    : model.Transpose.Value.ToString(CultureInfo.InvariantCulture)),
                                 Size = UiSize.FromBasis(ValueSize),
                                 Color = PianoKeyStyle.ControlText,
                                 Align = UiComponentAlignments.Center,

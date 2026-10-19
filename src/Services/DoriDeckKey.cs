@@ -7,6 +7,7 @@ namespace DoriDeck.Services;
 public enum DoriDeckKey
 {
 	Return,
+	Tab,
 	Escape,
 	UpArrow,
 	DownArrow,

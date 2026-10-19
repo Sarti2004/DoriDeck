@@ -36,7 +36,7 @@ internal sealed class RunCommandAction(DoricoSession session) :
 			defaultValue: false),
 	];
 
-	public MacroDeckPlatform Platforms => MacroDeckPlatform.Windows | MacroDeckPlatform.MacOS;
+	public MacroDeckPlatform Platforms => MacroDeckPlatform.Windows | MacroDeckPlatform.MacOs;
 
 	public Task<DynamicOptionsResult> GetDynamicOptionsAsync(
 		DynamicOptionsContext context,
@@ -73,16 +73,29 @@ internal sealed class RunCommandAction(DoricoSession session) :
 
 		var options = commands
 			.OrderBy(command => command.DisplayName ?? command.Name, StringComparer.OrdinalIgnoreCase)
-			.Select(command => new ActionParameterOption
+			.Select(command => command.Name + parameterSuffix)
+			.Distinct(StringComparer.Ordinal)
+			// Label must equal Value: when they differ, Macro Deck's combobox switches
+			// to picker mode and ignores typed text, so '?' arguments can't be added.
+			.Select(value => new ActionParameterOption
 			{
-				// Macro Deck displays Label and stores Value. Preserve any parameters
-				// already typed after '?' when the user selects a suggestion.
-				Value = command.Name + parameterSuffix,
-				Label = string.IsNullOrWhiteSpace(command.DisplayName)
-					? command.Name
-					: $"{command.DisplayName} ({command.Name})",
+				// Preserve any parameters already typed after '?' when the user selects a suggestion.
+				Value = value,
+				Label = value,
 			})
-			.ToArray();
+			.ToList();
+
+		// Macro Deck flags a required value that isn't one of the options as
+		// "Configuration no longer available", so echo the typed value back as an option.
+		if (!string.IsNullOrWhiteSpace(enteredValue) &&
+			!options.Any(option => string.Equals(option.Value, enteredValue, StringComparison.Ordinal)))
+		{
+			options.Insert(0, new ActionParameterOption
+			{
+				Value = enteredValue,
+				Label = enteredValue,
+			});
+		}
 
 		return Task.FromResult(new DynamicOptionsResult
 		{

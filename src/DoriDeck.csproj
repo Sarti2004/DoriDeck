@@ -43,6 +43,8 @@
         <!-- Piano keyboard artwork, loaded from AppContext.BaseDirectory\Assets at startup (PianoKeyArtwork). -->
         <Content Include="Assets\Keys\*.png" CopyToOutputDirectory="PreserveNewest" />
         <Content Include="Assets\Durations\*.png" CopyToOutputDirectory="PreserveNewest" />
+        
+        <Content Include="Assets\Backgrounds\*.jpg" CopyToOutputDirectory="PreserveNewest" />
     </ItemGroup>
 
 </Project>

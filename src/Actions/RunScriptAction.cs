@@ -40,7 +40,7 @@ internal sealed class RunScriptAction(DoricoSession session, ILogger logger) :
 			defaultValue: false),
 	];
 
-	public MacroDeckPlatform Platforms => MacroDeckPlatform.Windows | MacroDeckPlatform.MacOS;
+	public MacroDeckPlatform Platforms => MacroDeckPlatform.Windows | MacroDeckPlatform.MacOs;
 
 	public Task<DynamicOptionsResult> GetDynamicOptionsAsync(
 		DynamicOptionsContext context,

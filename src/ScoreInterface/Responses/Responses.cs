@@ -46,6 +46,12 @@ public sealed record StatusResponse : IEvent
 
 	/// <summary>Whether note input is entering rests instead of notes.</summary>
 	public bool? RestMode { get; init; }
+
+	/// <summary>Whether Dorico is playing back.</summary>
+	public bool? InPlayback { get; init; }
+
+	/// <summary>Whether Dorico is recording.</summary>
+	public bool? IsRecording { get; init; }
 }
 
 /// <summary>
@@ -107,3 +113,21 @@ public sealed record FlowsListResponse(IEnumerable<Flow> Flows);
 /// Details about the properties which can be set on the current selection.
 /// </summary>
 public sealed record PropertiesListResponse(IEnumerable<string>? EventTypes);
+
+/// <summary>
+/// The library collections in the active score.
+/// </summary>
+public sealed record LibraryCollectionsListResponse(int OpenScoreID, IEnumerable<string> Collections);
+
+/// <summary>
+/// Details on an individual library entity, e.g. a paragraph style.
+/// </summary>
+public sealed record LibraryEntity(string EntityId, string Name, string? PlaybackTechniqueId)
+{
+	public override string ToString() => Name;
+}
+
+/// <summary>
+/// The entities in one library collection of the active score.
+/// </summary>
+public sealed record LibraryEntitiesListResponse(int OpenScoreId, IEnumerable<LibraryEntity>? LibraryEntities);

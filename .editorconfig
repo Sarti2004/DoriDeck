@@ -1,0 +1,5 @@
+root = true
+
+[*.cs]
+# Returning UiElement / interfaces from UI DSL helpers is intentional.
+dotnet_diagnostic.CA1859.severity = none
