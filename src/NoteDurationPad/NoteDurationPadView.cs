@@ -214,7 +214,8 @@ public static class NoteDurationPadView
                     "Play",
                     model.Play,
                     Toggled(() => model.InPlayback.Value, () => Icon(UiIcons.Play)),
-                    () => model.InPlayback.Value),
+                    () => model.InPlayback.Value,
+                    longPressCommand: model.PlayFromSelected),
                 GlyphButton(
                     "record",
                     "Record",
@@ -224,9 +225,9 @@ public static class NoteDurationPadView
                 Blank("top-left"),
                 ArrowButton("up", "Up", UiIcons.ArrowUp, model.Up),
                 Blank("top-right"),
-                ArrowButton("left", "Left", UiIcons.ArrowLeft, model.Left),
+                ArrowButton("left", "Left", UiIcons.ArrowLeft, model.Left, longPressCommand: model.LeftBar),
                 NoteInputButton(model),
-                ArrowButton("right", "Right", UiIcons.ArrowRight, model.Right),
+                ArrowButton("right", "Right", UiIcons.ArrowRight, model.Right, longPressCommand: model.RightBar),
                 Blank("bottom-left"),
                 ArrowButton("down", "Down", UiIcons.ArrowDown, model.Down),
                 Blank("bottom-right"),
@@ -241,7 +242,8 @@ public static class NoteDurationPadView
         string accessibilityLabel,
         Func<CancellationToken, Task> command,
         IReadOnlyList<UiElement> glyph,
-        Func<bool>? lit = null) =>
+        Func<bool>? lit = null,
+        Func<CancellationToken, Task>? longPressCommand = null) =>
         Styled(key, accessibilityLabel, new UiButton
         {
             Key = "button",
@@ -249,9 +251,19 @@ public static class NoteDurationPadView
             Justify = UiComponentJustify.Center,
             Align = UiComponentAlignments.Center,
             Background = NoteDurationPadStyle.Transparent,
-            Events = [UiEventHandler.OnAsync(UiComponentEvents.Press, command)],
+            Events =
+            [
+                UiEventHandler.OnAsync(UiComponentEvents.Press, command),
+                ..(longPressCommand is not null
+                    ? [
+                        UiEventHandler.OnAsync(UiComponentEvents.LongPress, longPressCommand),
+                        //UiEventHandler.OnAsync(UiComponentEvents.DoublePress, longPressCommand)
+                      ]
+                    : Array.Empty<UiEventHandler>())
+            ],
             Children = glyph,
         }, lit);
+
 
 
     private static IReadOnlyList<UiElement> Toggled(Func<bool> active, Func<UiElement> idle) =>
@@ -327,8 +339,8 @@ public static class NoteDurationPadView
         return Styled("centre", "Note input", button, () => model.NoteInputActive.Value);
     }
 
-    private static UiElement ArrowButton(string key, string label, string icon, Func<CancellationToken, Task> command) =>
-        GlyphButton(key, label, command, [Icon(icon, ArrowSize)]);
+    private static UiElement ArrowButton(string key, string label, string icon, Func<CancellationToken, Task> command, Func<CancellationToken, Task>? longPressCommand = null) =>
+        GlyphButton(key, label, command, [Icon(icon, ArrowSize)], longPressCommand: longPressCommand);
 
     private static UiElement Blank(string key) => new UiStack { Key = key };
 

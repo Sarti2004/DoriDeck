@@ -21,6 +21,7 @@ public sealed class NoteDurationPadViewModel
     public required Func<CancellationToken, Task> Delete { get; init; }
 
     public required Func<CancellationToken, Task> Play { get; init; }
+    public required Func<CancellationToken, Task> PlayFromSelected { get; init; }
 
     public required Func<CancellationToken, Task> Record { get; init; }
 
@@ -31,8 +32,12 @@ public sealed class NoteDurationPadViewModel
     public required Func<CancellationToken, Task> Down { get; init; }
 
     public required Func<CancellationToken, Task> Left { get; init; }
-
+    
     public required Func<CancellationToken, Task> Right { get; init; }
+
+    public required Func<CancellationToken, Task> LeftBar { get; init; }
+
+    public required Func<CancellationToken, Task> RightBar { get; init; }
 
     public UiState<NoteDuration> Duration { get; } = new(NoteDuration.Quarter);
 

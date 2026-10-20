@@ -89,7 +89,7 @@ public sealed class NoteDurationPadIntegration : IPluginIntegration, IFolderView
     private static FolderViewDescriptor Descriptor { get; } = new(
         FolderViewId,
         Strings.FolderViews.NoteDurationPad.Name(),
-        Strings.FolderViews.NoteDurationPad.Description(),Navigation: FolderViewNavigation.Hidden);
+        Strings.FolderViews.NoteDurationPad.Description());
 
     public IReadOnlyList<FolderViewDescriptor> GetFolderViews() => [Descriptor];
 
@@ -128,12 +128,15 @@ public sealed class NoteDurationPadIntegration : IPluginIntegration, IFolderView
             NoteInputIcon = _noteInputIcon,
             Delete = ct => SendCommandAsync("Edit.Delete", ct),
             Play = ct => SendCommandAsync("Play.StartOrStop", ct),
+            PlayFromSelected = ct => SendCommandAsync("Play.StartOrStop?PlayFromLocation=kSelection", ct),
             Record = ct => SendCommandAsync("Play.Record", ct),
             EnterNoteInput = ct => SendCommandAsync("NoteInput.Enter", ct),
             Up = _ => PressKeyAsync(DoriDeckKey.UpArrow),
             Down = _ => PressKeyAsync(DoriDeckKey.DownArrow),
-            Left = _ => PressKeyAsync(DoriDeckKey.LeftArrow),
-            Right = _ => PressKeyAsync(DoriDeckKey.RightArrow),
+            Left = ct => SendCommandAsync("EventEdit.NavigateLeft", ct),
+            Right = ct => SendCommandAsync("EventEdit.NavigateRight", ct),
+            LeftBar = ct => SendCommandAsync("EventEdit.NavigateLeftBar", ct),
+            RightBar = ct => SendCommandAsync("EventEdit.NavigateRightBar", ct),
         };
 
         if (_dispatcher.CurrentDuration is { } currentDuration)
