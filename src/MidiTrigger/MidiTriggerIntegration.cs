@@ -28,6 +28,9 @@ public sealed class MidiTriggerIntegration
 
 	private IIntegrationContext? _context;
 	private IReadOnlySet<string> _boundDevices = new HashSet<string>(StringComparer.Ordinal);
+	// Bound notes per device, so unbound keys never reach the host. Null means "publish every note" for a binding
+	// whose note filter this plugin cannot read (e.g. an operator other than ==).
+	private IReadOnlyDictionary<string, HashSet<int>?> _boundNotes = new Dictionary<string, HashSet<int>?>(StringComparer.Ordinal);
 
 	public MidiTriggerIntegration(ILogger logger)
 	{
@@ -136,7 +139,7 @@ public sealed class MidiTriggerIntegration
 			return;
 		}
 
-		var devices = new HashSet<string>(StringComparer.Ordinal);
+		var notes = new Dictionary<string, HashSet<int>?>(StringComparer.Ordinal);
 		foreach (var binding in context.Events.GetBindings())
 		{
 			if (string.Equals(binding.EventId, NotePressedEventId, StringComparison.Ordinal)
@@ -144,17 +147,29 @@ public sealed class MidiTriggerIntegration
 				&& value is { Operator: "==", Value: { ValueKind: JsonValueKind.String } device }
 				&& device.GetString() is { Length: > 0 } deviceName)
 			{
-				devices.Add(deviceName);
+				var known = notes.TryGetValue(deviceName, out var existing) ? existing : [];
+				if (known is not null && TryReadNote(binding, out var note))
+				{
+					known.Add(note);
+					notes[deviceName] = known;
+				}
+				else
+				{
+					notes[deviceName] = null;
+				}
 			}
 		}
 
-		_boundDevices = devices;
-		_listener.SetDevices(devices);
+		_boundNotes = notes;
+		_boundDevices = new HashSet<string>(notes.Keys, StringComparer.Ordinal);
+		_listener.SetDevices(_boundDevices);
 	}
 
 	private void OnNotePressed(string deviceName, int note)
 	{
-		if (_context is not { } context)
+		if (_context is not { } context
+			|| !_boundNotes.TryGetValue(deviceName, out var notes)
+			|| (notes is not null && !notes.Contains(note)))
 		{
 			return;
 		}
@@ -164,6 +179,14 @@ public sealed class MidiTriggerIntegration
 			[DeviceParameterName] = deviceName,
 			[NoteParameterName] = note.ToString(CultureInfo.InvariantCulture),
 		});
+	}
+
+	private static bool TryReadNote(EventBinding binding, out int note)
+	{
+		note = 0;
+		return binding.Parameters.TryGetValue(NoteParameterName, out var value)
+			&& value is { Operator: "==", Value: { ValueKind: JsonValueKind.String } text }
+			&& int.TryParse(text.GetString(), NumberStyles.None, CultureInfo.InvariantCulture, out note);
 	}
 
 	// Middle C (60) is C4, matching the piano folder's note names.

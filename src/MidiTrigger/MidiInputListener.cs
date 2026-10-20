@@ -93,7 +93,8 @@ internal sealed class MidiInputListener : IDisposable
 				return;
 			}
 
-			if (!_enabled)
+			// Switched off, or no binding uses MIDI: hold no ports and skip enumerating devices altogether.
+			if (!_enabled || _wantedDevices.Count == 0)
 			{
 				foreach (var name in _openDevices.Keys.ToList())
 				{
