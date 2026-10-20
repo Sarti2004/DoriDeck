@@ -335,4 +335,52 @@
   <data name="Actions.PlayNote.Note.Description" xml:space="preserve">
     <value>The note to play.</value>
   </data>
+  <data name="Events.MidiNotePressed.Name" xml:space="preserve">
+    <value>MIDI key pressed</value>
+  </data>
+  <data name="Events.MidiNotePressed.Description" xml:space="preserve">
+    <value>Fires when a key is pressed on a MIDI keyboard. Disable the keyboard in Dorico (Preferences > Play > MIDI Input Devices) so the keys trigger commands instead of entering notes.</value>
+  </data>
+  <data name="Events.MidiNotePressed.Device.Label" xml:space="preserve">
+    <value>MIDI device</value>
+  </data>
+  <data name="Events.MidiNotePressed.Device.Description" xml:space="preserve">
+    <value>The MIDI input device to listen to.</value>
+  </data>
+  <data name="Events.MidiNotePressed.Device.Placeholder" xml:space="preserve">
+    <value>Select a MIDI device</value>
+  </data>
+  <data name="Events.MidiNotePressed.Note.Label" xml:space="preserve">
+    <value>Key</value>
+  </data>
+  <data name="Events.MidiNotePressed.Note.Description" xml:space="preserve">
+    <value>The key that triggers this event. Middle C is C4 (60).</value>
+  </data>
+  <data name="Actions.MidiListening.Name" xml:space="preserve">
+    <value>MIDI listening on/off</value>
+  </data>
+  <data name="Actions.MidiListening.Description" xml:space="preserve">
+    <value>Turns listening to the MIDI keyboard on or off. Turn it off to release the keyboard so Dorico can use it again (then enable it in Preferences > Play > MIDI Input Devices).</value>
+  </data>
+  <data name="Actions.MidiListening.Mode.Label" xml:space="preserve">
+    <value>Mode</value>
+  </data>
+  <data name="Actions.MidiListening.Mode.Description" xml:space="preserve">
+    <value>Toggle, or always switch on or off.</value>
+  </data>
+  <data name="Actions.MidiListening.Mode.Toggle" xml:space="preserve">
+    <value>Toggle</value>
+  </data>
+  <data name="Actions.MidiListening.Mode.On" xml:space="preserve">
+    <value>On</value>
+  </data>
+  <data name="Actions.MidiListening.Mode.Off" xml:space="preserve">
+    <value>Off</value>
+  </data>
+  <data name="Actions.MidiListening.StateOn" xml:space="preserve">
+    <value>MIDI on</value>
+  </data>
+  <data name="Actions.MidiListening.StateOff" xml:space="preserve">
+    <value>MIDI off</value>
+  </data>
 </root>

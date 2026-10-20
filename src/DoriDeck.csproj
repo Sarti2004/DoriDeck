@@ -31,6 +31,8 @@
         <!-- Publishes Dorico connection events (status, selection, disconnect) to DoricoSession and the
              actions that react to them. -->
         <PackageReference Include="Lea" />
+        <!-- Reads MIDI input devices for the MIDI key pressed event (MidiTrigger). -->
+        <PackageReference Include="Melanchall.DryWetMidi" />
     </ItemGroup>
 
     <!-- The SDK reads the manifest from the content root at startup and resolves the icon path against

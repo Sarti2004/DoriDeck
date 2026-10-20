@@ -18,6 +18,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageVersion Include="Lea" Version="1.5.1" />
+    <PackageVersion Include="Melanchall.DryWetMidi" Version="8.0.3" />
   </ItemGroup>
   <ItemGroup>
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.14.0" />

@@ -29,6 +29,7 @@ var plugin = builder
 	.RegisterIntegration<DoriDeck.PianoFolder.PluginIntegration>()
 	.RegisterIntegration<DoriDeck.ScoreWidget.ScoreWidgetIntegration>()
 	.RegisterIntegration<DoriDeck.NoteDurationPad.NoteDurationPadIntegration>()
+	.RegisterIntegration<DoriDeck.MidiTrigger.MidiTriggerIntegration>()
 	.Build();
 
 await plugin.RunAsync();
