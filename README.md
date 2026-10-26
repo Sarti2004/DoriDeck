@@ -76,6 +76,12 @@ After installing the plugin, open Macro Deck and add one of the available Dorico
 | **Virtual Keyboard**  | Virtual piano keyboard folder to enter notes to Dorico  |
 | **Note Duration Pad**  | Folder view for changing note duration from your phone or tablet  |
 
+### MIDI Keys
+
+With [MIDI Router](https://github.com/Sarti2004/MIDI-Router) installed, you can trigger DoriDeck actions using your MIDI keyboard. Open DoriDeck's **MIDI keys** page in the plugin configuration, click a key, select an action, and then click **Assign**.
+
+When the keyboard is in **Control** mode, pressing an assigned key triggers the action instead of sending the MIDI note to Dorico. In any other mode, the note is sent to Dorico as usual.
+
 ## Limitations
 * Dorico must be running to execute actions successfully.
 * Some actions may depend on your Dorico version.

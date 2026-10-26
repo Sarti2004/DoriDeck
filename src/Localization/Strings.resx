@@ -335,4 +335,61 @@
   <data name="Actions.PlayNote.Note.Description" xml:space="preserve">
     <value>The note to play.</value>
   </data>
+  <data name="Pages.MidiBridge.Title" xml:space="preserve">
+    <value>MIDI keys</value>
+  </data>
+  <data name="MidiBridge.Editor.RouterLabel" xml:space="preserve">
+    <value>MIDI Router</value>
+  </data>
+  <data name="MidiBridge.Editor.RouterState" xml:space="preserve">
+    <value>{mode} mode · {status}</value>
+  </data>
+  <data name="MidiBridge.Editor.RouterUnavailable" xml:space="preserve">
+    <value>MIDI Router not available. Mapped keys work once the MIDI Router plugin is installed and running.</value>
+  </data>
+  <data name="MidiBridge.Editor.RouterError" xml:space="preserve">
+    <value>MIDI Router rejected the mapping: {error}</value>
+  </data>
+  <data name="MidiBridge.Editor.Mode.Label" xml:space="preserve">
+    <value>Router mode</value>
+  </data>
+  <data name="MidiBridge.Editor.Mode.Description" xml:space="preserve">
+    <value>Mapped keys run their action only while MIDI Router is in this mode. In any other mode they reach Dorico as usual.</value>
+  </data>
+  <data name="MidiBridge.Editor.Octaves.Label" xml:space="preserve">
+    <value>Octaves</value>
+  </data>
+  <data name="MidiBridge.Editor.Shift.Label" xml:space="preserve">
+    <value>Octave shift</value>
+  </data>
+  <data name="MidiBridge.Editor.SelectKeyHint" xml:space="preserve">
+    <value>Click a key to assign a DoriDeck action to it.</value>
+  </data>
+  <data name="MidiBridge.Editor.SelectedKey" xml:space="preserve">
+    <value>{note} (MIDI {number})</value>
+  </data>
+  <data name="MidiBridge.Editor.Assigned" xml:space="preserve">
+    <value>Assigned</value>
+  </data>
+  <data name="MidiBridge.Editor.Action.Label" xml:space="preserve">
+    <value>Action</value>
+  </data>
+  <data name="MidiBridge.Editor.Icon.Label" xml:space="preserve">
+    <value>Icon</value>
+  </data>
+  <data name="MidiBridge.Editor.Icon.Description" xml:space="preserve">
+    <value>Shown on the key. Without an icon the key gets a plain marker.</value>
+  </data>
+  <data name="MidiBridge.Editor.Icon.None" xml:space="preserve">
+    <value>No icon</value>
+  </data>
+  <data name="MidiBridge.Editor.Save" xml:space="preserve">
+    <value>Assign</value>
+  </data>
+  <data name="MidiBridge.Editor.Clear" xml:space="preserve">
+    <value>Clear</value>
+  </data>
+  <data name="MidiBridge.Editor.MissingRequired" xml:space="preserve">
+    <value>Fill in the required fields first.</value>
+  </data>
 </root>

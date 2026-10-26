@@ -38,6 +38,21 @@ internal sealed class RunCommandAction(DoricoSession session) :
 
 	public MacroDeckPlatform Platforms => MacroDeckPlatform.Windows | MacroDeckPlatform.MacOs;
 
+	/// predefined Commands
+	private static readonly IReadOnlyList<string> PredefinedCommands =
+	[
+		.. new[] { "pp", "p", "mp", "mf", "f", "ff" }
+			.Select(d => $"NoteInput.CreateDynamic?Definition={d}"),
+		.. new[] { "ped", "pizz", "marcato", "portato", "mute", "upbow", "downbow", "con sord", "nh", "Vh", "arco"}
+			.Select(t => $"NoteInput.CreatePlayingTechnique?Definition={t}&UseLocalOverride=0"),
+		.. new[] { "gliss", "trill", "mordent" }
+			.Select(o => $"NoteInput.CreateOrnament?Definition={o}&UseLocalOverride=0"),
+		.. new[] { "kAccent", "kStaccato", "kMarcato", "kTenuto", "kStress", "kStaccatissimo", "kUnstress" }
+			.Select(a => $"NoteInput.SetArticulation?Value={a}"),
+		.. new[] { "fermata", "caesura" }
+			.Select(a => $"NoteInput.CreatePause?Definition={a}"),
+	];
+
 	public Task<DynamicOptionsResult> GetDynamicOptionsAsync(
 		DynamicOptionsContext context,
 		CancellationToken cancellationToken)
@@ -71,9 +86,15 @@ internal sealed class RunCommandAction(DoricoSession session) :
 				 command.DisplayName.Contains(filter, StringComparison.OrdinalIgnoreCase)));
 		}
 
-		var options = commands
-			.OrderBy(command => command.DisplayName ?? command.Name, StringComparer.OrdinalIgnoreCase)
-			.Select(command => command.Name + parameterSuffix)
+		// Predefined entries already carry parameters, so match them against the full typed text.
+		var predefined = PredefinedCommands.Where(command =>
+			string.IsNullOrWhiteSpace(enteredValue) ||
+			command.Contains(enteredValue, StringComparison.OrdinalIgnoreCase));
+
+		var options = predefined
+			.Concat(commands
+				.OrderBy(command => command.DisplayName ?? command.Name, StringComparer.OrdinalIgnoreCase)
+				.Select(command => command.Name + parameterSuffix))
 			.Distinct(StringComparer.Ordinal)
 			// Label must equal Value: when they differ, Macro Deck's combobox switches
 			// to picker mode and ignores typed text, so '?' arguments can't be added.

@@ -171,3 +171,6 @@ local-feed/*
 artifacts/*
 .vscode/*
 _dotnet-tools.json
+
+
+tests/
