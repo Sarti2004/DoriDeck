@@ -1,7 +1,14 @@
 using System.Globalization;
+using System.Text.Json;
+using DoriDeck.PianoFolder.Piano;
 using MacroDeck.Localization;
 using MacroDeck.Sdk;
 using MacroDeck.Sdk.Actions;
+using MacroDeck.Sdk.Ui;
+using MacroDeck.Ui.Config;
+using MacroDeck.Ui.Config.Options;
+using MacroDeck.Ui.Dsl;
+using MacroDeck.Ui.Runtime;
 using ScoreInterface.Commands;
 
 namespace DoriDeck.Actions;
@@ -10,7 +17,8 @@ namespace DoriDeck.Actions;
 internal sealed class RunCommandAction(DoricoSession session) :
 	DoriDeckActionBase(session),
 	IActionDefinition,
-	IDynamicOptionsActionDefinition
+	IDynamicOptionsActionDefinition,
+	IUiConfigurableActionDefinition
 {
 	private const string CommandNameParameter = "commandName";
 	private const string ApplyToAllFlowsParameter = "applyToAllFlows";
@@ -39,18 +47,34 @@ internal sealed class RunCommandAction(DoricoSession session) :
 	public MacroDeckPlatform Platforms => MacroDeckPlatform.Windows | MacroDeckPlatform.MacOs;
 
 	/// predefined Commands
-	private static readonly IReadOnlyList<string> PredefinedCommands =
+	private static readonly IReadOnlyList<(string Command, string Name)> PredefinedCommands =
 	[
 		.. new[] { "pp", "p", "mp", "mf", "f", "ff" }
-			.Select(d => $"NoteInput.CreateDynamic?Definition={d}"),
-		.. new[] { "ped", "pizz", "marcato", "portato", "mute", "upbow", "downbow", "con sord", "nh", "Vh", "arco"}
-			.Select(t => $"NoteInput.CreatePlayingTechnique?Definition={t}&UseLocalOverride=0"),
-		.. new[] { "gliss", "trill", "mordent" }
-			.Select(o => $"NoteInput.CreateOrnament?Definition={o}&UseLocalOverride=0"),
-		.. new[] { "kAccent", "kStaccato", "kMarcato", "kTenuto", "kStress", "kStaccatissimo", "kUnstress" }
-			.Select(a => $"NoteInput.SetArticulation?Value={a}"),
-		.. new[] { "fermata", "caesura" }
-			.Select(a => $"NoteInput.CreatePause?Definition={a}"),
+			.Select(d => ($"NoteInput.CreateDynamic?Definition={d}", $"Dynamic {d}")),
+		.. new[]
+		{
+			("ped", "Pedal"), ("pizz", "Pizzicato"), ("marcato", "Marcato"), ("portato", "Portato"),
+			("mute", "Mute"), ("upbow", "Up-bow"), ("downbow", "Down-bow"), ("con sord", "Con sordino"),
+			("nh", "Natural harmonic"), ("Vh", "Harmonic"), ("arco", "Arco"),
+		}
+			.Select(t => ($"NoteInput.CreatePlayingTechnique?Definition={t.Item1}&UseLocalOverride=0", t.Item2)),
+		.. new[] { ("gliss", "Glissando"), ("trill", "Trill"), ("mordent", "Mordent") }
+			.Select(o => ($"NoteInput.CreateOrnament?Definition={o.Item1}&UseLocalOverride=0", o.Item2)),
+		.. new[]
+		{
+			("kAccent", "Accent"), ("kStaccato", "Staccato"), ("kMarcato", "Marcato (articulation)"),
+			("kTenuto", "Tenuto"), ("kStress", "Stress"), ("kStaccatissimo", "Staccatissimo"), ("kUnstress", "Unstress"),
+		}
+			.Select(a => ($"NoteInput.SetArticulation?Value={a.Item1}", a.Item2)),
+		.. new[] { ("fermata", "Fermata"), ("caesura", "Caesura") }
+			.Select(p => ($"NoteInput.CreatePause?Definition={p.Item1}", p.Item2)),
+		.. new[]
+		{
+			("kBreve", "Breve"), ("kSemibreve", "Whole note"), ("kMinim", "Half note"), ("kCrotchet", "Quarter note"),
+			("kQuaver", "Eighth note"), ("kSemiquaver", "16th note"), ("kDemisemiquaver", "32nd note"),
+			("kHemidemisemiquaver", "64th note"),
+		}
+			.Select(l => ($"NoteInput.NoteValue?LogDuration={l.Item1}&Set=true", l.Item2)),
 	];
 
 	public Task<DynamicOptionsResult> GetDynamicOptionsAsync(
@@ -87,7 +111,7 @@ internal sealed class RunCommandAction(DoricoSession session) :
 		}
 
 		// Predefined entries already carry parameters, so match them against the full typed text.
-		var predefined = PredefinedCommands.Where(command =>
+		var predefined = PredefinedCommands.Select(predefinedCommand => predefinedCommand.Command).Where(command =>
 			string.IsNullOrWhiteSpace(enteredValue) ||
 			command.Contains(enteredValue, StringComparison.OrdinalIgnoreCase));
 
@@ -125,6 +149,87 @@ internal sealed class RunCommandAction(DoricoSession session) :
 			CacheSeconds = 30,
 		});
 	}
+
+	/// Custom configuration form. 
+	public Task<IUiSession?> CreateConfigurationSessionAsync(
+		ActionConfigurationRequest request,
+		CancellationToken cancellationToken)
+	{
+		cancellationToken.ThrowIfCancellationRequested();
+
+		var commandName = new UiState<string>(
+			request.Parameters.TryGetValue(CommandNameParameter, out var nameElement) &&
+			nameElement.ValueKind == JsonValueKind.String
+				? nameElement.GetString() ?? string.Empty
+				: string.Empty);
+		var applyToAllFlows = new UiState<bool>(
+			request.Parameters.TryGetValue(ApplyToAllFlowsParameter, out var applyElement) &&
+			applyElement.ValueKind == JsonValueKind.True);
+
+		ActionConfigurationSession? configurationSession = null;
+
+		var root = new UiConfigStack
+		{
+			Key = "run-command-config",
+			Children =
+			[
+				new UiAutocompleteInput
+				{
+					Key = CommandNameParameter,
+					Binding = Bind.Custom(
+						() => commandName.Value,
+						value =>
+						{
+							commandName.Set(value ?? string.Empty);
+							configurationSession?.Report(CommandNameParameter, JsonSerializer.SerializeToElement(commandName.Value));
+						}),
+					Label = Strings.Actions.RunCommand.CommandName.Label(),
+					Description = Strings.Actions.RunCommand.CommandName.Description(),
+					Placeholder = Strings.Actions.RunCommand.CommandName.Placeholder(),
+					Required = true,
+					AllowsCustomValue = true,
+					Options = UiValue.Of(BuildCommandOptions()),
+				},
+				new UiBooleanInput
+				{
+					Key = ApplyToAllFlowsParameter,
+					Binding = Bind.Custom(
+						() => applyToAllFlows.Value,
+						value =>
+						{
+							applyToAllFlows.Set(value);
+							configurationSession?.Report(ApplyToAllFlowsParameter, JsonSerializer.SerializeToElement(value));
+						}),
+					Label = Strings.Actions.RunCommand.ApplyToAllFlows.Label(),
+					Description = Strings.Actions.RunCommand.ApplyToAllFlows.Description(),
+				},
+			],
+		};
+
+		configurationSession = new ActionConfigurationSession(
+			new PianoKeyboardSession(new UiView(request.Session.Surface, root)));
+
+		return Task.FromResult<IUiSession?>(configurationSession);
+	}
+
+	private IReadOnlyList<UiOption> BuildCommandOptions() =>
+	[
+		.. PredefinedCommands.Select(predefined => new UiOption
+		{
+			Value = predefined.Command,
+			Label = $"{predefined.Name} — {predefined.Command}",
+		}),
+		.. Session.AvailableCommands
+			.OrderBy(command => command.DisplayName ?? command.Name, StringComparer.OrdinalIgnoreCase)
+			// The dropdown renders only the label, so show both names; the editor filters by label and value.
+			.Select(command => new UiOption
+			{
+				Value = command.Name,
+				Label = string.IsNullOrWhiteSpace(command.DisplayName)
+					? command.Name
+					: $"{command.DisplayName} — {command.Name}",
+			}),
+	];
 
 	public IActionExecutor CreateExecutor() => new Executor(Session);
 

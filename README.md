@@ -48,7 +48,7 @@ Macro Deck 2.15 version [here](https://github.com/Sarti2004/DoriDeck/releases/do
 4. Click `Install from file`.
 5. Select the downloaded extension package. 
 
-You can also download the notation icon pack from [here](https://github.com/Sarti2004/MusicNotationIcons/releases/download/V0.0.3/Sarti2004.MusicNotation.macroDeckIconPack).
+You can also download the notation icon pack from [here](https://github.com/Sarti2004/MusicNotationIcons/releases/download/V0.0.3/Sarti2004.MusicNotation.macroDeckIconPack) or Bravura based music icons form [here](https://github.com/Sarti2004/MusicNotationIcons/raw/refs/heads/main/MusicNotationIcons.macroDeckIconPack)
 
 Demo [profile](https://raw.githubusercontent.com/Sarti2004/MusicNotationIcons/main/Demo.macroDeckProfile) to simplify your setup.
 
