@@ -75,6 +75,9 @@
   <data name="Actions.RunCommand.CommandName.Placeholder" xml:space="preserve">
     <value>Edit.SelectAll</value>
   </data>
+  <data name="Actions.RunCommand.CommandName.OpenDoricoHint" xml:space="preserve">
+    <value>Open Dorico to load full list</value>
+  </data>
   <data name="Actions.RunCommand.ApplyToAllFlows.Label" xml:space="preserve">
     <value>Apply to all flows</value>
   </data>

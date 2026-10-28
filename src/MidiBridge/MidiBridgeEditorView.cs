@@ -1,4 +1,5 @@
 using System.Globalization;
+using DoriDeck.Actions;
 using DoriDeck.PianoFolder.Piano;
 using MacroDeck.Localization;
 using MacroDeck.Sdk.Actions;
@@ -312,6 +313,7 @@ internal static class MidiBridgeEditorView
 			Description = description,
 			Placeholder = Text(parameter.Placeholder),
 			Required = parameter.Required,
+			AllowsCustomValue = action is IUiOptionsProvider,
 			OptionsState = options,
 			Binding = Bind.To(model.Texts[key]),
 			Events =
@@ -332,7 +334,16 @@ internal static class MidiBridgeEditorView
 		UiOptionQuery query,
 		CancellationToken cancellationToken)
 	{
+		if (action is IUiOptionsProvider provider)
+		{
+			return UiOptionResult.From(provider.GetUiOptions(parameter.Name, query.Filter, MaxSuggestions)) with
+			{
+				AllowsCustomValue = true,
+			};
+		}
+
 		IReadOnlyList<ActionParameterOption> options = parameter.Options ?? [];
+		var allowsCustomValue = false;
 		if (action is IDynamicOptionsActionDefinition dynamic)
 		{
 			var result = await dynamic.GetDynamicOptionsAsync(
@@ -344,9 +355,13 @@ internal static class MidiBridgeEditorView
 				},
 				cancellationToken).ConfigureAwait(false);
 			options = result.Options;
+			allowsCustomValue = result.AllowsCustomValue;
 		}
 
-		return UiOptionResult.From([.. options.Take(MaxSuggestions).Select(option => UiOption.Of(option.Value, option.Label))]);
+		return UiOptionResult.From([.. options.Take(MaxSuggestions).Select(option => UiOption.Of(option.Value, option.Label))]) with
+		{
+			AllowsCustomValue = allowsCustomValue,
+		};
 	}
 
 	private static UiText Text(LocalizedText text) => text.IsEmpty ? UiText.None() : text;

@@ -18,7 +18,8 @@ internal sealed class RunCommandAction(DoricoSession session) :
 	DoriDeckActionBase(session),
 	IActionDefinition,
 	IDynamicOptionsActionDefinition,
-	IUiConfigurableActionDefinition
+	IUiConfigurableActionDefinition,
+	IUiOptionsProvider
 {
 	private const string CommandNameParameter = "commandName";
 	private const string ApplyToAllFlowsParameter = "applyToAllFlows";
@@ -188,7 +189,7 @@ internal sealed class RunCommandAction(DoricoSession session) :
 					Placeholder = Strings.Actions.RunCommand.CommandName.Placeholder(),
 					Required = true,
 					AllowsCustomValue = true,
-					Options = UiValue.Of(BuildCommandOptions()),
+					Options = UiValue.Of<IReadOnlyList<UiOption>>([.. BuildCommandOptions()]),
 				},
 				new UiBooleanInput
 				{
@@ -212,24 +213,57 @@ internal sealed class RunCommandAction(DoricoSession session) :
 		return Task.FromResult<IUiSession?>(configurationSession);
 	}
 
-	private IReadOnlyList<UiOption> BuildCommandOptions() =>
-	[
-		.. PredefinedCommands.Select(predefined => new UiOption
+	public IReadOnlyList<UiOption> GetUiOptions(string parameterName, string? filter, int limit)
+	{
+		if (parameterName != CommandNameParameter)
 		{
-			Value = predefined.Command,
-			Label = $"{predefined.Name} — {predefined.Command}",
-		}),
-		.. Session.AvailableCommands
+			return [];
+		}
+
+		var enteredValue = filter?.Trim() ?? string.Empty;
+		var separatorIndex = enteredValue.IndexOf('?');
+
+		return [.. BuildCommandOptions(enteredValue, separatorIndex).Take(limit)];
+	}
+
+	/// Pass the typed text to filter (on both names) and keep any '?' parameters on the suggested commands.
+	private IEnumerable<UiOption> BuildCommandOptions(string enteredValue = "", int separatorIndex = -1)
+	{
+		var commandFilter = separatorIndex >= 0 ? enteredValue[..separatorIndex] : enteredValue;
+		var parameterSuffix = separatorIndex >= 0 ? enteredValue[separatorIndex..] : string.Empty;
+
+		bool Matches(string text, string value) =>
+			string.IsNullOrWhiteSpace(value) || text.Contains(value, StringComparison.OrdinalIgnoreCase);
+
+		// Commands are fetched from Dorico on connect; until then only the predefined ones are known.
+		var hint = Session.AvailableCommands.Count == 0
+			? [new UiOption { Value = string.Empty, Label = Strings.Actions.RunCommand.CommandName.OpenDoricoHint() }]
+			: Array.Empty<UiOption>();
+
+		// Predefined entries already carry parameters, so match them against the full typed text.
+		var predefined = PredefinedCommands
+			.Where(predefined => Matches(predefined.Command, enteredValue) || Matches(predefined.Name, enteredValue))
+			.Select(predefined => new UiOption
+			{
+				Value = predefined.Command,
+				Label = $"{predefined.Name} — {predefined.Command}",
+			});
+
+		var commands = Session.AvailableCommands
+			.Where(command => Matches(command.Name, commandFilter) ||
+				(!string.IsNullOrWhiteSpace(command.DisplayName) && Matches(command.DisplayName, commandFilter)))
 			.OrderBy(command => command.DisplayName ?? command.Name, StringComparer.OrdinalIgnoreCase)
 			// The dropdown renders only the label, so show both names; the editor filters by label and value.
 			.Select(command => new UiOption
 			{
-				Value = command.Name,
+				Value = command.Name + parameterSuffix,
 				Label = string.IsNullOrWhiteSpace(command.DisplayName)
-					? command.Name
-					: $"{command.DisplayName} — {command.Name}",
-			}),
-	];
+					? command.Name + parameterSuffix
+					: $"{command.DisplayName} — {command.Name}{parameterSuffix}",
+			});
+
+		return hint.Concat(predefined).Concat(commands);
+	}
 
 	public IActionExecutor CreateExecutor() => new Executor(Session);
 

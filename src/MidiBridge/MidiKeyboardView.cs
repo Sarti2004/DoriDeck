@@ -12,9 +12,12 @@ internal static class MidiKeyboardView
 	private const string NaturalLegend = "#26272B";
 	private const string AccidentalLegend = "#ECE9E2";
 	private const string AssignedMarker = "#5B8DEF";
+	private const string OctaveLegend = "#262627";
 
 	private const double IconSize = 0.6;
 	private const double MarkerSize = 0.3;
+	private const double OctaveLabelSize = 0.55;
+	private const double OctaveLabelPadding = 0.08;
 
 	private const double KeyDivider = 0.012;
 
@@ -125,13 +128,35 @@ internal static class MidiKeyboardView
 			? (PianoKeyStyle.AccidentalIdle, PianoKeyStyle.AccidentalPressed)
 			: (PianoKeyStyle.NaturalIdle, PianoKeyStyle.NaturalPressed);
 
-		return new UiStack
+		var face = new UiStack
 		{
 			Key = key.NoteId,
 			ColumnSpan = columnSpan,
 			RowSpan = rowSpan,
 			Background = UiValue.From(() => model.Selected.Value == note ? selected : idle),
 		};
+
+		// Only C keys carry an octave label (C4 = MIDI 60); drawn on the face so it stays under the press overlay.
+		return !key.IsAccidental && note % 12 == 0
+			? face with
+			{
+				Justify = UiComponentJustify.End,
+				Align = UiComponentAlignments.Center,
+				Padding = UiSize.FromParent(OctaveLabelPadding),
+				Children =
+				[
+					new UiTextRun
+					{
+						Key = "o",
+						Text = UiText.Of($"C{note / 12 - 1}"),
+						Size = UiSize.FromParent(OctaveLabelSize),
+						Color = OctaveLegend,
+						Align = UiComponentAlignments.Center,
+						MaxLines = 1,
+					},
+				],
+			}
+			: face;
 	}
 
 	private static UiElement Tile(
