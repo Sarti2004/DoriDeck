@@ -7,8 +7,5 @@
   <Folder Name="/src/">
     <Project Path="src/DoriDeck.csproj" />
   </Folder>
-  <Folder Name="/tests/">
-    <Project Path="tests/DoriDeck.Tests/DoriDeck.Tests.csproj" />
-  </Folder>
 
 </Solution>
