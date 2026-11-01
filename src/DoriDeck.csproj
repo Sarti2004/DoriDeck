@@ -7,7 +7,6 @@
         <TargetFrameworks>net10.0</TargetFrameworks>
     </PropertyGroup>
 
-
     <!-- Microsoft.NET.Sdk plus this framework reference, not Microsoft.NET.Sdk.Web: a plugin is a
          headless process, and the framework reference is what supplies the hosting surface
          MacroDeck.Plugin.Hosting builds on. -->
@@ -40,6 +39,7 @@
         <Content Include="manifest.json" CopyToOutputDirectory="PreserveNewest" />
         <Content Include="Assets\icon.png" CopyToOutputDirectory="PreserveNewest" />
         <Content Include="mhyph.txt" CopyToOutputDirectory="PreserveNewest" />
+        <Content Include="icon-packs\*.macroDeckIconPack" CopyToOutputDirectory="PreserveNewest" />
         <!-- Piano keyboard artwork, loaded from AppContext.BaseDirectory\Assets at startup (PianoKeyArtwork). -->
         <Content Include="Assets\Keys\*.png" CopyToOutputDirectory="PreserveNewest" />
         <Content Include="Assets\Durations\*.png" CopyToOutputDirectory="PreserveNewest" />

@@ -48,7 +48,7 @@ Macro Deck 2.15 version [here](https://github.com/Sarti2004/DoriDeck/releases/do
 4. Click `Install from file`.
 5. Select the downloaded extension package. 
 
-You can also download the notation icon pack from [here](https://github.com/Sarti2004/MusicNotationIcons/releases/download/V0.0.3/Sarti2004.MusicNotation.macroDeckIconPack).
+You can also download the notation icon pack from [here](https://github.com/Sarti2004/MusicNotationIcons/releases/download/V0.0.3/Sarti2004.MusicNotation.macroDeckIconPack) or Bravura based music icons form [here](https://github.com/Sarti2004/MusicNotationIcons/raw/refs/heads/main/MusicNotationIcons.macroDeckIconPack)
 
 Demo [profile](https://raw.githubusercontent.com/Sarti2004/MusicNotationIcons/main/Demo.macroDeckProfile) to simplify your setup.
 
@@ -76,6 +76,12 @@ After installing the plugin, open Macro Deck and add one of the available Dorico
 | **Virtual Keyboard**  | Virtual piano keyboard folder to enter notes to Dorico  |
 | **Note Duration Pad**  | Folder view for changing note duration from your phone or tablet  |
 
+### MIDI Keys
+
+With [MIDI Router](https://github.com/Sarti2004/MIDI-Router) installed, you can trigger DoriDeck actions using your MIDI keyboard. Open DoriDeck's **MIDI keys** page in the plugin configuration, click a key, select an action, and then click **Assign**.
+
+When the keyboard is in **Control** mode, pressing an assigned key triggers the action instead of sending the MIDI note to Dorico. In any other mode, the note is sent to Dorico as usual.
+
 ## Limitations
 * Dorico must be running to execute actions successfully.
 * Some actions may depend on your Dorico version.
@@ -96,6 +102,7 @@ This plugin uses awesome 3rd party libraries:
 
 * [Dorico.Net](https://github.com/scott-janssens/Dorico.Net) — MIT License
 * [Moby-Project: mhyph.txt](https://github.com/elitejake/Moby-Project) - Public Domain. See [Details](mhype_notice.md)
+* [Bravura](https://github.com/steinbergmedia/bravura) - [SIL Open Font License, Version 1.1](https://openfontlicense.org/).  This pack contains images made with the font, not the font itself, and is not a modified version of Bravura.
 
 ## Contributing
 

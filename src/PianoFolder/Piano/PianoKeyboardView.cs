@@ -10,15 +10,15 @@ public static class PianoKeyboardView
 
     public const double NaturalKeyAspect = 0.193;
 
-    private const int NaturalsPerOctave = 7;
-    private const int ColumnsPerNatural = 9;
-    private const int OctaveColumns = NaturalsPerOctave * ColumnsPerNatural;
-    private const int OctaveRows = 16;
+    internal const int NaturalsPerOctave = 7;
+    internal const int ColumnsPerNatural = 9;
+    internal const int OctaveColumns = NaturalsPerOctave * ColumnsPerNatural;
+    internal const int OctaveRows = 16;
 
     /// <summary>Accidentals reach 10/16 of a natural's length.</summary>
-    private const int AccidentalRows = 10;
+    internal const int AccidentalRows = 10;
 
-    private static readonly int[] UpperBandColumns = [6, 5, 5, 5, 6, 6, 5, 4, 5, 5, 5, 6];
+    internal static readonly int[] UpperBandColumns = [6, 5, 5, 5, 6, 6, 5, 4, 5, 5, 5, 6];
 
     public static UiElement Build(PianoKeyboardViewModel model) =>
         new UiStack
