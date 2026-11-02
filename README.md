@@ -1,3 +1,4 @@
+<a href="https://macro-deck.app/store/com.sarti2004.dorideck"><img align="right" alt="Open in the Macro Deck Store" src="https://assets.macro-deck.app/branding/Open%20in%20the%20Macro%20Deck%20Store%20Badge%20Dark.png" height="56"></a>
 # DoriDeck
 
 An unofficial **Macro Deck** extension that provides an interface for running Dorico commands and scripts directly from Macro Deck.
