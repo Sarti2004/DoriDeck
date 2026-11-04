@@ -35,15 +35,23 @@ internal sealed class OpenRecentFileAction(DoricoSession session) : DoriDeckActi
 			return ActionResult.Failed(ActionErrorCodes.Unavailable, "no files found");
 		}
 
+		var filePath = recentFiles[index];
+
+		// File.Open can't take a path containing commas
+		if (filePath.Contains(','))
+		{
+			return OpenWithShell(filePath);
+		}
+
 		var dorico = await GetConnectedRemoteAsync(session, cancellationToken);
 		if (dorico == null)
 		{
 			// Dorico isn't running: let the OS open the project.
-			return OpenWithShell(recentFiles[index]);
+			return OpenWithShell(filePath);
 		}
 
 		await dorico.SendRequestAsync(
-			new Command("File.Open", new CommandParameter("File", recentFiles[index])),
+			new Command("File.Open", new CommandParameter("File", filePath)),
 			cancellationToken);
 
 		return ActionResult.Success();

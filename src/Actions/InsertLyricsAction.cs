@@ -295,6 +295,7 @@ internal sealed class InsertLyricsAction(DoricoSession session, IKeyboardService
 				.Replace('\u00A0', ' ')
 				.Replace('\u202F', ' ')
 				.Replace("+", " ")
+				.Replace("\"", "\\\"")
 				.Replace(@"\", @"\\\\")
 				.Replace("&", @"\\&")
 				.Replace(",", @"\\,");
