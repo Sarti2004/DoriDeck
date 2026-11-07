@@ -77,18 +77,17 @@ internal sealed class SectionHeaderAction(DoricoSession session) : DoriDeckActio
 				await Task.Delay(20, token);
 			}
 
+			string command1 = "NoteInput.CreateRehearsalMark";
+
 			await dorico.SendRequestAsync(new Command("NoteInput.CreateRehearsalMark"), token);
 			await Task.Delay(20, token);
 
-			// Dorico's rehearsal mark popover only picks up the prefix property change once the field
-			// has already been touched once; the first send primes it and the second one is the one
-			// that sticks.
 			await dorico.SendRequestAsync(new Command("UI.InvokePropertyChangeValue?Type=kRehearsalMarkCustomPrefix&Value="), token);
 			await Task.Delay(20, token);
-			await dorico.SendRequestAsync(new Command("UI.InvokePropertyChangeValue?Type=kRehearsalMarkCustomPrefix&Value="), token);
+			await dorico.SendRequestAsync(new Command("UI.InvokePropertyChangeValue?Type=kRehearsalMarkCustomPrefix&Value="), token);
 			await Task.Delay(10, token);
 
-			await dorico.SendRequestAsync(new Command($"UI.InvokePropertyChangeValue?Type=kRehearsalMarkCustomSuffix&Value={newLineToken}{text}"), token);
+			await dorico.SendRequestAsync(new Command($"UI.InvokePropertyChangeValue?Type=kRehearsalMarkCustomSuffix&Value={newLineToken}{text}"), token);
 
 			return ActionResult.Success();
 		}
