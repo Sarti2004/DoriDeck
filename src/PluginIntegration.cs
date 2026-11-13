@@ -16,6 +16,7 @@ public sealed class PluginIntegration : IPluginIntegration, IVariableProvider, I
 	private readonly IPluginCatalogNotifier _catalogNotifier;
 	private readonly ILogger _logger;
 	private readonly IReadOnlyList<IActionDefinition> _staticActions;
+	private readonly AudiverisConverter? _audiveris;
 	private IReadOnlyList<IActionDefinition> _actions;
 	private HashSet<string> _dynamicScriptNames = [];
 
@@ -24,6 +25,11 @@ public sealed class PluginIntegration : IPluginIntegration, IVariableProvider, I
 		_session = session;
 		_catalogNotifier = catalogNotifier;
 		_logger = logger.ForContext<PluginIntegration>();
+
+		// Checked once at startup: installing Audiveris later needs a plugin restart to show the action.
+		var audiverisPath = AudiverisLocator.FindExecutable();
+		_audiveris = audiverisPath is null ? null : new AudiverisConverter(audiverisPath, logger);
+		IActionDefinition[] audiverisActions = _audiveris is null ? [] : [new ConvertPdfToMusicXmlAction(_audiveris)];
 
 		_staticActions =
 		[
@@ -43,6 +49,7 @@ public sealed class PluginIntegration : IPluginIntegration, IVariableProvider, I
 			new OpenRecentFileAction(_session),
 			new OpenPreviousFileAction(_session),
 			new ClearConnectionTokenAction(_session),
+			.. audiverisActions,
 		];
 
 		_actions = _staticActions;
@@ -103,12 +110,17 @@ public sealed class PluginIntegration : IPluginIntegration, IVariableProvider, I
 
 	public async Task InitializeAsync(IIntegrationContext context)
 	{
+		_audiveris?.Attach(context);
 		await _session.InitializeAsync(context);
 		RefreshDynamicScriptActions();
 		_logger.Information("Initialized.");
 	}
 
-	public Task ShutdownAsync() => _session.ShutdownAsync();
+	public Task ShutdownAsync()
+	{
+		_audiveris?.Dispose();
+		return _session.ShutdownAsync();
+	}
 
 	/// Creates a new action for every script in the script path. The host takes the action catalog at
 	/// handshake, before <see cref="InitializeAsync"/> has read the config, so a changed list has to be

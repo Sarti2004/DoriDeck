@@ -268,6 +268,71 @@
     <value></value>
   </data>
 
+  <data name="Actions.ConvertPdfToMusicXml.Name" xml:space="preserve">
+    <value>Convert PDF to MusicXML</value>
+  </data>
+  <data name="Actions.ConvertPdfToMusicXml.Description" xml:space="preserve">
+    <value>Converts PDFs in the folder to MusicXML with Audiveris. The .mxl files are saved next to the PDFs.</value>
+  </data>
+  <data name="Actions.ConvertPdfToMusicXml.WorkingFolder.Label" xml:space="preserve">
+    <value>Working folder</value>
+  </data>
+  <data name="Actions.ConvertPdfToMusicXml.WorkingFolder.Description" xml:space="preserve">
+    <value>Drop PDFs here. Only PDFs without an mxl file are converted.</value>
+  </data>
+  <data name="Actions.ConvertPdfToMusicXml.KeepOmr.Label" xml:space="preserve">
+    <value>Keep Audiveris .omr files</value>
+  </data>
+  <data name="Actions.ConvertPdfToMusicXml.KeepOmr.Description" xml:space="preserve">
+    <value>Saves the Audiveris book next to each PDF, so you can correct the recognition in Audiveris and export again.</value>
+  </data>
+  <data name="Actions.ConvertPdfToMusicXml.SmallHeads" xml:space="preserve">
+    <value>Small note heads (cues)</value>
+  </data>
+  <data name="Actions.ConvertPdfToMusicXml.ImplicitTuplets" xml:space="preserve">
+    <value>Triplets without a 3</value>
+  </data>
+  <data name="Actions.ConvertPdfToMusicXml.LyricsAboveStaff" xml:space="preserve">
+    <value>Lyrics above the staff</value>
+  </data>
+  <data name="Actions.ConvertPdfToMusicXml.CrossHeads" xml:space="preserve">
+    <value>Cross note heads</value>
+  </data>
+  <data name="Actions.ConvertPdfToMusicXml.FolderNotFound" xml:space="preserve">
+    <value>Folder not found: {folder}</value>
+  </data>
+  <data name="Actions.ConvertPdfToMusicXml.NothingToConvert" xml:space="preserve">
+    <value>No new PDFs to convert.</value>
+  </data>
+  <data name="Actions.ConvertPdfToMusicXml.AlreadyRunning" xml:space="preserve">
+    <value>A conversion is already running.</value>
+  </data>
+
+  <data name="Audiveris.Title" xml:space="preserve">
+    <value>PDF to MusicXML</value>
+  </data>
+  <data name="Audiveris.Starting" xml:space="preserve">
+    <value>Starting Audiveris…</value>
+  </data>
+  <data name="Audiveris.Converting" xml:space="preserve">
+    <value>Converting {fileName} ({current} of {total})</value>
+  </data>
+  <data name="Audiveris.Converted" xml:space="preserve">
+    <value>Converted: {count}</value>
+  </data>
+  <data name="Audiveris.TimedOut" xml:space="preserve">
+    <value>Audiveris took too long and was stopped.</value>
+  </data>
+  <data name="Audiveris.ExitCode" xml:space="preserve">
+    <value>Audiveris failed (exit code {exitCode}).</value>
+  </data>
+  <data name="Audiveris.SkippedPages" xml:space="preserve">
+    <value>converted without page(s) {pages}, where no music was recognized.</value>
+  </data>
+  <data name="Audiveris.NoOcrLanguages" xml:space="preserve">
+    <value>Lyrics and text were not recognized: Audiveris has no OCR languages installed. Install them from Audiveris' Tools menu.</value>
+  </data>
+
   <data name="ConfigFlow.StepTitle" xml:space="preserve">
     <value>DoriDeck settings</value>
   </data>
