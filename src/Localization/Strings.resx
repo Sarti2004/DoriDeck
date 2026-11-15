@@ -286,6 +286,30 @@
   <data name="Actions.ConvertPdfToMusicXml.KeepOmr.Description" xml:space="preserve">
     <value>Saves the Audiveris book next to each PDF, so you can correct the recognition in Audiveris and export again.</value>
   </data>
+  <data name="Actions.ConvertPdfToMusicXml.SeparateParts.Label" xml:space="preserve">
+    <value>Separate part per staff</value>
+  </data>
+  <data name="Actions.ConvertPdfToMusicXml.SeparateParts.Description" xml:space="preserve">
+    <value>Reads staves joined by a brace as separate parts, so lyrics between them are attached to the notes. Turn off for piano scores.</value>
+  </data>
+  <data name="Actions.ConvertPdfToMusicXml.OcrLanguages.Label" xml:space="preserve">
+    <value>Text language</value>
+  </data>
+  <data name="Actions.ConvertPdfToMusicXml.OcrLanguages.Description" xml:space="preserve">
+    <value>Language of the lyrics and titles. Install it from Audiveris' Tools menu first.</value>
+  </data>
+  <data name="Actions.ConvertPdfToMusicXml.OcrLanguages.English" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="Actions.ConvertPdfToMusicXml.OcrLanguages.Russian" xml:space="preserve">
+    <value>Russian</value>
+  </data>
+  <data name="Actions.ConvertPdfToMusicXml.OcrLanguages.German" xml:space="preserve">
+    <value>German</value>
+  </data>
+  <data name="Actions.ConvertPdfToMusicXml.OcrLanguages.French" xml:space="preserve">
+    <value>French</value>
+  </data>
   <data name="Actions.ConvertPdfToMusicXml.SmallHeads" xml:space="preserve">
     <value>Small note heads (cues)</value>
   </data>
@@ -313,6 +337,15 @@
   </data>
   <data name="Audiveris.Starting" xml:space="preserve">
     <value>Starting Audiveris…</value>
+  </data>
+  <data name="Audiveris.States.Idle" xml:space="preserve">
+    <value>Convert PDF</value>
+  </data>
+  <data name="Audiveris.States.Working" xml:space="preserve">
+    <value>Working…</value>
+  </data>
+  <data name="Audiveris.States.WorkingCount" xml:space="preserve">
+    <value>Working… {current}/{total}</value>
   </data>
   <data name="Audiveris.Converting" xml:space="preserve">
     <value>Converting {fileName} ({current} of {total})</value>
@@ -460,4 +493,24 @@
   <data name="MidiBridge.Editor.MissingRequired" xml:space="preserve">
     <value>Fill in the required fields first.</value>
   </data>
-</root>
+  <data name="Events.WindowFocused.Name" xml:space="preserve">
+    <value>Dorico/Cubase window focused</value>
+  </data>
+  <data name="Events.WindowFocused.Description" xml:space="preserve">
+    <value>Fires when a Dorico, Cubase or Nuendo window comes to the front, e.g. to switch folder when the Mixer window opens. </value>
+  </data>
+  <data name="Events.WindowFocused.Application.Label" xml:space="preserve">
+    <value>Application</value>
+  </data>
+  <data name="Events.WindowFocused.Application.Description" xml:space="preserve">
+    <value>Leave empty for any of them.</value>
+  </data>
+  <data name="Events.WindowFocused.Title.Label" xml:space="preserve">
+    <value>Window title</value>
+  </data>
+  <data name="Events.WindowFocused.Title.Description" xml:space="preserve">
+    <value>Use "starts with" to match a window such as Mixer or Tracks.</value>
+  </data>
+  <data name="Events.WindowFocused.Title.Placeholder" xml:space="preserve">
+    <value>Mixer</value>
+  </data></root>

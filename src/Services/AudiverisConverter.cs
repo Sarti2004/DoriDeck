@@ -9,12 +9,24 @@ using Serilog;
 namespace DoriDeck.Services;
 
 
-/// <param name="Switches">Audiveris processing switches to turn on, e.g. "smallHeads".</param>
-internal sealed record AudiverisOptions(bool KeepOmr, IReadOnlyList<string> Switches);
+internal sealed record AudiverisOptions(bool KeepOmr, bool SeparateParts, IReadOnlyList<string> Switches, string? OcrLanguages);
+
+internal sealed record ConversionProgress(int Current, int Total);
 
 internal sealed class AudiverisConverter(string executablePath, ILogger logger) : IDisposable
 {
 	private static readonly TimeSpan FileTimeout = TimeSpan.FromMinutes(15);
+
+	private const string AsciiStem = "score";
+
+	private const string PdfResolutionConstant = "org.audiveris.omr.image.ImageLoading.pdfResolution";
+	private const int DefaultPdfResolution = 300;
+
+	private const string OcrLanguagesConstant = "org.audiveris.omr.text.Language.defaultSpecification";
+
+	private const string SeparatePartsConstant = "org.audiveris.omr.sheet.grid.BarsRetriever.forceSeparateParts";
+
+	private static readonly Regex TooLargeImage = new(@"Too large image: (.+?) pixels \(vs (.+?) max\)");
 
 	private static readonly EnumerationOptions TopLevelIgnoreCase = new()
 	{
@@ -22,9 +34,6 @@ internal sealed class AudiverisConverter(string executablePath, ILogger logger) 
 		RecurseSubdirectories = false,
 	};
 
-	// LocalizedText.ToString() yields the resource key, and the host resolves nested arguments only four
-	// levels deep, so text joined from a variable number of lines is resolved here, the way the SDK's own
-	// PluginText does: against this plugin's catalog in its default culture.
 	private static readonly Lazy<LocalizationResolver> Resolver = new(() =>
 	{
 		var catalogs = new LocalizationCatalogRegistry();
@@ -36,8 +45,19 @@ internal sealed class AudiverisConverter(string executablePath, ILogger logger) 
 	private readonly CancellationTokenSource _shutdown = new();
 	private IIntegrationContext? _context;
 	private int _running;
+	private volatile ConversionProgress? _progress;
 
 	public void Attach(IIntegrationContext context) => _context = context;
+
+
+	public string Status => _progress switch
+	{
+		null => string.Empty,
+		{ Total: > 1 } progress => Text(Strings.Audiveris.States.WorkingCount(
+			progress.Current.ToString(CultureInfo.InvariantCulture),
+			progress.Total.ToString(CultureInfo.InvariantCulture))),
+		_ => Text(Strings.Audiveris.States.Working()),
+	};
 
 	public static IReadOnlyList<string> FindPendingPdfs(string folder)
 	{
@@ -60,6 +80,8 @@ internal sealed class AudiverisConverter(string executablePath, ILogger logger) 
 			return false;
 		}
 
+		_progress = new ConversionProgress(1, pdfs.Count);
+
 		_ = Task.Run(async () =>
 		{
 			try
@@ -75,6 +97,7 @@ internal sealed class AudiverisConverter(string executablePath, ILogger logger) 
 			}
 			finally
 			{
+				_progress = null;
 				Volatile.Write(ref _running, 0);
 			}
 		});
@@ -101,6 +124,7 @@ internal sealed class AudiverisConverter(string executablePath, ILogger logger) 
 				var pdf = pdfs[index];
 				var name = Path.GetFileName(pdf);
 
+				_progress = new ConversionProgress(index + 1, total);
 				await UpdateProgressAsync(progress, index, total, name, cancellationToken);
 
 				var (success, detail) = await ConvertAsync(pdf, folder, options, cancellationToken);
@@ -159,17 +183,44 @@ internal sealed class AudiverisConverter(string executablePath, ILogger logger) 
 
 		try
 		{
+			
+			var pdfStem = Path.GetFileNameWithoutExtension(pdf);
+			var input = pdf;
+			if (!pdf.All(char.IsAscii))
+			{
+				input = Path.Combine(workFolder.FullName, AsciiStem + ".pdf");
+				File.Copy(pdf, input);
+			}
+
+			var stem = Path.GetFileNameWithoutExtension(input);
+			var book = Path.Combine(workFolder.FullName, stem + ".omr");
+			string[] constants =
+			[
+				.. SwitchArguments(options.Switches),
+				.. options.OcrLanguages is null ? [] : new[] { "-constant", $"{OcrLanguagesConstant}={options.OcrLanguages}" },
+				.. options.SeparateParts ? new[] { "-constant", $"{SeparatePartsConstant}=true" } : [],
+			];
+
 			var (exitCode, output) = await RunAudiverisAsync(
-				["-batch", "-export", .. SwitchArguments(options.Switches), "-output", workFolder.FullName, "--", pdf],
+				["-batch", "-export", .. constants, "-output", workFolder.FullName, "--", input],
 				cancellationToken);
+
+			
+			if (exitCode is not null && ReducedPdfResolution(output) is { } resolution)
+			{
+				File.Delete(book);
+
+				(exitCode, output) = await RunAudiverisAsync(
+					["-batch", "-export", .. constants, "-constant", $"{PdfResolutionConstant}={resolution}",
+						"-output", workFolder.FullName, "--", input],
+					cancellationToken);
+			}
 
 			string? skippedPages = null;
 			var exports = Directory.GetFiles(workFolder.FullName, "*.mxl");
 
 			// Audiveris refuses to export a book in which any sheet failed, e.g. the title page of a
 			// Dorico PDF. The book it saved still holds the recognized sheets, so export just those.
-			var stem = Path.GetFileNameWithoutExtension(pdf);
-			var book = Path.Combine(workFolder.FullName, stem + ".omr");
 			var (validSheets, invalidSheets) = SheetsOf(stem, output);
 			if (exports.Length == 0 && exitCode is not null && invalidSheets.Count > 0 && validSheets.Count > 0 && File.Exists(book))
 			{
@@ -192,14 +243,16 @@ internal sealed class AudiverisConverter(string executablePath, ILogger logger) 
 				File.Delete(stale);
 			}
 
+			string Restored(string file) => pdfStem + Path.GetFileName(file)[stem.Length..];
+
 			foreach (var export in exports)
 			{
-				File.Move(export, Path.Combine(folder, Path.GetFileName(export)), overwrite: true);
+				File.Move(export, Path.Combine(folder, Restored(export)), overwrite: true);
 			}
 
 			if (options.KeepOmr && File.Exists(book))
 			{
-				File.Move(book, Path.Combine(folder, Path.GetFileName(book)), overwrite: true);
+				File.Move(book, Path.Combine(folder, Restored(book)), overwrite: true);
 			}
 
 			return (true, skippedPages);
@@ -310,6 +363,28 @@ internal sealed class AudiverisConverter(string executablePath, ILogger logger) 
 			[.. all.Except(invalid).Select(sheet => sheet.ToString(CultureInfo.InvariantCulture))],
 			[.. invalid.Select(sheet => sheet.ToString(CultureInfo.InvariantCulture))]);
 	}
+
+	private static int? ReducedPdfResolution(string output)
+	{
+		double? fit = null;
+		foreach (Match match in TooLargeImage.Matches(output))
+		{
+			var pixels = PixelCount(match.Groups[1].Value);
+			var max = PixelCount(match.Groups[2].Value);
+			if (pixels > 0 && max > 0)
+			{
+				fit = Math.Min(fit ?? double.MaxValue, max / pixels);
+			}
+		}
+
+		// The pixel count grows with the square of the resolution; one DPI less absorbs rounding.
+		return fit is null ? null : Math.Max(1, (int)(DefaultPdfResolution * Math.Sqrt(fit.Value)) - 1);
+	}
+
+	private static double PixelCount(string text) =>
+		double.TryParse(new string([.. text.Where(char.IsAsciiDigit)]), NumberStyles.None, CultureInfo.InvariantCulture, out var count)
+			? count
+			: 0;
 
 	private static IEnumerable<string> SwitchArguments(IEnumerable<string> switches) =>
 		switches.SelectMany(name => new[] { "-constant", $"org.audiveris.omr.sheet.ProcessingSwitches.{name}=true" });

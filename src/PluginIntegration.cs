@@ -3,6 +3,7 @@ using MacroDeck.Plugin.Hosting.Integrations.HostApis;
 using MacroDeck.Sdk;
 using MacroDeck.Sdk.Actions;
 using MacroDeck.Sdk.ConfigFlow;
+using MacroDeck.Sdk.Events;
 using MacroDeck.Sdk.Variables;
 using DoriDeck.Actions;
 using DoriDeck.Services;
@@ -10,13 +11,14 @@ using Serilog;
 
 namespace DoriDeck;
 
-public sealed class PluginIntegration : IPluginIntegration, IVariableProvider, IConfigFlowProvider
+public sealed class PluginIntegration : IPluginIntegration, IVariableProvider, IConfigFlowProvider, IEventProvider, IDisposable
 {
 	private readonly DoricoSession _session;
 	private readonly IPluginCatalogNotifier _catalogNotifier;
 	private readonly ILogger _logger;
 	private readonly IReadOnlyList<IActionDefinition> _staticActions;
 	private readonly AudiverisConverter? _audiveris;
+	private readonly FocusedWindowTracker _windowTracker;
 	private IReadOnlyList<IActionDefinition> _actions;
 	private HashSet<string> _dynamicScriptNames = [];
 
@@ -25,6 +27,7 @@ public sealed class PluginIntegration : IPluginIntegration, IVariableProvider, I
 		_session = session;
 		_catalogNotifier = catalogNotifier;
 		_logger = logger.ForContext<PluginIntegration>();
+		_windowTracker = new FocusedWindowTracker(logger);
 
 		// Checked once at startup: installing Audiveris later needs a plugin restart to show the action.
 		var audiverisPath = AudiverisLocator.FindExecutable();
@@ -57,6 +60,10 @@ public sealed class PluginIntegration : IPluginIntegration, IVariableProvider, I
 
 	public IReadOnlyList<IActionDefinition> Actions => _actions;
 
+	public string ProviderName => "DoriDeck";
+
+	public IReadOnlyList<EventDefinition> EventDefinitions { get; } = [WindowFocusEvent.Definition];
+
 	/// <summary>
 	/// Single source of truth for the variables this plugin publishes: the public name (a released API -
 	/// renaming one breaks every widget already bound to it), the local id the host round-trips back
@@ -86,8 +93,14 @@ public sealed class PluginIntegration : IPluginIntegration, IVariableProvider, I
 	private static readonly Dictionary<string, Func<DoricoSession, object?>> VariableReadersById =
 		VariableSpecs.ToDictionary(spec => spec.Id, spec => spec.Read, StringComparer.Ordinal);
 
+	// Read from the converter rather than the session, so it isn't one of the VariableSpecs.
+	private const string PdfConversionVariableId = "pdf-conversion";
+
 	public IReadOnlyList<VariableDefinition> Variables { get; } =
-		[.. VariableSpecs.Select(spec => VariableDefinition.Eager(spec.Name, spec.Type) with { Id = spec.Id })];
+	[
+		.. VariableSpecs.Select(spec => VariableDefinition.Eager(spec.Name, spec.Type) with { Id = spec.Id }),
+		VariableDefinition.Eager("dorico_pdf_conversion", VariableType.Text) with { Id = PdfConversionVariableId },
+	];
 
 	public IReadOnlyList<VariableDefinition> DeclaredVariables => Variables;
 
@@ -99,9 +112,11 @@ public sealed class PluginIntegration : IPluginIntegration, IVariableProvider, I
 
 	public ValueTask<VariableReading> ReadAsync(string localId, CancellationToken cancellationToken = default)
 	{
-		VariableReading reading = VariableReadersById.TryGetValue(localId, out var read)
-			? VariableReading.Of(read(_session))
-			: VariableReading.Unavailable;
+		VariableReading reading = localId == PdfConversionVariableId
+			? VariableReading.Of(_audiveris?.Status ?? string.Empty)
+			: VariableReadersById.TryGetValue(localId, out var read)
+				? VariableReading.Of(read(_session))
+				: VariableReading.Unavailable;
 
 		return ValueTask.FromResult(reading);
 	}
@@ -113,14 +128,18 @@ public sealed class PluginIntegration : IPluginIntegration, IVariableProvider, I
 		_audiveris?.Attach(context);
 		await _session.InitializeAsync(context);
 		RefreshDynamicScriptActions();
+		_windowTracker.Attach(context);
 		_logger.Information("Initialized.");
 	}
 
 	public Task ShutdownAsync()
 	{
+		_windowTracker.Detach();
 		_audiveris?.Dispose();
 		return _session.ShutdownAsync();
 	}
+
+	public void Dispose() => _windowTracker.Dispose();
 
 	/// Creates a new action for every script in the script path. The host takes the action catalog at
 	/// handshake, before <see cref="InitializeAsync"/> has read the config, so a changed list has to be

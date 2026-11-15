@@ -78,6 +78,13 @@ After installing the plugin, open Macro Deck and add one of the available Dorico
 | **Note Duration Pad**  | Folder view for changing note duration from your phone or tablet  |
 | **Convert PDF to MusicXML**  | Converts new PDFs in a working folder to MusicXML (.mxl) next to them. Only shown when [Audiveris](https://audiveris.github.io) is installed; install its OCR languages to get lyrics and text. |
 
+### Events
+
+| Event | Description |
+| ----- | ----------- |
+| **Dorico/Cubase window focused** | Fires when a Dorico, Cubase or Nuendo secondary window comes to the front. Use it as a button trigger to switch folder or profile, e.g. when the Mixer window opens: set **Window title** to *starts with* `Mixer`. When that window loses focus, the deck goes back to its previous folder and profile. |
+
+
 ### MIDI Keys
 
 With [MIDI Router](https://github.com/Sarti2004/MIDI-Router) installed, you can trigger DoriDeck actions using your MIDI keyboard. Open DoriDeck's **MIDI keys** page in the plugin configuration, click a key, select an action, and then click **Assign**.

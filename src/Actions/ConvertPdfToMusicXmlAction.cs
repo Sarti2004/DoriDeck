@@ -10,10 +10,17 @@ namespace DoriDeck.Actions;
 /// Converts the PDFs dropped into a working folder to MusicXML with Audiveris, next to the PDFs. Only
 /// registered when Audiveris is installed.
 /// </summary>
-internal sealed class ConvertPdfToMusicXmlAction(AudiverisConverter converter) : IActionDefinition
+internal sealed class ConvertPdfToMusicXmlAction(AudiverisConverter converter) : IActionDefinition, IStateProviderActionDefinition
 {
+	private const string IdleState = "idle";
+	private const string WorkingState = "working";
+
 	private const string WorkingFolderParameter = "workingFolder";
 	private const string KeepOmrParameter = "keepOmr";
+	private const string SeparatePartsParameter = "separateParts";
+	private const string OcrLanguagesParameter = "ocrLanguages";
+
+	private const string DefaultOcrLanguages = "eng";
 
 	// Parameter names are the Audiveris processing switches they turn on.
 	private static readonly string[] RecognitionSwitches = ["smallHeads", "implicitTuplets", "lyricsAboveStaff", "crossHeads"];
@@ -36,11 +43,45 @@ internal sealed class ConvertPdfToMusicXmlAction(AudiverisConverter converter) :
 			label: Strings.Actions.ConvertPdfToMusicXml.KeepOmr.Label(),
 			description: Strings.Actions.ConvertPdfToMusicXml.KeepOmr.Description(),
 			defaultValue: false),
+		ActionParameter.Toggle(
+			SeparatePartsParameter,
+			label: Strings.Actions.ConvertPdfToMusicXml.SeparateParts.Label(),
+			description: Strings.Actions.ConvertPdfToMusicXml.SeparateParts.Description(),
+			defaultValue: true),
+		ActionParameter.Choice(
+			OcrLanguagesParameter,
+			[
+				new ActionParameterOption { Value = DefaultOcrLanguages, Label = Strings.Actions.ConvertPdfToMusicXml.OcrLanguages.English() },
+				new ActionParameterOption { Value = "rus", Label = Strings.Actions.ConvertPdfToMusicXml.OcrLanguages.Russian() },
+				new ActionParameterOption { Value = "deu", Label = Strings.Actions.ConvertPdfToMusicXml.OcrLanguages.German() },
+				new ActionParameterOption { Value = "fra", Label = Strings.Actions.ConvertPdfToMusicXml.OcrLanguages.French() },
+			],
+			label: Strings.Actions.ConvertPdfToMusicXml.OcrLanguages.Label(),
+			description: Strings.Actions.ConvertPdfToMusicXml.OcrLanguages.Description(),
+			defaultValue: DefaultOcrLanguages),
 	];
 
 	public MacroDeckPlatform Platforms => MacroDeckPlatform.Windows | MacroDeckPlatform.MacOs;
 
 	public IActionExecutor CreateExecutor() => new Executor(converter);
+
+	public TimeSpan StatePollInterval => TimeSpan.FromSeconds(1);
+
+	public Task<ActionStateSnapshot?> GetActionStateAsync(IReadOnlyDictionary<string, object?> parameters, CancellationToken cancellationToken)
+	{
+		var status = converter.Status;
+
+		ActionStateDefinition[] states =
+		[
+			new(IdleState, Strings.Audiveris.States.Idle()),
+			new(WorkingState, Strings.Audiveris.States.Working())
+			{
+				DefaultAppearance = new ActionStateAppearance { Label = status.Length > 0 ? status : null },
+			},
+		];
+
+		return Task.FromResult<ActionStateSnapshot?>(new ActionStateSnapshot(states, status.Length > 0 ? WorkingState : IdleState));
+	}
 
 	private sealed class Executor(AudiverisConverter converter) : IActionExecutor
 	{
@@ -64,9 +105,19 @@ internal sealed class ConvertPdfToMusicXmlAction(AudiverisConverter converter) :
 				return ActionResult.Failed(ActionErrorCodes.Unavailable, Strings.Actions.ConvertPdfToMusicXml.FolderNotFound(folder));
 			}
 
+			var ocrLanguages = context.Parameters.TryGetValue(OcrLanguagesParameter, out var languagesValue)
+				? languagesValue?.ToString()?.Replace(" ", string.Empty, StringComparison.Ordinal)
+				: DefaultOcrLanguages;
+
+			// Buttons set up before the toggle existed have no value for it, so missing means its default.
+			var separateParts = !context.Parameters.TryGetValue(SeparatePartsParameter, out var separateValue) ||
+				separateValue is not bool separate || separate;
+
 			var options = new AudiverisOptions(
 				IsOn(context, KeepOmrParameter),
-				[.. RecognitionSwitches.Where(name => IsOn(context, name))]);
+				separateParts,
+				[.. RecognitionSwitches.Where(name => IsOn(context, name))],
+				string.IsNullOrEmpty(ocrLanguages) ? DefaultOcrLanguages : ocrLanguages);
 
 			IReadOnlyList<string> pdfs;
 			try

@@ -15,9 +15,11 @@ internal static class AudiverisLocator
 
 	public static bool HasOcrLanguages()
 	{
+		// Audiveris 5.4+ installs languages from its Tools menu into config/tessdata; older releases used tessdata.
 		string[] folders =
 		[
 			Environment.GetEnvironmentVariable("TESSDATA_PREFIX") ?? string.Empty,
+			Path.Combine(AudiverisDataFolder(), "config", "tessdata"),
 			Path.Combine(AudiverisDataFolder(), "tessdata"),
 		];
 
