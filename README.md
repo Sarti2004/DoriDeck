@@ -74,6 +74,9 @@ After installing the plugin, open Macro Deck and add one of the available Dorico
 | **Open Recent File**  | Opens the first project in Dorico's recent file list.  |
 | **Change Paragraph Style**  |  Change the style of selected staff-attached or system text with a single click.  |
 | **Open Previous File**  | Opens the second project in Dorico's recent file list.  |
+| **Set engraving option**  | Quickly change engraving settings  |
+| **Set notation option**  | Quickly change notation settings  |
+| **Set layout option**  | Quickly change layout settings  |
 | **Virtual Keyboard**  | Virtual piano keyboard folder to enter notes to Dorico  |
 | **Note Duration Pad**  | Folder view for changing note duration from your phone or tablet  |
 | **Convert PDF to MusicXML**  | Converts new PDFs in a working folder to MusicXML (.mxl) next to them. Only shown when [Audiveris](https://audiveris.github.io) is installed; install its OCR languages to get lyrics and text. |
