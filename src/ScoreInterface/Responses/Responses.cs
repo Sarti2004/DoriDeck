@@ -110,6 +110,19 @@ public sealed record Flow(int FlowID, string FlowName)
 public sealed record FlowsListResponse(IEnumerable<Flow> Flows);
 
 /// <summary>
+/// Layout Details
+/// </summary>
+public sealed record Layout(int LayoutID, string LayoutName)
+{
+	public override string ToString() => LayoutName;
+}
+
+/// <summary>
+/// The list of layouts in the active score.
+/// </summary>
+public sealed record LayoutsListResponse(IEnumerable<Layout> Layouts);
+
+/// <summary>
 /// Details about the properties which can be set on the current selection.
 /// </summary>
 public sealed record PropertiesListResponse(IEnumerable<string>? EventTypes);

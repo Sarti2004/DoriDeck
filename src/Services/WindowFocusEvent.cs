@@ -14,7 +14,10 @@ internal static class WindowFocusEvent
 	public const string TitleParameter = "title";
 
 	// Process-name prefixes, also published as the application name.
-	public static readonly string[] Applications = ["Dorico", "Cubase", "Nuendo"];
+	public static readonly string[] Applications = ["Dorico", "Cubase", "Nuendo", "VST Connect"];
+
+	// Dorico's plugin windows belong to its audio engine process.
+	private const string DoricoAudioEngine = "VSTAudioEngine";
 
 	public static EventDefinition Definition { get; } = new()
 	{
@@ -36,6 +39,11 @@ internal static class WindowFocusEvent
 			ActionParameter.Text(TitleParameter, label: Strings.Events.WindowFocused.Title.Label()),
 		],
 	};
+
+	public static string? FindApplication(string processName) =>
+		processName.StartsWith(DoricoAudioEngine, StringComparison.OrdinalIgnoreCase)
+			? "Dorico"
+			: Array.Find(Applications, app => processName.StartsWith(app, StringComparison.OrdinalIgnoreCase));
 
 	public static Dictionary<string, object?> Payload(string application, string title) => new()
 	{

@@ -110,6 +110,67 @@
     <value>No valid commands found</value>
   </data>
 
+  <data name="Actions.SetEngravingOption.Name" xml:space="preserve">
+    <value>Set engraving option</value>
+  </data>
+  <data name="Actions.SetEngravingOption.Description" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Actions.SetNotationOption.Name" xml:space="preserve">
+    <value>Set notation option</value>
+  </data>
+  <data name="Actions.SetNotationOption.Description" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Actions.SetLayoutOption.Name" xml:space="preserve">
+    <value>Set layout option</value>
+  </data>
+  <data name="Actions.SetLayoutOption.Description" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Actions.SetLayoutOption.LayoutIds.Label" xml:space="preserve">
+    <value>Layout ID</value>
+  </data>
+  <data name="Actions.SetLayoutOption.LayoutIds.Description" xml:space="preserve">
+    <value>Optional</value>
+  </data>
+  <data name="Actions.SetLayoutOption.LayoutIds.Placeholder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="Actions.SetOption.OptionName.Label" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Actions.SetOption.OptionName.Description" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Actions.SetOption.OptionName.Placeholder" xml:space="preserve">
+    <value>rehearsalMarkOptions.enclosureType</value>
+  </data>
+  <data name="Actions.SetOption.OptionValue.Label" xml:space="preserve">
+    <value>Value</value>
+  </data>
+  <data name="Actions.SetOption.OptionValue.Description" xml:space="preserve">
+    <value>New value for the option.</value>
+  </data>
+  <data name="Actions.SetOption.OptionValue.Placeholder" xml:space="preserve">
+    <value>kNone</value>
+  </data>
+  <data name="Actions.SetOption.ValueType.Label" xml:space="preserve">
+    <value>Value type</value>
+  </data>
+  <data name="Actions.SetOption.ValueType.Description" xml:space="preserve">
+    <value>Filled in from Dorico, e.g. kInt, kBool or kEnum.</value>
+  </data>
+  <data name="Actions.SetOption.EnumValues.Label" xml:space="preserve">
+    <value>Enum values</value>
+  </data>
+  <data name="Actions.SetOption.EnumValues.Description" xml:space="preserve">
+    <value>Filled in from Dorico, separated by |</value>
+  </data>
+  <data name="Actions.SetOption.InvalidValue" xml:space="preserve">
+    <value>"{value}" is not a valid value for a {valueType} option</value>
+  </data>
+
   <data name="Actions.CustomScript.Name" xml:space="preserve">
     <value>Custom script</value>
   </data>

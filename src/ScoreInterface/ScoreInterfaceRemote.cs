@@ -6,6 +6,7 @@ using ScoreInterface.Json;
 using ScoreInterface.Requests;
 using ScoreInterface.Responses;
 using System.Net.WebSockets;
+using System.Text.Encodings.Web;
 using System.Text.Json;
 
 namespace ScoreInterface;
@@ -53,6 +54,14 @@ public interface IScoreInterfaceRemote
 
 	Task<OptionCollection?> GetEngravingOptionsAsync(CancellationToken cancellationToken = default);
 
+	/// <summary>
+	/// Options of <paramref name="optionsType"/> (kEngraving, kNotation or kLayout); notation options need a
+	/// flow ID and layout options a layout ID as <paramref name="id"/>.
+	/// </summary>
+	Task<OptionCollection?> GetOptionsAsync(string optionsType, int? id = null, CancellationToken cancellationToken = default);
+
+	Task<LayoutsListResponse?> GetLayoutsAsync(CancellationToken cancellationToken = default);
+
 	Task<Response?> SetEngravingOptionsAsync(IEnumerable<OptionValue> optionValues, CancellationToken cancellationToken = default);
 
 	Task<Response?> SetNotationOptionsAsync(IEnumerable<OptionValue> optionValues, IEnumerable<int>? flowIds = null, CancellationToken cancellationToken = default);
@@ -70,6 +79,11 @@ public interface IScoreInterfaceRemote
 	Task<StatusResponse?> GetStatusAsync(CancellationToken cancellationToken = default);
 
 	Task<Response?> SendRequestAsync(Command command, CancellationToken cancellationToken = default);
+
+	/// <summary>
+	/// Sends <paramref name="commandText"/> ("Name?Param=Value,...") as-is, JSON-escaped, so values may contain quotes.
+	/// </summary>
+	Task<Response?> SendCommandTextAsync(string commandText, CancellationToken cancellationToken = default);
 }
 
 public sealed class ScoreInterfaceRemote : IScoreInterfaceRemote
@@ -182,12 +196,25 @@ public sealed class ScoreInterfaceRemote : IScoreInterfaceRemote
 		return _commands;
 	}
 
-	public async Task<OptionCollection?> GetEngravingOptionsAsync(CancellationToken cancellationToken = default)
+	public Task<OptionCollection?> GetEngravingOptionsAsync(CancellationToken cancellationToken = default) =>
+		GetOptionsAsync("kEngraving", null, cancellationToken);
+
+	public async Task<OptionCollection?> GetOptionsAsync(
+		string optionsType,
+		int? id = null,
+		CancellationToken cancellationToken = default)
 	{
 		AssertConnected();
 
+		var idPart = optionsType switch
+		{
+			"kLayout" when id != null => $", \"layoutID\": {id}",
+			"kNotation" when id != null => $", \"flowID\": {id}",
+			_ => string.Empty,
+		};
+
 		var result = await _comms.SendAsync(
-			"{\"message\": \"getoptions\", \"optionsType\": \"kEngraving\"}", "optionslist", cancellationToken, Timeout)
+			$"{{\"message\": \"getoptions\", \"optionsType\": \"{optionsType}\"{idPart}}}", "optionslist", cancellationToken, Timeout)
 			.ConfigureAwait(false);
 
 		ThrowIfError(result);
@@ -262,6 +289,18 @@ public sealed class ScoreInterfaceRemote : IScoreInterfaceRemote
 		return Deserialize<FlowsListResponse>(result.Json);
 	}
 
+	public async Task<LayoutsListResponse?> GetLayoutsAsync(CancellationToken cancellationToken = default)
+	{
+		AssertConnected();
+
+		var result = await _comms.SendAsync("{\"message\": \"getlayouts\"}", "layoutslist", cancellationToken, Timeout)
+			.ConfigureAwait(false);
+
+		ThrowIfError(result);
+
+		return Deserialize<LayoutsListResponse>(result.Json);
+	}
+
 	public async Task<PropertiesListResponse?> GetPropertiesAsync(CancellationToken cancellationToken = default)
 	{
 		AssertConnected();
@@ -328,6 +367,21 @@ public sealed class ScoreInterfaceRemote : IScoreInterfaceRemote
 
 		return Deserialize<Response>(result.Json);
 	}
+
+	public async Task<Response?> SendCommandTextAsync(string commandText, CancellationToken cancellationToken = default)
+	{
+		ArgumentException.ThrowIfNullOrEmpty(commandText);
+		AssertConnected();
+
+		var json = $"{{\"message\": \"command\",\"command\": {JsonSerializer.Serialize(commandText, RelaxedJson)}}}";
+
+		var result = await _comms.SendAsync(json, "response", cancellationToken, Timeout).ConfigureAwait(false);
+		ThrowIfError(result);
+
+		return Deserialize<Response>(result.Json);
+	}
+
+	private static readonly JsonSerializerOptions RelaxedJson = new() { Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping };
 
 	private async Task<string> ConnectWithoutSessionTokenAsync(
 		string clientName,

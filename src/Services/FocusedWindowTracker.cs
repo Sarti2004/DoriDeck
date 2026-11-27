@@ -195,8 +195,7 @@ internal sealed class FocusedWindowTracker : IDisposable
 		try
 		{
 			using var process = Process.GetProcessById(checked((int)processId));
-			var name = process.ProcessName;
-			return Array.Find(WindowFocusEvent.Applications, app => name.StartsWith(app, StringComparison.OrdinalIgnoreCase));
+			return WindowFocusEvent.FindApplication(process.ProcessName);
 		}
 		catch (Exception ex) when (ex is ArgumentException or InvalidOperationException or Win32Exception or OverflowException)
 		{

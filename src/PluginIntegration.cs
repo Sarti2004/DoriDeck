@@ -52,6 +52,9 @@ public sealed class PluginIntegration : IPluginIntegration, IVariableProvider, I
 			new OpenRecentFileAction(_session),
 			new OpenPreviousFileAction(_session),
 			new ClearConnectionTokenAction(_session),
+			new SetEngravingOptionAction(_session),
+			new SetNotationOptionAction(_session),
+			new SetLayoutOptionAction(_session),
 			.. audiverisActions,
 		];
 
